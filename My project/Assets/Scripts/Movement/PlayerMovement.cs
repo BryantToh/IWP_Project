@@ -4,14 +4,16 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed;
+    public float dashSpeed;
 
-    public Transform orientation;
+    [Header("Inputs")]
     float horizontalInput;
     float verticalInput;
 
+    public Transform orientation;
     Vector3 moveDirection;
-
     Rigidbody rb;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -38,7 +40,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
-        transform.rotation = Quaternion.Euler(transform.rotation.x, Camera.main.transform.rotation.y, transform.rotation.z);
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         rb.AddForce(moveDirection * moveSpeed * 5f);
     }
