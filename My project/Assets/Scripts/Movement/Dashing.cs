@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Dashing : MonoBehaviour
@@ -7,15 +8,18 @@ public class Dashing : MonoBehaviour
     public Transform playerCam;
     private Rigidbody rb;
     private PlayerMovement playerMove;
+    public OnField playerMaxDash;
 
     [Header("Dashing")]
     public float dashForce;
     public float dashDuration;
     private Vector3 delayedForceToApply;
+    public float dashCount;
+    private bool isAddingDash = false;
 
     [Header("Cooldown")]
     public float dashCD;
-    private float dashCDTimer;
+    public float dashCDTimer;
 
     [Header("Settings")]
     public bool useCameraForward;
@@ -28,23 +32,32 @@ public class Dashing : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         playerMove = GetComponent<PlayerMovement>();
+        dashCount = playerMaxDash.maxDashCount;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift) && dashCount > 0)
         {
             Dash();
         }
+
         if (dashCDTimer > 0)
             dashCDTimer -= Time.deltaTime;
+
+        if (dashCount < 3 && dashCDTimer <= 0 && !isAddingDash)
+        {
+            StartCoroutine(AddDash());
+        }
     }
 
     private void Dash()
     {
         if (dashCDTimer > 0) return;
-        else dashCDTimer = dashCD;
+
+        if (dashCount > 0)
+            dashCDTimer = dashCD;
 
         if (useCameraForward)
             forwardT = playerCam;
@@ -67,6 +80,7 @@ public class Dashing : MonoBehaviour
     private void DelayedDashForce()
     {
         rb.AddForce(delayedForceToApply, ForceMode.Impulse);
+        dashCount--;
     }
 
     private void ResetDash()
@@ -92,5 +106,13 @@ public class Dashing : MonoBehaviour
             direction = forwardT.forward;
         }
         return direction.normalized;
+    }
+
+    private IEnumerator AddDash()
+    {
+        isAddingDash = true;
+        yield return new WaitForSeconds(4.0f);
+        dashCount++;
+        isAddingDash = false;
     }
 }
