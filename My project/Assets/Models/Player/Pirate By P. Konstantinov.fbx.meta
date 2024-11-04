@@ -3,9 +3,34 @@ guid: 5e1794c5a095d2c4ca69e41465bbba8e
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: default1
+    second: {fileID: 2100000, guid: f0ad761ffc86b3146a5fbaace18c6eaf, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: void_ambientocclusion
+    second: {fileID: 2800000, guid: edd31089447243a4e9b41fed86d62868, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: void_diffuse
+    second: {fileID: 2800000, guid: 1dfd2523557cda74e85d784b9608eeb8, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: void_normal
+    second: {fileID: 2800000, guid: 3662a2acfcd188e489e75066446d7f6d, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: void_specular
+    second: {fileID: 2800000, guid: 19323b1d5d788b244a6f354e82d4766c, type: 3}
   materials:
-    materialImportMode: 2
+    materialImportMode: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
