@@ -197,6 +197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   dashSpeed: 20
+  animator: {fileID: 528483312}
   orientation: {fileID: 155593686}
 --- !u!114 &155593688
 MonoBehaviour:
@@ -309,6 +310,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5e1794c5a095d2c4ca69e41465bbba8e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 528483311}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5e1794c5a095d2c4ca69e41465bbba8e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 528483312}
   m_SourcePrefab: {fileID: 100100000, guid: 5e1794c5a095d2c4ca69e41465bbba8e, type: 3}
 --- !u!4 &528483309 stripped
 Transform:
@@ -343,6 +347,28 @@ CapsuleCollider:
   m_Height: 0.7
   m_Direction: 1
   m_Center: {x: 0, y: 0.35, z: 0}
+--- !u!95 &528483312
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 528483310}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d75aca57c0afc8d469ce0f6a06e1a276, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1288452971
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,7 +388,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1288452972
 MonoBehaviour:
   m_ObjectHideFlags: 0
