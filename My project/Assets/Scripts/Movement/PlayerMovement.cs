@@ -47,18 +47,18 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         rb.AddForce(moveDirection * moveSpeed * 5f);
 
-        if (moveDirection.magnitude > 0.1f)
+        if (verticalInput != 0 || horizontalInput != 0)
         {
-            isMoving = true;
             IdleTimer = 0f;
+            isMoving = true;
         }
-        else 
-            isMoving = false;
+
+        if (isMoving)
+            MoveAnimation();
     }
 
     private void CheckIdle()
     {
-        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
         if (!isMoving)
         {
             IdleTimer += Time.deltaTime;
@@ -66,15 +66,45 @@ public class PlayerMovement : MonoBehaviour
             if (IdleTimer >= 4.0f)
             {
                 animator.SetInteger("Idle", 1);
-
+                AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
                 if (stateInfo.IsName("IdleAnim") && stateInfo.normalizedTime > 0.98f)
                     StartCoroutine(ResetIdleAnimation());
             }
-            else if (IdleTimer < 4.0f)
-            {
-                animator.SetInteger("Idle", 0);
-            }
         }
+    }
+
+    private void MoveAnimation()
+    {
+        ResetMovementBools();
+
+        if (verticalInput > 0)
+        {
+            animator.SetBool("isMoving", true);
+        }
+        else if (verticalInput < 0)
+        {
+            animator.SetBool("isMovingBack", true);
+        }
+        else if (horizontalInput < 0)
+        {
+            animator.SetBool("isMovingLeft", true);
+        }
+        else if (horizontalInput > 0)
+        {
+            animator.SetBool("isMovingRight", true);
+        }
+        else
+        {
+            isMoving = false;
+        }
+    }
+
+    private void ResetMovementBools()
+    {
+        animator.SetBool("isMoving", false);
+        animator.SetBool("isMovingBack", false);
+        animator.SetBool("isMovingLeft", false);
+        animator.SetBool("isMovingRight", false);
     }
 
     private IEnumerator ResetIdleAnimation()
