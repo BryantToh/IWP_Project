@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     public float moveSpeed;
     public float dashSpeed;
+    private bool isMoving = false;
 
     [Header("Inputs")]
     float horizontalInput;
@@ -13,8 +14,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Animations")]
     public Animator animator;
-    public string[] animationArray = new string[3];
-    int rndrange;
+    private float IdleTimer;
 
     public Transform orientation;
     Vector3 moveDirection;
@@ -23,16 +23,12 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        animationArray[0] = "NinjaIdle";
-        animationArray[1] = "NinjaIdleWM";
-        animationArray[2] = "NinjaIdleWM2";
-
-        StartCoroutine(IdleAnimationCoroutine());
     }
 
     private void Update()
     {
         Inputs();
+        CheckIdle();
     }
 
     private void LateUpdate()
@@ -50,31 +46,41 @@ public class PlayerMovement : MonoBehaviour
     {
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         rb.AddForce(moveDirection * moveSpeed * 5f);
+
+        if (moveDirection.magnitude > 0.1f)
+        {
+            isMoving = true;
+            IdleTimer = 0f;
+        }
+        else 
+            isMoving = false;
     }
 
-    private IEnumerator IdleAnimationCoroutine()
+    private void CheckIdle()
     {
-        while (true)
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        if (!isMoving)
         {
-            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+            IdleTimer += Time.deltaTime;
 
-            foreach (string idleAni in animationArray)
+            if (IdleTimer >= 4.0f)
             {
-                if (stateInfo.IsName(idleAni))
-                {
-                    while (stateInfo.normalizedTime < 1f)
-                    {
-                        yield return null;
-                        stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-                    }
+                animator.SetInteger("Idle", 1);
 
-                    rndrange = Random.Range(0, 2);
-                    animator.SetInteger("Idle", rndrange);
-
-                    yield return new WaitForSeconds(0.1f);
-                }
+                if (stateInfo.IsName("IdleAnim") && stateInfo.normalizedTime > 0.98f)
+                    StartCoroutine(ResetIdleAnimation());
             }
-            yield return null;
+            else if (IdleTimer < 4.0f)
+            {
+                animator.SetInteger("Idle", 0);
+            }
         }
+    }
+
+    private IEnumerator ResetIdleAnimation()
+    {
+        yield return new WaitForSeconds(1.5f);
+        animator.SetInteger("Idle", 0);
+        IdleTimer = 0f;
     }
 }
