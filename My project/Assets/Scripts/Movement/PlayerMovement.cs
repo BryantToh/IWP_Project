@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -19,6 +20,13 @@ public class PlayerMovement : MonoBehaviour
     public Transform orientation;
     Vector3 moveDirection;
     Rigidbody rb;
+    private Coroutine kickCoroutine;
+    private Queue<PrimaryActionCommand> _primaryActionCommandQueue = new Queue<PrimaryActionCommand>();
+
+    public void ReadPrimaryActionCommand(PrimaryActionCommand command)
+    {
+        _primaryActionCommandQueue.Enqueue(command);
+    }
 
     private void Start()
     {
@@ -27,8 +35,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (kickCoroutine != null)
+            return;
+
         Inputs();
         CheckIdle();
+
+
+        if (_primaryActionCommandQueue.Count > 0 && kickCoroutine == null)
+        {
+            kickCoroutine = StartCoroutine(PlayKick());
+        }
     }
 
     private void LateUpdate()
@@ -113,4 +130,39 @@ public class PlayerMovement : MonoBehaviour
         animator.SetInteger("Idle", 0);
         IdleTimer = 0f;
     }
+
+    private int kickSteps = -1;
+    private IEnumerator PlayKick()
+    {
+        _primaryActionCommandQueue.Dequeue();
+        kickSteps = (kickSteps + 1) % 3;
+        animator.SetInteger("Kick", kickSteps);
+
+        // Update AnimatorStateInfo each time to get the latest animation state
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+        // Wait until the animator has entered the new kick animation state
+        while (!stateInfo.IsName("Anim_Kick" + kickSteps))
+        {
+            stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+            yield return null;
+        }
+
+        // Wait for the animation to finish playing
+        yield return new WaitForSeconds(stateInfo.length - 0.2f);
+
+        if (_primaryActionCommandQueue.Count <= 0)
+        {
+            // Reset kick animation
+            kickSteps = -1;
+            animator.SetInteger("Kick", kickSteps);
+            kickCoroutine = null;
+        }
+        else
+        {
+            // Continue to the next kick animation
+            kickCoroutine = StartCoroutine(PlayKick());
+        }
+    }
+
 }
