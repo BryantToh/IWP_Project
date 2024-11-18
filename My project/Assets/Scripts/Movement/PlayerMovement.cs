@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
         CheckIdle();
 
 
-        if (_primaryActionCommandQueue.Count > 0 && kickCoroutine == null)
+        if (_primaryActionCommandQueue.Count > 0 && kickCoroutine == null && kickSteps < 4)
         {
             kickCoroutine = StartCoroutine(PlayKick());
         }
@@ -135,7 +135,8 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator PlayKick()
     {
         _primaryActionCommandQueue.Dequeue();
-        kickSteps = (kickSteps + 1) % 3;
+
+        kickSteps = (kickSteps + 1) % 4;
         animator.SetInteger("Kick", kickSteps);
 
         // Update AnimatorStateInfo each time to get the latest animation state
@@ -147,7 +148,6 @@ public class PlayerMovement : MonoBehaviour
             stateInfo = animator.GetCurrentAnimatorStateInfo(0);
             yield return null;
         }
-
         // Wait for the animation to finish playing
         yield return new WaitForSeconds(stateInfo.length - 0.2f);
 

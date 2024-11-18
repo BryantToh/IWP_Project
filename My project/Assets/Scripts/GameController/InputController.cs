@@ -19,6 +19,7 @@ public class PrimaryActionCommand : Command
 
 public class InputController : MonoBehaviour
 {
+    public int stepsCount = 0;
     public bool TryGetPrimaryAction(out PrimaryActionCommand primaryActionCommand)
     {
         primaryActionCommand = null;

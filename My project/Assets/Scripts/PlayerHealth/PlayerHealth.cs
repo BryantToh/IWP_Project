@@ -1,24 +1,24 @@
 using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : Health
 {
-    public OnField playerHealth;
-    private float currentHealth;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    // Start is called before the first frame update
+    protected override void Start()
     {
-        currentHealth = playerHealth.Health;
+        base.Start();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            currentHealth = playerHealth.TakeDamage(currentHealth, 5);
-
+        
     }
 
-    public void DamageTaken()
+    private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            Debug.LogWarning("Player takes damage");
+            TakeDamage(Unit.Damage);
+        }
     }
 }
