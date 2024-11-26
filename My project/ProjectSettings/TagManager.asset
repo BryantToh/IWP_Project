@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Parts
   - Enemy
+  - PlayerObj
   layers:
   - Default
   - TransparentFX

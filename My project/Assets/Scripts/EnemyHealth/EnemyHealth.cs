@@ -1,25 +1,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHealth : Health
+public class EnemyHealth : Health
 {
-    EnemyHealth enemy;
-    PlayerMovement player;
-    AttackCheck attackCheck;
+    PlayerHealth player;
     private HashSet<Collider> damageSources = new HashSet<Collider>();
     protected override void Start()
     {
-        enemy = GameObject.FindGameObjectWithTag("Enemy").GetComponent<EnemyHealth>();
-        player = GameObject.FindGameObjectWithTag("PlayerObj").GetComponent<PlayerMovement>();
+        player = GameObject.FindGameObjectWithTag("PlayerObj").GetComponentInChildren<PlayerHealth>();
         base.Start();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (AttackCheck.checkEnemy && !damageSources.Contains(other) && player.kickSteps >= 0)
+        if (other.gameObject.CompareTag("Player") && !damageSources.Contains(other))
         {
             damageSources.Add(other);
-            enemy.TakeDamage(Unit.Damage);
+            player.TakeDamage(Unit.Damage);
         }
     }
 
@@ -29,6 +26,5 @@ public class PlayerHealth : Health
         {
             damageSources.Remove(other);
         }
-        AttackCheck.checkEnemy = false;
     }
 }

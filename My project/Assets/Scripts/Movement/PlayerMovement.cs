@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody rb;
     private Coroutine kickCoroutine;
     private Queue<PrimaryActionCommand> _primaryActionCommandQueue = new Queue<PrimaryActionCommand>();
+    public int kickSteps = -1;
+
 
     public void ReadPrimaryActionCommand(PrimaryActionCommand command)
     {
@@ -131,7 +133,6 @@ public class PlayerMovement : MonoBehaviour
         IdleTimer = 0f;
     }
 
-    private int kickSteps = -1;
     private IEnumerator PlayKick()
     {
         _primaryActionCommandQueue.Dequeue();
