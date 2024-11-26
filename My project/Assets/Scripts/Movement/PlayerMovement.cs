@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed;
     public float dashSpeed;
     private bool isMoving = false;
+    private bool isAttacking = false;
 
     [Header("Inputs")]
     float horizontalInput;
@@ -37,17 +38,22 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (kickCoroutine != null)
-            return;
+        //if (kickCoroutine != null)
+        //    return;
 
         Inputs();
         CheckIdle();
 
 
-        if (_primaryActionCommandQueue.Count > 0 && kickCoroutine == null && kickSteps < 4)
+        if (_primaryActionCommandQueue.Count > 0 && kickCoroutine == null)
         {
             kickCoroutine = StartCoroutine(PlayKick());
         }
+
+        //if (kickCoroutine == null)
+        //{
+        //    MovePlayer();
+        //}
     }
 
     private void LateUpdate()
@@ -66,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         rb.AddForce(moveDirection * moveSpeed * 5f);
 
-        if (verticalInput != 0 || horizontalInput != 0)
+        if (verticalInput != 0 || horizontalInput != 0 && !isAttacking)
         {
             IdleTimer = 0f;
             isMoving = true;
@@ -137,31 +143,28 @@ public class PlayerMovement : MonoBehaviour
     {
         _primaryActionCommandQueue.Dequeue();
 
+        isAttacking = true;
         kickSteps = (kickSteps + 1) % 4;
         animator.SetInteger("Kick", kickSteps);
 
-        // Update AnimatorStateInfo each time to get the latest animation state
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
-        // Wait until the animator has entered the new kick animation state
         while (!stateInfo.IsName("Anim_Kick" + kickSteps))
         {
             stateInfo = animator.GetCurrentAnimatorStateInfo(0);
             yield return null;
         }
-        // Wait for the animation to finish playing
         yield return new WaitForSeconds(stateInfo.length - 0.2f);
 
         if (_primaryActionCommandQueue.Count <= 0)
         {
-            // Reset kick animation
             kickSteps = -1;
             animator.SetInteger("Kick", kickSteps);
             kickCoroutine = null;
+            isAttacking = false;
         }
         else
         {
-            // Continue to the next kick animation
             kickCoroutine = StartCoroutine(PlayKick());
         }
     }
