@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SentinelHealth : Health
+public class SentinelHealth : Health, IPooledEnemy
 {
     PlayerHealth player;
     private HashSet<Collider> damageSources = new HashSet<Collider>();
@@ -12,9 +12,13 @@ public class SentinelHealth : Health
 
     protected override void Start()
     {
+        base.Start();
+    }
+
+    public void OnEnemySpawn()
+    {
         player = GameObject.FindGameObjectWithTag("PlayerObj").GetComponentInChildren<PlayerHealth>();
         sentinel = GetComponent<SentinelEnemy>();
-        base.Start();
     }
 
     public void AttackPlayer(Collider other)
@@ -72,5 +76,4 @@ public class SentinelHealth : Health
         transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y + (360f - rotationAmount), transform.eulerAngles.z);
         transform.position = startPos;
     }
-
 }

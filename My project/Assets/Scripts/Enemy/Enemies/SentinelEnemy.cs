@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class SentinelEnemy : EnemyAIController
 {
@@ -10,6 +11,7 @@ public class SentinelEnemy : EnemyAIController
         enemyHealth = GetComponent<SentinelHealth>();
         base.Awake();
     }
+
     protected override void Update()
     {
         base.Update();
