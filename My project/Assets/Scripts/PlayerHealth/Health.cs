@@ -3,7 +3,7 @@
 public class Health : MonoBehaviour
 {
     public OnField Unit;
-    protected float currentHealth;
+    public float currentHealth;
 
     protected virtual void Start()
     {

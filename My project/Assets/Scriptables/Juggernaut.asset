@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc076f9791c4c124b909a586078a94ac, type: 3}
-  m_Name: Sentinel
+  m_Name: Juggernaut
   m_EditorClassIdentifier: 
-  Health: 80
-  Damage: 15
+  Health: 150
+  Damage: 0
   maxDashCount: 0

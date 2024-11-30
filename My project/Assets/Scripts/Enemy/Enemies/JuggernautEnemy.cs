@@ -1,15 +1,16 @@
 using UnityEngine;
 
-public class SentinelEnemy : EnemyAIController
+public class JuggernautEnemy : EnemyAIController
 {
-    SentinelHealth enemyHealth;
     Collider playerCol;
+    JuggernautHealth enemyHealth;
     protected override void Awake()
     {
         playerCol = player.gameObject.GetComponent<Collider>();
-        enemyHealth = GetComponent<SentinelHealth>();
+        enemyHealth = GetComponent<JuggernautHealth>();
         base.Awake();
     }
+
     protected override void Update()
     {
         base.Update();

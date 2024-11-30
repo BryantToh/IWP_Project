@@ -2,15 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyHealth : Health
+public class SentinelHealth : Health
 {
     PlayerHealth player;
     private HashSet<Collider> damageSources = new HashSet<Collider>();
     public float rotationSpd;
-    float spinMany;
-    float rotationAmount = 0f;
-    Vector3 OgPos;
+    float rotationAmount;
     SentinelEnemy sentinel;
+
     protected override void Start()
     {
         player = GameObject.FindGameObjectWithTag("PlayerObj").GetComponentInChildren<PlayerHealth>();
@@ -40,10 +39,10 @@ public class EnemyHealth : Health
     }
     private IEnumerator attackCoroutine()
     {
-        rotationAmount = 0f; // Reset rotation amount for each attack.
-        float duration = 0.8f; // Total time to complete the rotation.
+        rotationAmount = 0f;
+        float duration = 0.8f;
         float elapsedTime = 0f;
-        Vector3 startPos = transform.position; // Store the original position.
+        Vector3 startPos = transform.position;
 
         while (elapsedTime < duration)
         {
