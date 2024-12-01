@@ -33,4 +33,14 @@ public class JuggernautHealth : Health
             damageSources.Remove(other);
         }
     }
+
+    public override void TakeDamage(float damage)
+    {
+        base.TakeDamage(damage);
+        if (canDie)
+        {
+            spawner.juggernautOnField--;
+            gameObject.SetActive(false);
+        }
+    }
 }

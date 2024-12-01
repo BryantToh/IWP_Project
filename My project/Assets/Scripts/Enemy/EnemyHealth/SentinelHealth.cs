@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class SentinelHealth : Health, IPooledEnemy
 {
@@ -75,5 +76,15 @@ public class SentinelHealth : Health, IPooledEnemy
         // Ensure the final rotation and position are reset correctly.
         transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y + (360f - rotationAmount), transform.eulerAngles.z);
         transform.position = startPos;
+    }
+
+    public override void TakeDamage(float damage)
+    {
+        base.TakeDamage(damage);
+        if (canDie)
+        {
+            spawner.sentinelOnField--;
+            gameObject.SetActive(false);
+        }
     }
 }

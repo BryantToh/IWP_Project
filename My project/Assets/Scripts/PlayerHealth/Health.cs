@@ -1,13 +1,17 @@
- using UnityEngine;
+using UnityEngine;
 
 public class Health : MonoBehaviour
 {
     public OnField Unit;
-    public float currentHealth;
-
+    protected float currentHealth;
+    [HideInInspector]
+    public EnemySpawner spawner;
+    [HideInInspector]
+    protected bool canDie = false;
     protected virtual void Start()
     {
         currentHealth = Unit.Health;
+        spawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<EnemySpawner>();
     }
 
     public virtual void TakeDamage(float damage)
@@ -15,8 +19,7 @@ public class Health : MonoBehaviour
         currentHealth -= damage;
         if (currentHealth <= 0)
         {
-            Debug.LogWarning("Dead");
-            gameObject.SetActive(false);
+            canDie = true;
         }
     }
 }

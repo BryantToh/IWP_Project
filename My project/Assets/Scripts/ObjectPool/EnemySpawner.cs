@@ -1,5 +1,3 @@
-using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -7,24 +5,35 @@ public class EnemySpawner : MonoBehaviour
     ObjectPooler pooler;
     public Vector3 minRange;
     public Vector3 maxRange;
-    ObjectPooler.Pool sentinelPool;
-    int enemiesSpawned = 0;
+    ObjectPooler.Pool sentinelPool, juggernautPool;
+    public int sentinelOnField = 0;
+    public int juggernautOnField = 0;
+    public int totalEnemySpawned = 0;
+    public int totalEnemySpawnedTrack = -1;
 
     private void Start()
     {
         pooler = ObjectPooler.Instance;
         sentinelPool = pooler.GetPool("sentinel");
+        juggernautPool = pooler.GetPool("juggernaut");
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        if (sentinelPool != null)
+        SpawnEnemies();
+    }
+
+    private void SpawnEnemies()
+    {
+        if (sentinelPool != null && sentinelOnField < sentinelPool.size)
         {
-            if (enemiesSpawned != 2)
-            {
-                pooler.SpawnfromPool("sentinel", randomPos(), Quaternion.identity);
-                enemiesSpawned++;
-            }
+            pooler.SpawnfromPool("sentinel", randomPos(), Quaternion.identity);
+            sentinelOnField++;
+        }
+        if (juggernautPool != null && juggernautOnField < juggernautPool.size)
+        {
+            pooler.SpawnfromPool("juggernaut", randomPos(), Quaternion.identity);
+            juggernautOnField++;
         }
     }
 
@@ -34,6 +43,6 @@ public class EnemySpawner : MonoBehaviour
         float randomY = Random.Range(minRange.y, maxRange.y);
         float randomZ = Random.Range(minRange.z, maxRange.z);
 
-        return new Vector3 (randomX, randomY, randomZ);
+        return new Vector3(randomX, randomY, randomZ);
     }
 }

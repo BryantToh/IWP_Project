@@ -125,6 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Unit: {fileID: 11400000, guid: e21115792ff7a0e4fac39dacf1251be8, type: 2}
   currentHealth: 0
+  spawner: {fileID: 688018859374531481, guid: 701ff5d9103c418498770cfb68ab8aca, type: 3}
   rotationSpd: 100
 --- !u!195 &3422050066583400657
 NavMeshAgent:

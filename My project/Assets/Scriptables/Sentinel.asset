@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Sentinel
   m_EditorClassIdentifier: 
   Health: 80
-  Damage: 15
+  Damage: 0
   maxDashCount: 0
