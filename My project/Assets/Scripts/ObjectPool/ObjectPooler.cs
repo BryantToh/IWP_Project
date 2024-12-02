@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class ObjectPooler : MonoBehaviour
 {
@@ -18,55 +19,98 @@ public class ObjectPooler : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+
+        poolDictionary = new Dictionary<string, ObjectPool<IPooledEnemy>>();
+
+        foreach (Pool pool in pools)
+        {
+            ObjectPool<IPooledEnemy> objectPool = new ObjectPool<IPooledEnemy>(
+                //create function
+                () =>
+                {
+                    GameObject obj = Instantiate(pool.prefab);
+                    IPooledEnemy r = obj.GetComponent<IPooledEnemy>();
+                    r.OnEnemySpawn();
+                    obj.gameObject.SetActive(false);
+                    return r;
+                },
+                //get function
+                (obj) =>
+                {
+                    obj.OnGet();
+                },
+                //release function
+                (obj) =>
+                {
+                    obj.OnRelease();
+                },
+                //destroy function
+                (obj) =>
+                {
+                    obj.OnDestroyInterface();
+                }, true, pool.size
+                );
+            poolDictionary.Add(pool.tag, objectPool);
+
+            //for (int i = 0; i < pool.size; i++)
+            //{
+            //    GameObject obj = Instantiate(pool.prefab);
+            //    obj.SetActive(false);
+            //    objectPool.Enqueue(obj);
+            //}
+
+        }
     }
     #endregion
 
     public List<Pool> pools;
-    public Dictionary<string, Queue<GameObject>> poolDictionary;
+    public Dictionary<string, ObjectPool<IPooledEnemy>> poolDictionary;
 
-    void Start()
+    public IPooledEnemy SpawnfromPool(string tag, Vector3 position, Quaternion rotation)
     {
-        poolDictionary = new Dictionary<string, Queue<GameObject>>();
-
-        foreach (Pool pool in pools)
+        if (poolDictionary.TryGetValue(tag, out ObjectPool<IPooledEnemy> pool))
         {
-            Queue<GameObject> objectPool = new Queue<GameObject>();
-
-            for (int i = 0; i < pool.size; i++)
-            {
-                GameObject obj = Instantiate(pool.prefab);
-                obj.SetActive(false);
-                objectPool.Enqueue(obj);
-            }
-
-            poolDictionary.Add(pool.tag, objectPool);
+            IPooledEnemy obj = pool.Get();
+            obj.SetPosNRot(position, rotation);
+            return obj;
         }
-    }
+        return null;
+        //if (!poolDictionary.ContainsKey(tag)) 
+        //    return null;
 
-    public GameObject SpawnfromPool(string tag, Vector3 position, Quaternion rotation)
-    {
-        if (!poolDictionary.ContainsKey(tag)) 
-            return null;
+        //if (poolDictionary[tag].Count > 0)
+        //{
+        //    GameObject r = poolDictionary[tag].Dequeue();
+        //    r.SetActive(true);
+        //    r.transform.position = position;
+        //    r.transform.rotation = rotation;
+        //}
 
-        GameObject objToSpawn = poolDictionary[tag].Dequeue();
-        objToSpawn.SetActive(true);
-        objToSpawn.transform.position = position;
-        objToSpawn.transform.rotation = rotation;
+        //GameObject objToSpawn = poolDictionary[tag].Dequeue();
+        //objToSpawn.SetActive(true);
+        //objToSpawn.transform.position = position;
+        //objToSpawn.transform.rotation = rotation;
 
-        IPooledEnemy pooledEnemy = objToSpawn.GetComponent<IPooledEnemy>();
+        //IPooledEnemy pooledEnemy = objToSpawn.GetComponent<IPooledEnemy>();
 
-        if (pooledEnemy != null)
-        {
-            pooledEnemy.OnEnemySpawn();
-        }
+        //if (pooledEnemy != null)
+        //{
+        //    pooledEnemy.OnEnemySpawn();
+        //}
 
-        poolDictionary[tag].Enqueue(objToSpawn);
-
-        return objToSpawn;
+        //return objToSpawn;
     }
 
     public Pool GetPool(string tag)
     {
         return pools.FirstOrDefault(pool => pool.tag == tag);
+    }
+
+    public void Release(string tag, IPooledEnemy Obj)
+    {
+        if (poolDictionary.TryGetValue(tag, out ObjectPool<IPooledEnemy> pool))
+        {
+            pool.Release(Obj);
+        }
     }
 }

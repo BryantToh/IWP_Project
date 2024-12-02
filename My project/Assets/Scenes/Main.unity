@@ -190,6 +190,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &305835918 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3495872234130255554, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
+  m_PrefabInstance: {fileID: 3357642690421476689}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1060685140
 GameObject:
   m_ObjectHideFlags: 0
@@ -222,10 +227,10 @@ MonoBehaviour:
   pools:
   - tag: sentinel
     prefab: {fileID: 2471943973610747615, guid: 69bee1a14ec9f3146931d63b6b5a2c57, type: 3}
-    size: 0
+    size: 15
   - tag: juggernaut
     prefab: {fileID: 4586161582616152287, guid: 65cdb9e9d5421e941949268a65f6f25e, type: 3}
-    size: 0
+    size: 10
 --- !u!4 &1060685142
 Transform:
   m_ObjectHideFlags: 0
@@ -795,7 +800,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sensX: 400
   sensY: 400
-  player: {fileID: 1505090650}
+  player: {fileID: 305835918}
 --- !u!114 &2064611709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -879,6 +884,14 @@ PrefabInstance:
     - target: {fileID: 3495872234130255554, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5324228072658763400, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
+      propertyPath: m_Drag
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5324228072658763400, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
+      propertyPath: m_AngularDrag
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7489453459597252854, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
       propertyPath: playerCam

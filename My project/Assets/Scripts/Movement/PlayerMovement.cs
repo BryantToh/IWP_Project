@@ -25,10 +25,14 @@ public class PlayerMovement : MonoBehaviour
     private Queue<PrimaryActionCommand> _primaryActionCommandQueue = new Queue<PrimaryActionCommand>();
     public int kickSteps = -1;
 
-
     public void ReadPrimaryActionCommand(PrimaryActionCommand command)
     {
         _primaryActionCommandQueue.Enqueue(command);
+
+        if (kickCoroutine == null)
+        {
+            kickCoroutine = StartCoroutine(PlayKick());
+        }
     }
 
     private void Start()
@@ -38,22 +42,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        //if (kickCoroutine != null)
-        //    return;
-
         Inputs();
         CheckIdle();
-
-
-        if (_primaryActionCommandQueue.Count > 0 && kickCoroutine == null)
-        {
-            kickCoroutine = StartCoroutine(PlayKick());
-        }
-
-        //if (kickCoroutine == null)
-        //{
-        //    MovePlayer();
-        //}
     }
 
     private void LateUpdate()
@@ -144,7 +134,7 @@ public class PlayerMovement : MonoBehaviour
         _primaryActionCommandQueue.Dequeue();
 
         isAttacking = true;
-        kickSteps = (kickSteps + 1) % 4;
+        kickSteps = (kickSteps + 1) % 5;
         animator.SetInteger("Kick", kickSteps);
 
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
@@ -155,17 +145,17 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
         yield return new WaitForSeconds(stateInfo.length - 0.2f);
-
-        if (_primaryActionCommandQueue.Count <= 0)
+        if (_primaryActionCommandQueue.Count <= 0 || kickSteps == 4)
         {
             kickSteps = -1;
             animator.SetInteger("Kick", kickSteps);
             kickCoroutine = null;
             isAttacking = false;
+            _primaryActionCommandQueue.Clear();
         }
         else
         {
-            kickCoroutine = StartCoroutine(PlayKick());
+            yield return PlayKick();
         }
     }
 

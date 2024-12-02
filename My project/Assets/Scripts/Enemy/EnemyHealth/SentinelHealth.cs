@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class SentinelHealth : Health, IPooledEnemy
 {
@@ -84,7 +83,28 @@ public class SentinelHealth : Health, IPooledEnemy
         if (canDie)
         {
             spawner.sentinelOnField--;
-            gameObject.SetActive(false);
+            ObjectPooler.Instance.Release("sentinel", this);
         }
+    }
+
+    public void OnGet()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void OnRelease()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void OnDestroyInterface()
+    {
+        Destroy(gameObject);
+    }
+
+    public void SetPosNRot(Vector3 Pos, Quaternion Rot)
+    {
+        transform.position = Pos;
+        transform.rotation = Rot;
     }
 }

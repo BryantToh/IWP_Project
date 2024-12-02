@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class EnemySpawner : MonoBehaviour
 {
     ObjectPooler pooler;
@@ -8,8 +7,6 @@ public class EnemySpawner : MonoBehaviour
     ObjectPooler.Pool sentinelPool, juggernautPool;
     public int sentinelOnField = 0;
     public int juggernautOnField = 0;
-    public int totalEnemySpawned = 0;
-    public int totalEnemySpawnedTrack = -1;
 
     private void Start()
     {

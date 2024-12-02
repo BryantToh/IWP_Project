@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JuggernautHealth : Health
+public class JuggernautHealth : Health, IPooledEnemy
 {
     PlayerHealth player;
     private HashSet<Collider> damageSources = new HashSet<Collider>();
@@ -9,9 +9,13 @@ public class JuggernautHealth : Health
 
     protected override void Start()
     {
+        base.Start();
+    }
+
+    public void OnEnemySpawn()
+    {
         player = GameObject.FindGameObjectWithTag("PlayerObj").GetComponentInChildren<PlayerHealth>();
         juggernaut = GetComponent<JuggernautEnemy>();
-        base.Start();
     }
 
     public void AttackPlayer(Collider other)
@@ -40,7 +44,28 @@ public class JuggernautHealth : Health
         if (canDie)
         {
             spawner.juggernautOnField--;
-            gameObject.SetActive(false);
+            ObjectPooler.Instance.Release("juggernaut", this);
         }
+    }
+
+    public void OnGet()
+    {
+        gameObject.SetActive(true);
+    }
+
+    public void OnRelease()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void OnDestroyInterface()
+    {
+        Destroy(gameObject);
+    }
+
+    public void SetPosNRot(Vector3 Pos, Quaternion Rot)
+    {
+        transform.position = Pos;
+        transform.rotation = Rot;
     }
 }
