@@ -6,7 +6,7 @@ public class PlayerCam : MonoBehaviour
     public float sensY;
 
     public Transform player;
-
+    bool foundEnemy = false;
     float xRotation;
     float yRotation;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
