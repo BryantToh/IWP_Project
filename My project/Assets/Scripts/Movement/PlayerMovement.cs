@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -7,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed;
     public float dashSpeed;
     private bool isMoving = false;
+    private bool isAttacking = false;
 
     [Header("Inputs")]
     float horizontalInput;
@@ -17,15 +19,11 @@ public class PlayerMovement : MonoBehaviour
     private float IdleTimer;
 
     public Transform orientation;
-    public PlayerCam cam;
     Vector3 moveDirection;
     Rigidbody rb;
-<<<<<<< Updated upstream
-=======
     private Coroutine kickCoroutine;
     private Queue<PrimaryActionCommand> _primaryActionCommandQueue = new Queue<PrimaryActionCommand>();
     public int kickSteps = -1;
-    public bool isCharging = false;
 
     public void ReadPrimaryActionCommand(PrimaryActionCommand command)
     {
@@ -36,7 +34,6 @@ public class PlayerMovement : MonoBehaviour
             kickCoroutine = StartCoroutine(PlayKick());
         }
     }
->>>>>>> Stashed changes
 
     private void Start()
     {
@@ -47,7 +44,6 @@ public class PlayerMovement : MonoBehaviour
     {
         Inputs();
         CheckIdle();
-        rotateToTarget();
     }
 
     private void LateUpdate()
@@ -66,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         rb.AddForce(moveDirection * moveSpeed * 5f);
 
-        if (verticalInput != 0 || horizontalInput != 0)
+        if (verticalInput != 0 || horizontalInput != 0 && !isAttacking)
         {
             IdleTimer = 0f;
             isMoving = true;
@@ -118,18 +114,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void rotateToTarget()
-    {
-        if (cam.currentTarget != null)
-        {
-            Vector3 direction = cam.currentTarget.transform.position - transform.position;
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            targetRotation = Quaternion.Euler(0, targetRotation.eulerAngles.y, 0);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, cam.rotSpeed * Time.deltaTime);
-        }
-    }
-
-
     private void ResetMovementBools()
     {
         animator.SetBool("isMoving", false);
@@ -144,40 +128,23 @@ public class PlayerMovement : MonoBehaviour
         animator.SetInteger("Idle", 0);
         IdleTimer = 0f;
     }
-<<<<<<< Updated upstream
-=======
 
     private IEnumerator PlayKick()
     {
-        var command = _primaryActionCommandQueue.Dequeue();
+        _primaryActionCommandQueue.Dequeue();
+
         isAttacking = true;
+        kickSteps = (kickSteps + 1) % 5;
+        animator.SetInteger("Kick", kickSteps);
 
-        if (command.Action == 1)
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+        while (!stateInfo.IsName("Anim_Kick" + kickSteps))
         {
-            animator.SetTrigger("ChargedKick");
-
-            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-            while (!stateInfo.IsName("Heavy_Attack"))
-            {
-                stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-                yield return null;
-            }
-            yield return new WaitForSeconds(stateInfo.length - 0.2f);
+            stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+            yield return null;
         }
-        else
-        {
-            kickSteps = (kickSteps + 1) % 5;
-            animator.SetInteger("Kick", kickSteps);
-
-            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-            while (!stateInfo.IsName("Anim_Kick" + kickSteps))
-            {
-                stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-                yield return null;
-            }
-            yield return new WaitForSeconds(stateInfo.length - 0.2f);
-        }
-
+        yield return new WaitForSeconds(stateInfo.length - 0.2f);
         if (_primaryActionCommandQueue.Count <= 0 || kickSteps == 4)
         {
             kickSteps = -1;
@@ -192,5 +159,4 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
->>>>>>> Stashed changes
 }

@@ -51,6 +51,14 @@ public class ObjectPooler : MonoBehaviour
                 }, true, pool.size
                 );
             poolDictionary.Add(pool.tag, objectPool);
+
+            //for (int i = 0; i < pool.size; i++)
+            //{
+            //    GameObject obj = Instantiate(pool.prefab);
+            //    obj.SetActive(false);
+            //    objectPool.Enqueue(obj);
+            //}
+
         }
     }
     #endregion
@@ -67,6 +75,30 @@ public class ObjectPooler : MonoBehaviour
             return obj;
         }
         return null;
+        //if (!poolDictionary.ContainsKey(tag)) 
+        //    return null;
+
+        //if (poolDictionary[tag].Count > 0)
+        //{
+        //    GameObject r = poolDictionary[tag].Dequeue();
+        //    r.SetActive(true);
+        //    r.transform.position = position;
+        //    r.transform.rotation = rotation;
+        //}
+
+        //GameObject objToSpawn = poolDictionary[tag].Dequeue();
+        //objToSpawn.SetActive(true);
+        //objToSpawn.transform.position = position;
+        //objToSpawn.transform.rotation = rotation;
+
+        //IPooledEnemy pooledEnemy = objToSpawn.GetComponent<IPooledEnemy>();
+
+        //if (pooledEnemy != null)
+        //{
+        //    pooledEnemy.OnEnemySpawn();
+        //}
+
+        //return objToSpawn;
     }
 
     public Pool GetPool(string tag)
