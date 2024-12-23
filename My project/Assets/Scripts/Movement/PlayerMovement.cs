@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform orientation;
     Vector3 moveDirection;
     Rigidbody rb;
+<<<<<<< HEAD
     private Coroutine kickCoroutine;
     private Queue<PrimaryActionCommand> _primaryActionCommandQueue = new Queue<PrimaryActionCommand>();
     public int kickSteps = -1;
@@ -34,6 +35,8 @@ public class PlayerMovement : MonoBehaviour
             kickCoroutine = StartCoroutine(PlayKick());
         }
     }
+=======
+>>>>>>> parent of 539b8cc (added heavy attacks and target system)
 
     private void Start()
     {
@@ -128,6 +131,7 @@ public class PlayerMovement : MonoBehaviour
         animator.SetInteger("Idle", 0);
         IdleTimer = 0f;
     }
+<<<<<<< HEAD
 
     private IEnumerator PlayKick()
     {
@@ -159,4 +163,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+=======
+>>>>>>> parent of 539b8cc (added heavy attacks and target system)
 }
