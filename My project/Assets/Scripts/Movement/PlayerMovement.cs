@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveDirection;
     Rigidbody rb;
 <<<<<<< HEAD
+<<<<<<< HEAD
     private Coroutine kickCoroutine;
     private Queue<PrimaryActionCommand> _primaryActionCommandQueue = new Queue<PrimaryActionCommand>();
     public int kickSteps = -1;
@@ -35,6 +36,8 @@ public class PlayerMovement : MonoBehaviour
             kickCoroutine = StartCoroutine(PlayKick());
         }
     }
+=======
+>>>>>>> parent of 539b8cc (added heavy attacks and target system)
 =======
 >>>>>>> parent of 539b8cc (added heavy attacks and target system)
 
@@ -132,6 +135,7 @@ public class PlayerMovement : MonoBehaviour
         IdleTimer = 0f;
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     private IEnumerator PlayKick()
     {
@@ -163,6 +167,8 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+=======
+>>>>>>> parent of 539b8cc (added heavy attacks and target system)
 =======
 >>>>>>> parent of 539b8cc (added heavy attacks and target system)
 }
