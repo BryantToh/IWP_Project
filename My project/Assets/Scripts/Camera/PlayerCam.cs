@@ -4,11 +4,6 @@ public class PlayerCam : MonoBehaviour
 {
     public float sensX;
     public float sensY;
-<<<<<<< HEAD
-=======
-    
-    public Transform player;
->>>>>>> parent of 539b8cc (added heavy attacks and target system)
 
     public Transform player;
     float xRotation;
