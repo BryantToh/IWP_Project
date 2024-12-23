@@ -46,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Inputs();
         CheckIdle();
+        RotateToTarget();
     }
 
     private void LateUpdate()
