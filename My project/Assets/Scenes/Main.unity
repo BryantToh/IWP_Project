@@ -193,11 +193,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 3357642690421476689}
   m_PrefabAsset: {fileID: 0}
 <<<<<<< HEAD
-<<<<<<< HEAD
   m_GameObject: {fileID: 0}
-=======
-  m_GameObject: {fileID: 155593684}
->>>>>>> parent of 539b8cc (added heavy attacks and target system)
 =======
   m_GameObject: {fileID: 155593684}
 >>>>>>> parent of 539b8cc (added heavy attacks and target system)
@@ -261,7 +257,6 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
 <<<<<<< HEAD
-<<<<<<< HEAD
   m_LocalPosition: {x: 0.30822608, y: 1.3996612, z: -0.14415795}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -319,9 +314,6 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7.176412, y: -9.912033, z: -0.5129833}
-=======
-  m_LocalPosition: {x: 0.0006584823, y: 1.36, z: 3.57}
->>>>>>> parent of 539b8cc (added heavy attacks and target system)
 =======
   m_LocalPosition: {x: 0.0006584823, y: 1.36, z: 3.57}
 >>>>>>> parent of 539b8cc (added heavy attacks and target system)
@@ -566,7 +558,6 @@ Transform:
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 <<<<<<< HEAD
-<<<<<<< HEAD
 --- !u!1 &1842305280
 GameObject:
   m_ObjectHideFlags: 0
@@ -631,8 +622,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-=======
->>>>>>> parent of 539b8cc (added heavy attacks and target system)
 =======
 >>>>>>> parent of 539b8cc (added heavy attacks and target system)
 --- !u!1 &1905627889
@@ -891,11 +880,7 @@ MonoBehaviour:
   sensX: 400
   sensY: 400
 <<<<<<< HEAD
-<<<<<<< HEAD
   player: {fileID: 305835918}
-=======
-  player: {fileID: 155593686}
->>>>>>> parent of 539b8cc (added heavy attacks and target system)
 =======
   player: {fileID: 155593686}
 >>>>>>> parent of 539b8cc (added heavy attacks and target system)
@@ -931,7 +916,6 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   CustomBlends: {fileID: 0}
-<<<<<<< HEAD
 <<<<<<< HEAD
 --- !u!1001 &3357642690421476689
 PrefabInstance:
@@ -1081,8 +1065,6 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 701ff5d9103c418498770cfb68ab8aca, type: 3}
 =======
 >>>>>>> parent of 539b8cc (added heavy attacks and target system)
-=======
->>>>>>> parent of 539b8cc (added heavy attacks and target system)
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1093,14 +1075,10 @@ SceneRoots:
   - {fileID: 1559662638}
   - {fileID: 1905627892}
 <<<<<<< HEAD
-<<<<<<< HEAD
   - {fileID: 179859434}
   - {fileID: 1842305282}
   - {fileID: 1060685142}
   - {fileID: 7856023346286197148}
-=======
-  - {fileID: 1288452976}
->>>>>>> parent of 539b8cc (added heavy attacks and target system)
 =======
   - {fileID: 1288452976}
 >>>>>>> parent of 539b8cc (added heavy attacks and target system)
