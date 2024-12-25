@@ -51,14 +51,6 @@ public class ObjectPooler : MonoBehaviour
                 }, true, pool.size
                 );
             poolDictionary.Add(pool.tag, objectPool);
-
-            //for (int i = 0; i < pool.size; i++)
-            //{
-            //    GameObject obj = Instantiate(pool.prefab);
-            //    obj.SetActive(false);
-            //    objectPool.Enqueue(obj);
-            //}
-
         }
     }
     #endregion

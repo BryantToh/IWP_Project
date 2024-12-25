@@ -120,10 +120,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (cam.currentTarget != null)
         {
-            Vector3 direction = cam.currentTarget.transform.position - transform.position;
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            targetRotation = Quaternion.Euler(0, targetRotation.eulerAngles.y, 0);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, cam.rotSpeed * Time.deltaTime);
+            cam.player = transform;
+            //Vector3 direction = cam.currentTarget.transform.position - transform.position;
+            //Quaternion targetRotation = Quaternion.LookRotation(direction);
+            //targetRotation = Quaternion.Euler(0, targetRotation.eulerAngles.y, 0);
+            //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, cam.rotSpeed * Time.deltaTime);
         }
     }
 
@@ -147,9 +148,8 @@ public class PlayerMovement : MonoBehaviour
         var command = _primaryActionCommandQueue.Dequeue();
         isAttacking = true;
 
-        if (command.Action == 1) // Charged attack
+        if (command.Action == 1)
         {
-            // Play charged attack animation
             animator.SetTrigger("HeavyKick");
 
             AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
@@ -160,7 +160,7 @@ public class PlayerMovement : MonoBehaviour
             }
             yield return new WaitForSeconds(stateInfo.length - 0.2f);
         }
-        else // Regular attack
+        else
         {
             kickSteps = (kickSteps + 1) % 5;
             animator.SetInteger("Kick", kickSteps);

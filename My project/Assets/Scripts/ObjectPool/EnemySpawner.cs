@@ -4,15 +4,17 @@ public class EnemySpawner : MonoBehaviour
     ObjectPooler pooler;
     public Vector3 minRange;
     public Vector3 maxRange;
-    ObjectPooler.Pool sentinelPool, juggernautPool;
+    ObjectPooler.Pool sentinelPool, juggernautPool, phasePool;
     public int sentinelOnField = 0;
     public int juggernautOnField = 0;
+    public int phaseOnField = 0;
 
     private void Start()
     {
         pooler = ObjectPooler.Instance;
         sentinelPool = pooler.GetPool("sentinel");
         juggernautPool = pooler.GetPool("juggernaut");
+        phasePool = pooler.GetPool("phase");
     }
 
     private void Update()
@@ -31,6 +33,11 @@ public class EnemySpawner : MonoBehaviour
         {
             pooler.SpawnfromPool("juggernaut", randomPos(), Quaternion.identity);
             juggernautOnField++;
+        }
+        if (phasePool != null && phaseOnField < phasePool.size)
+        {
+            pooler.SpawnfromPool("phase", randomPos(), Quaternion.identity);
+            phaseOnField++;
         }
     }
 
