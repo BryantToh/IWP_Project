@@ -1,14 +1,14 @@
 using UnityEngine;
 
-public class JuggernautEnemy : EnemyAIController
+public class MindBreakersEnemy : EnemyAIController
 {
     Collider playerCol;
-    JuggernautHealth enemyHealth;
+    MindbreakersHealth enemyHealth;
     protected override void Start()
     {
         player = GameObject.FindGameObjectWithTag("PlayerObj").transform;
         playerCol = player.gameObject.GetComponent<Collider>();
-        enemyHealth = GetComponent<JuggernautHealth>();
+        enemyHealth = GetComponent<MindbreakersHealth>();
         base.Start();
     }
 

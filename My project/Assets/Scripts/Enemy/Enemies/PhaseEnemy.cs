@@ -7,19 +7,15 @@ public class PhaseEnemy : EnemyAIController
     Collider playerCol;
     PhaseTransparent phasing;
     NavMeshAgent navMesh;
-
-    protected override void Awake()
+    protected override void Start()
     {
+        player = GameObject.FindGameObjectWithTag("PlayerObj").transform;
         phasing = GetComponent<PhaseTransparent>();
         playerCol = player.gameObject.GetComponent<Collider>();
         enemyHealth = GetComponent<PhaseHealth>();
         navMesh = GetComponent<NavMeshAgent>();
-        base.Awake();
-    }
-
-    private void Start()
-    {
-        phasing.OnFadeComplete += OnFadeComplete; // Subscribe to fade completion event
+        phasing.OnFadeComplete += OnFadeComplete;
+        base.Start();
     }
 
     protected override void Update()

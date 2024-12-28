@@ -21,7 +21,7 @@ public class PhaseTransparent : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(faded);
+        //Debug.Log(faded);
     }
     public void FadeIn()
     {
@@ -55,7 +55,7 @@ public class PhaseTransparent : MonoBehaviour
 
         Color finalColor = new Color(startColor.r, startColor.g, startColor.b, targetAlpha);
         material.SetColor("_BaseColor", finalColor);
-
+        Debug.Log(targetAlpha);
         if (targetAlpha <= 0f)
             faded = true;
         else

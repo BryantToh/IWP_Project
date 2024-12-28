@@ -119,13 +119,7 @@ public class PlayerMovement : MonoBehaviour
     private void RotateToTarget()
     {
         if (cam.currentTarget != null)
-        {
             cam.player = transform;
-            //Vector3 direction = cam.currentTarget.transform.position - transform.position;
-            //Quaternion targetRotation = Quaternion.LookRotation(direction);
-            //targetRotation = Quaternion.Euler(0, targetRotation.eulerAngles.y, 0);
-            //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, cam.rotSpeed * Time.deltaTime);
-        }
     }
 
     private void ResetMovementBools()

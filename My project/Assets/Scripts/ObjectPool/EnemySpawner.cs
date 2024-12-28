@@ -1,13 +1,15 @@
+using UnityEditor;
 using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     ObjectPooler pooler;
     public Vector3 minRange;
     public Vector3 maxRange;
-    ObjectPooler.Pool sentinelPool, juggernautPool, phasePool;
+    ObjectPooler.Pool sentinelPool, juggernautPool, phasePool, mindPool;
     public int sentinelOnField = 0;
     public int juggernautOnField = 0;
     public int phaseOnField = 0;
+    public int mindOnField = 0;
 
     private void Start()
     {
@@ -15,6 +17,7 @@ public class EnemySpawner : MonoBehaviour
         sentinelPool = pooler.GetPool("sentinel");
         juggernautPool = pooler.GetPool("juggernaut");
         phasePool = pooler.GetPool("phase");
+        mindPool = pooler.GetPool("breaker");
     }
 
     private void Update()
@@ -38,6 +41,11 @@ public class EnemySpawner : MonoBehaviour
         {
             pooler.SpawnfromPool("phase", randomPos(), Quaternion.identity);
             phaseOnField++;
+        }
+        if (mindPool != null && mindOnField < mindPool.size)
+        {
+            pooler.SpawnfromPool("breaker", randomPos(), Quaternion.identity);
+            mindOnField++;
         }
     }
 

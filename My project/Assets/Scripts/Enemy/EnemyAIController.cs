@@ -16,9 +16,8 @@ public class EnemyAIController : MonoBehaviour
 
     public float attackRange;
 
-    protected virtual void Awake()
+    protected virtual void Start()
     {
-        player = GameObject.FindGameObjectWithTag("PlayerObj").transform;
         agent = GetComponent<NavMeshAgent>();
     }
 

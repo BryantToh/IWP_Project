@@ -5,11 +5,12 @@ public class SentinelEnemy : EnemyAIController
 {
     SentinelHealth enemyHealth;
     Collider playerCol;
-    protected override void Awake()
+    protected override void Start()
     {
+        player = GameObject.FindGameObjectWithTag("PlayerObj").transform;
         playerCol = player.gameObject.GetComponent<Collider>();
         enemyHealth = GetComponent<SentinelHealth>();
-        base.Awake();
+        base.Start();
     }
 
     protected override void Update()
