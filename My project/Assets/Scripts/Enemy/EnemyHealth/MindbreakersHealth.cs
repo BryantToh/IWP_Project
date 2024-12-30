@@ -7,8 +7,13 @@ public class MindbreakersHealth : Health, IPooledEnemy
     private HashSet<Collider> damageSources = new HashSet<Collider>();
     MindBreakersEnemy mindBreaker;
     GlitchController glitchCon;
+    [Header("Projectile")]
+    public GameObject mindProjectile, spawnPoint;
+    float projectileSpeed = 5f;
+    [Header("Glitch variables")]
     int glitchStack = 0;
     public float glitchResetTime = 0;
+    bool resetGlitch = false;
     public void OnEnemySpawn()
     {
         glitchCon = GameObject.Find("GameController").GetComponent<GlitchController>(); 
@@ -44,10 +49,10 @@ public class MindbreakersHealth : Health, IPooledEnemy
 
         if (!damageSources.Contains(other))
         {
-            damageSources.Add(other);
-            player.TakeDamage(Unit.Damage);
-            GlitchEffect();
-            Invoke(nameof(ResetGlitch), glitchResetTime);
+            //damageSources.Add(other);
+            ShootMindProj();
+            //player.TakeDamage(Unit.Damage);
+            //GlitchEffect();
         }
     }
 
@@ -65,7 +70,7 @@ public class MindbreakersHealth : Health, IPooledEnemy
         if (canDie)
         {
             spawner.mindOnField--;
-            ObjectPooler.Instance.Release("mindBreaker", this);
+            ObjectPooler.Instance.Release("breaker", this);
         }
     }
 
@@ -73,22 +78,29 @@ public class MindbreakersHealth : Health, IPooledEnemy
     {
         if (glitchStack < 5)
         {
-            glitchCon.noiseAmount += 10f;
-            glitchCon.glitchStrength += 4f;
-            glitchCon.scanLinesStrength -= 0.18f;
+            glitchCon.noiseAmount = Mathf.Lerp(glitchCon.noiseAmount, 10 * glitchStack, Time.deltaTime * 2);
+            //glitchCon.noiseAmount += 10f;
+            //glitchCon.glitchStrength += 4f;
+            //glitchCon.scanLinesStrength -= 0.18f;
             glitchStack++;
         }
-
     }
     private void ResetGlitch()
     {
-        glitchCon.noiseAmount = 0f;
-        glitchCon.glitchStrength = 0f;
-        glitchCon.scanLinesStrength = 0f;
+        glitchCon.noiseAmount = Mathf.Lerp(glitchCon.noiseAmount, 0, Time.deltaTime);
+        glitchCon.glitchStrength = Mathf.Lerp(glitchCon.glitchStrength, 0, Time.deltaTime);
+        glitchCon.scanLinesStrength = Mathf.Lerp(glitchCon.scanLinesStrength, 0, Time.deltaTime);
     }
 
-    private void Update()
+    private void ShootMindProj()
     {
-        Debug.Log(glitchStack);
+        GameObject obj = Instantiate(mindProjectile, spawnPoint.transform.position, Quaternion.identity);
+        Rigidbody rb = obj.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            Vector3 dir = (player.transform.position - spawnPoint.transform.position).normalized;
+            obj.transform.rotation = Quaternion.LookRotation(Vector3.forward, dir);
+            rb.linearVelocity = dir * projectileSpeed;
+        }
     }
 }

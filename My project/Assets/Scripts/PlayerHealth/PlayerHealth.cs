@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
@@ -9,8 +11,11 @@ public class PlayerHealth : MonoBehaviour
     float juggernautDamage;
     SentinelHealth sentinel;
     JuggernautHealth juggernaut;
+    MindbreakersHealth mindbreakers;
     private float jHitCount = 0.0f;
     private float resetDamageTimer = 0.0f;
+    bool hitByMindBrk = false;
+    float checkGlitchDuration = 0;
     PlayerMovement player;
     private HashSet<Collider> damageSources = new HashSet<Collider>();
 
@@ -63,6 +68,12 @@ public class PlayerHealth : MonoBehaviour
                 resetDamageTimer = 0.0f;
             }
         }
+
+        if (other.CompareTag("MindProjectile"))
+        {
+            hitByMindBrk = true;
+            StartCoroutine(CheckCollision());
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -82,4 +93,20 @@ public class PlayerHealth : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
+
+    private IEnumerator CheckCollision()
+    {
+        yield return new WaitForSeconds(checkGlitchDuration);
+
+        if (hitByMindBrk)
+        {
+            Debug.Log("Player has collided with the target type after 3 seconds!");
+        }
+        else
+        {
+            Debug.Log("No collision with the target type after 3 seconds.");
+        }
+
+        hitByMindBrk = false;
+    }    
 }
