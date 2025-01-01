@@ -14,8 +14,10 @@ public class PlayerHealth : MonoBehaviour
     MindbreakersHealth mindbreakers;
     private float jHitCount = 0.0f;
     private float resetDamageTimer = 0.0f;
-    bool hitByMindBrk = false;
-    float checkGlitchDuration = 0;
+    int hitCount = 0;
+    private float checkTimer = 3f;
+    private float timer = 0;
+    public GlitchController glitchController;
     PlayerMovement player;
     private HashSet<Collider> damageSources = new HashSet<Collider>();
 
@@ -36,6 +38,23 @@ public class PlayerHealth : MonoBehaviour
             jHitCount = 0.0f;
             resetDamageTimer = 0.0f;
             juggernautDamage = damage;
+        }
+
+        if (hitCount > 1)
+        {
+            timer += Time.deltaTime;
+
+            if (timer >= checkTimer)
+            {
+                glitchController.isResetting = true;
+                timer = 0;
+                hitCount = 0;
+            }
+        }
+
+        if (glitchController.isResetting)
+        {
+            glitchController.ResetGlitch();
         }
     }
 
@@ -68,14 +87,7 @@ public class PlayerHealth : MonoBehaviour
                 resetDamageTimer = 0.0f;
             }
         }
-
-        if (other.CompareTag("MindProjectile"))
-        {
-            hitByMindBrk = true;
-            StartCoroutine(CheckCollision());
-        }
     }
-
     private void OnTriggerExit(Collider other)
     {
         if (damageSources.Contains(other))
@@ -84,7 +96,16 @@ public class PlayerHealth : MonoBehaviour
         }
         AttackCheck.checkEnemy = false;
     }
-
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("MindProjectile"))
+        {
+            Destroy(other.gameObject);
+            hitCount++;
+            timer = 0;
+            glitchController.GlitchEffect();
+        }
+    }
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
@@ -93,20 +114,4 @@ public class PlayerHealth : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
-
-    private IEnumerator CheckCollision()
-    {
-        yield return new WaitForSeconds(checkGlitchDuration);
-
-        if (hitByMindBrk)
-        {
-            Debug.Log("Player has collided with the target type after 3 seconds!");
-        }
-        else
-        {
-            Debug.Log("No collision with the target type after 3 seconds.");
-        }
-
-        hitByMindBrk = false;
-    }    
 }

@@ -927,6 +927,14 @@ PrefabInstance:
       propertyPath: m_AngularDrag
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 7098953905482609337, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
+      propertyPath: fatfucker
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7098953905482609337, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
+      propertyPath: glitchController
+      value: 
+      objectReference: {fileID: 179859435}
     - target: {fileID: 7489453459597252854, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
       propertyPath: playerCam
       value: 

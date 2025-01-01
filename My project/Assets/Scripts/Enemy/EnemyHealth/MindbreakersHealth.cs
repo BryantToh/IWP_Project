@@ -10,10 +10,7 @@ public class MindbreakersHealth : Health, IPooledEnemy
     [Header("Projectile")]
     public GameObject mindProjectile, spawnPoint;
     float projectileSpeed = 5f;
-    [Header("Glitch variables")]
-    int glitchStack = 0;
-    public float glitchResetTime = 0;
-    bool resetGlitch = false;
+    
     public void OnEnemySpawn()
     {
         glitchCon = GameObject.Find("GameController").GetComponent<GlitchController>(); 
@@ -49,10 +46,9 @@ public class MindbreakersHealth : Health, IPooledEnemy
 
         if (!damageSources.Contains(other))
         {
-            //damageSources.Add(other);
+            damageSources.Add(other);
             ShootMindProj();
-            //player.TakeDamage(Unit.Damage);
-            //GlitchEffect();
+            player.TakeDamage(Unit.Damage);
         }
     }
 
@@ -74,32 +70,13 @@ public class MindbreakersHealth : Health, IPooledEnemy
         }
     }
 
-    private void GlitchEffect()
-    {
-        if (glitchStack < 5)
-        {
-            glitchCon.noiseAmount = Mathf.Lerp(glitchCon.noiseAmount, 10 * glitchStack, Time.deltaTime * 2);
-            //glitchCon.noiseAmount += 10f;
-            //glitchCon.glitchStrength += 4f;
-            //glitchCon.scanLinesStrength -= 0.18f;
-            glitchStack++;
-        }
-    }
-    private void ResetGlitch()
-    {
-        glitchCon.noiseAmount = Mathf.Lerp(glitchCon.noiseAmount, 0, Time.deltaTime);
-        glitchCon.glitchStrength = Mathf.Lerp(glitchCon.glitchStrength, 0, Time.deltaTime);
-        glitchCon.scanLinesStrength = Mathf.Lerp(glitchCon.scanLinesStrength, 0, Time.deltaTime);
-    }
-
     private void ShootMindProj()
     {
         GameObject obj = Instantiate(mindProjectile, spawnPoint.transform.position, Quaternion.identity);
         Rigidbody rb = obj.GetComponent<Rigidbody>();
         if (rb != null)
         {
-            Vector3 dir = (player.transform.position - spawnPoint.transform.position).normalized;
-            obj.transform.rotation = Quaternion.LookRotation(Vector3.forward, dir);
+            Vector3 dir = (player.gameObject.transform.position - spawnPoint.transform.position).normalized;
             rb.linearVelocity = dir * projectileSpeed;
         }
     }

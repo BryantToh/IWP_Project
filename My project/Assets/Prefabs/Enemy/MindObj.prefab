@@ -135,7 +135,7 @@ Transform:
   m_GameObject: {fileID: 5178196773504109111}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.729, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.764}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -243,7 +243,7 @@ MonoBehaviour:
   playerobj:
     serializedVersion: 2
     m_Bits: 64
-  timeBetweenAttacks: 1
+  timeBetweenAttacks: 2
   alreadyAttacked: 0
   playerInAttackRange: 0
   attackRange: 5
@@ -261,6 +261,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Unit: {fileID: 11400000, guid: f882328b50889ac46b55e66d1303eb09, type: 2}
   spawner: {fileID: 0}
-  mindProjectile: {fileID: 8658386296428232369, guid: d6508f1e2ef102943b4621c61b083e90, type: 3}
+  mindProjectile: {fileID: 3262385259042822002, guid: a641338684e5a784686962ac8ca83faf, type: 3}
   spawnPoint: {fileID: 5178196773504109111}
-  glitchResetTime: 2
