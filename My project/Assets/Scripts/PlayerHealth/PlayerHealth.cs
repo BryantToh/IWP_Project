@@ -39,8 +39,7 @@ public class PlayerHealth : MonoBehaviour
             resetDamageTimer = 0.0f;
             juggernautDamage = damage;
         }
-
-        if (hitCount > 1)
+        if (hitCount > 0)
         {
             timer += Time.deltaTime;
 

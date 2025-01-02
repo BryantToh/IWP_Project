@@ -4,9 +4,11 @@ public class MindBreakersEnemy : EnemyAIController
 {
     Collider playerCol;
     MindbreakersHealth enemyHealth;
+    public AbilityController abilityController;
     protected override void Start()
     {
         player = GameObject.FindGameObjectWithTag("PlayerObj").transform;
+        abilityController = GameObject.FindGameObjectWithTag("PlayerObj").GetComponentInChildren<AbilityController>();
         playerCol = player.gameObject.GetComponent<Collider>();
         enemyHealth = GetComponent<MindbreakersHealth>();
         base.Start();
@@ -14,7 +16,10 @@ public class MindBreakersEnemy : EnemyAIController
 
     protected override void Update()
     {
-        base.Update();
+        if (!abilityController.pullOff)
+        {
+            base.Update();
+        }
     }
 
     protected override void Chasing()

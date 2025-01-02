@@ -154,7 +154,7 @@ GameObject:
   - component: {fileID: 1060566893886663679}
   - component: {fileID: 2857061088050198065}
   - component: {fileID: 2831426268640202933}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MindObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
