@@ -21,7 +21,6 @@ public class GlitchController : MonoBehaviour
         mat.SetFloat("_NoiseAmount", noiseAmount);
         mat.SetFloat("_GlitchStrength", glitchStrength);
         mat.SetFloat("_ScanLinesStrength", scanLinesStrength);
-        Debug.Log(glitchStack);
     }
 
     public void GlitchEffect()
