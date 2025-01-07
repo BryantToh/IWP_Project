@@ -3,13 +3,17 @@ using UnityEngine.AI;
 
 public class PullAbility : MonoBehaviour
 {
-    public float pullStrength;
-    public LayerMask pullableLayer;
-    public float stopDistance;
+    public float pullStrength; // The force of pulling
+    public LayerMask pullableLayer; // Layer for pullable objects
+    public float stopDistance; // Distance to stop pulling
     PullAbilityObj pullAbilityObj;
+    private void Start()
+    {
+        pullAbilityObj = GameObject.Find("AbilityHolder").GetComponent<PullAbilityObj>();
+    }
     private void OnTriggerStay(Collider other)
     {
-        //pullAbilityObj.pullOff = true;
+        pullAbilityObj.pullOff = true;
 
         // Check if the object is on the pullable layer
         if (((1 << other.gameObject.layer) & pullableLayer) != 0)
@@ -41,9 +45,9 @@ public class PullAbility : MonoBehaviour
                 }
             }
         }
-        //else
-        //{
-        //    pullAbilityObj.pullOff = false;
-        //}
+        else
+        {
+            pullAbilityObj.pullOff = false;
+        }
     }
 }

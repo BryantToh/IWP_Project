@@ -124,5 +124,5 @@ MonoBehaviour:
   pullStrength: 3
   pullableLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   stopDistance: 2
