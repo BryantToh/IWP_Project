@@ -124,7 +124,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3709613230700040967, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
   m_PrefabInstance: {fileID: 3357642690421476689}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1276407521}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: db2e56c3064980d4188f97040ff3687d, type: 3}
@@ -280,6 +280,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1276407521 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2091489860241189188, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
+  m_PrefabInstance: {fileID: 3357642690421476689}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1370479793
 GameObject:
   m_ObjectHideFlags: 0
@@ -972,8 +977,10 @@ MonoBehaviour:
   cooldownTime: 0
   abilityDuration: 0
   activationKey: 49
+  playerObj: {fileID: 1276407521}
   cam: {fileID: 2064611703}
-  pullObj: {fileID: 7171127498307690886, guid: b1b857fdc68f9d643b762fdfa94f6e6e, type: 3}
+  pullObj: {fileID: 2779882226442337675, guid: b58ad71cce1420e4c9d3de143648d68f, type: 3}
+  pullOff: 0
 --- !u!1001 &7856023346286197148
 PrefabInstance:
   m_ObjectHideFlags: 0
