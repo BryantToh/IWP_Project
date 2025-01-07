@@ -142,6 +142,7 @@ GameObject:
   - component: {fileID: 179859433}
   - component: {fileID: 179859432}
   - component: {fileID: 179859435}
+  - component: {fileID: 179859436}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -208,6 +209,20 @@ MonoBehaviour:
   glitchStrength: 0
   scanLinesStrength: 1
   isResetting: 0
+--- !u!114 &179859436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 179859431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc8baf1b2c9087b448594c9f5eb86fd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilities:
+  - {fileID: 3357642690421476694}
 --- !u!1 &1060685140
 GameObject:
   m_ObjectHideFlags: 0
@@ -934,38 +949,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4652546794469162480, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3357642690421476691}
-    - targetCorrespondingSourceObject: {fileID: 4652546794469162480, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3357642690421476692}
+      addedObject: {fileID: 3357642690421476694}
   m_SourcePrefab: {fileID: 100100000, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
 --- !u!1 &3357642690421476690 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4652546794469162480, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
   m_PrefabInstance: {fileID: 3357642690421476689}
   m_PrefabAsset: {fileID: 0}
---- !u!135 &3357642690421476691
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3357642690421476690}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 5
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3357642690421476692
+--- !u!114 &3357642690421476694
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -974,14 +965,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 3357642690421476690}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc8baf1b2c9087b448594c9f5eb86fd3, type: 3}
+  m_Script: {fileID: 11500000, guid: 0a33a5078026a6d4c89fe72bebdfbb12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pullStrength: 3
-  pullableLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  stopDistance: 2
+  abilityName: Pull
+  cooldownTime: 0
+  abilityDuration: 0
+  activationKey: 49
+  cam: {fileID: 2064611703}
+  pullObj: {fileID: 7171127498307690886, guid: b1b857fdc68f9d643b762fdfa94f6e6e, type: 3}
 --- !u!1001 &7856023346286197148
 PrefabInstance:
   m_ObjectHideFlags: 0
