@@ -4,23 +4,22 @@ public class MindBreakersEnemy : EnemyAIController
 {
     Collider playerCol;
     MindbreakersHealth enemyHealth;
-    public PullAbilityObj pullAbilityObj;
+    public AbilityController abilityController;
     protected override void Start()
     {
-        pullAbilityObj = null;
         player = GameObject.FindGameObjectWithTag("PlayerObj").transform;
+        abilityController = GameObject.FindGameObjectWithTag("PlayerObj").GetComponentInChildren<AbilityController>();
         playerCol = player.gameObject.GetComponent<Collider>();
         enemyHealth = GetComponent<MindbreakersHealth>();
-        pullAbilityObj = GameObject.Find("AbilityHolder").GetComponent<PullAbilityObj>();
         base.Start();
     }
 
     protected override void Update()
     {
-        if (pullAbilityObj.pullOff)
-            return;
-
-        base.Update();
+        if (!abilityController.pullOff)
+        {
+            base.Update();
+        }
     }
 
     protected override void Chasing()
