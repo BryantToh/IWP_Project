@@ -9,9 +9,4 @@ public class PullAbilityObj : BaseAbility
     {
         Instantiate(pullObj, cam.transform.forward * 6f, Quaternion.identity);
     }
-
-    private void Update()
-    {
-        //Debug.Log(pullOff);
-    }
 }
