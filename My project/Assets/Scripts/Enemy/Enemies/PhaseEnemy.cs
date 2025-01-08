@@ -7,8 +7,10 @@ public class PhaseEnemy : EnemyAIController
     Collider playerCol;
     PhaseTransparent phasing;
     NavMeshAgent navMesh;
+    public PullAbilityObj pullAbilityObj;
     protected override void Start()
     {
+        pullAbilityObj = GameObject.FindGameObjectWithTag("Abilityholder").GetComponent<PullAbilityObj>();
         player = GameObject.FindGameObjectWithTag("PlayerObj").transform;
         phasing = GetComponent<PhaseTransparent>();
         playerCol = player.gameObject.GetComponent<Collider>();
@@ -20,18 +22,21 @@ public class PhaseEnemy : EnemyAIController
 
     protected override void Update()
     {
-        if (Vector3.Distance(transform.position, player.position) <= attackRange)
-            playerInAttackRange = true;
-        else
-            playerInAttackRange = false;
+        if (!pullAbilityObj.pullOff)
+        {
+            if (Vector3.Distance(transform.position, player.position) <= attackRange)
+                playerInAttackRange = true;
+            else
+                playerInAttackRange = false;
 
-        if (playerInAttackRange)
-        {
-            Attacking();
-        }
-        else
-        {
-            Phasing();
+            if (playerInAttackRange)
+            {
+                Attacking();
+            }
+            else
+            {
+                Phasing();
+            }
         }
     }
 

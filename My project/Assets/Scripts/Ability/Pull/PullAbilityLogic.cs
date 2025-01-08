@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
-public class Pullability : MonoBehaviour
+public class PullAbilityLogic : MonoBehaviour
 {
     public LayerMask pullableLayer;
     public float stopDistance;

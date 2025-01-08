@@ -154,6 +154,7 @@ GameObject:
   - component: {fileID: 1060566893886663679}
   - component: {fileID: 2857061088050198065}
   - component: {fileID: 2831426268640202933}
+  - component: {fileID: -7743296042883512063}
   m_Layer: 7
   m_Name: MindObj
   m_TagString: Untagged
@@ -247,6 +248,7 @@ MonoBehaviour:
   alreadyAttacked: 0
   playerInAttackRange: 0
   attackRange: 5
+  pullAbilityObj: {fileID: 0}
 --- !u!114 &2831426268640202933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,3 +265,16 @@ MonoBehaviour:
   spawner: {fileID: 0}
   mindProjectile: {fileID: 3262385259042822002, guid: a641338684e5a784686962ac8ca83faf, type: 3}
   spawnPoint: {fileID: 5178196773504109111}
+--- !u!114 &-7743296042883512063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6410415046215191302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 823fe816d23b8534da91637912225fb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pushForce: 15

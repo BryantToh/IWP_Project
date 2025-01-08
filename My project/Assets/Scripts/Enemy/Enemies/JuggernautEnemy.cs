@@ -4,8 +4,10 @@ public class JuggernautEnemy : EnemyAIController
 {
     Collider playerCol;
     JuggernautHealth enemyHealth;
+    public PullAbilityObj pullAbilityObj;
     protected override void Start()
     {
+        pullAbilityObj = GameObject.FindGameObjectWithTag("Abilityholder").GetComponent<PullAbilityObj>();
         player = GameObject.FindGameObjectWithTag("PlayerObj").transform;
         playerCol = player.gameObject.GetComponent<Collider>();
         enemyHealth = GetComponent<JuggernautHealth>();
@@ -14,7 +16,8 @@ public class JuggernautEnemy : EnemyAIController
 
     protected override void Update()
     {
-        base.Update();
+        if (!pullAbilityObj.pullOff)
+            base.Update();
     }
 
     protected override void Chasing()

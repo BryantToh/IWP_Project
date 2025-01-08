@@ -5,8 +5,10 @@ public class SentinelEnemy : EnemyAIController
 {
     SentinelHealth enemyHealth;
     Collider playerCol;
+    public PullAbilityObj pullAbilityObj;
     protected override void Start()
     {
+        pullAbilityObj = GameObject.FindGameObjectWithTag("Abilityholder").GetComponent<PullAbilityObj>();
         player = GameObject.FindGameObjectWithTag("PlayerObj").transform;
         playerCol = player.gameObject.GetComponent<Collider>();
         enemyHealth = GetComponent<SentinelHealth>();
@@ -15,7 +17,8 @@ public class SentinelEnemy : EnemyAIController
 
     protected override void Update()
     {
-        base.Update();
+        if (!pullAbilityObj.pullOff)
+            base.Update();
     }
 
     protected override void Chasing()
