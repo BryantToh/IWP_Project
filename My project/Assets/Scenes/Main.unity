@@ -936,6 +936,10 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 2064611708}
+    - target: {fileID: 4652546794469162480, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
+      propertyPath: m_TagString
+      value: Abilityholder
+      objectReference: {fileID: 0}
     - target: {fileID: 5770097853139177835, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
       propertyPath: m_LocalPosition.y
       value: 1.34
@@ -974,13 +978,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityName: Pull
-  cooldownTime: 0
-  abilityDuration: 0
+  cooldownTime: 3
   activationKey: 49
   playerObj: {fileID: 1276407521}
   cam: {fileID: 2064611703}
   pullObj: {fileID: 2779882226442337675, guid: b58ad71cce1420e4c9d3de143648d68f, type: 3}
   pullOff: 0
+  isOnCooldown: 0
+  cooldownTimer: 0
 --- !u!1001 &7856023346286197148
 PrefabInstance:
   m_ObjectHideFlags: 0

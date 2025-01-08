@@ -9,6 +9,8 @@ TagManager:
   - PlayerObj
   - Spawner
   - MindProjectile
+  - Abilityholder
+  - PullObj
   layers:
   - Default
   - TransparentFX

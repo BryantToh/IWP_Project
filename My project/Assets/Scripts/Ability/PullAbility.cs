@@ -5,33 +5,57 @@ public class Pullability : MonoBehaviour
     public LayerMask pullableLayer;
     public float stopDistance;
     public float pullStrength;
-    private void OnTriggerEnter(Collider other)
+    public float abilityDuration;
+    bool canDelete = false;
+    NavMeshAgent agent = null;
+    PullAbilityObj pullAbilityObj;
+    private void Start()
     {
-        if (other.CompareTag("Enemy"))
-        {
-            Debug.Log("asdasd");
-        }
-        //if (other.gameObject.layer == pullableLayer)
-        //{
-        //    NavMeshAgent agent = other.GetComponent<NavMeshAgent>();
-        //    if (agent != null)
-        //    {
-        //        Vector3 direction = transform.position - other.transform.position;
+        pullAbilityObj = GameObject.FindGameObjectWithTag("Abilityholder").GetComponent<PullAbilityObj>();
+    }
+    private void Update()
+    {
+        abilityDuration += Time.deltaTime;
 
-        //        if (direction.magnitude > stopDistance)
-        //        {
-        //            Vector3 newPosition = Vector3.MoveTowards(
-        //                other.transform.position,
-        //                transform.position,
-        //                pullStrength * Time.deltaTime
-        //            );
-        //            agent.Warp(newPosition);
-        //        }
-        //        else
-        //        {
-        //            agent.isStopped = true;
-        //        }
-        //    }
-        //}
+        if (abilityDuration >= 5f)
+        {
+            Reset();
+        }
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (((1 << other.gameObject.layer) & pullableLayer) != 0 && !canDelete)
+        {
+            pullAbilityObj.pullOff = true;
+            agent = other.GetComponent<NavMeshAgent>();
+            if (agent != null)
+            {
+                Vector3 direction = transform.position - other.transform.position;
+
+                if (direction.magnitude > stopDistance)
+                {
+                    Vector3 newPosition = Vector3.MoveTowards(
+                        other.transform.position,
+                        transform.position,
+                        pullStrength * Time.deltaTime
+                    );
+                    agent.Warp(newPosition);
+                }
+                else
+                {
+                    agent.isStopped = true;
+                }
+            }
+        }
+    }
+
+    private void Reset()
+    {
+        canDelete = true;
+        pullAbilityObj.pullOff = false;
+        agent.isStopped = false;
+        pullAbilityObj.isOnCooldown = true;
+        pullAbilityObj.cooldownTimer = pullAbilityObj.cooldownTime;
+        Destroy(gameObject);
     }
 }
