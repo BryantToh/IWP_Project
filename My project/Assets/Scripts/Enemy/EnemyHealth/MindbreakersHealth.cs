@@ -59,7 +59,10 @@ public class MindbreakersHealth : Health, IPooledEnemy
             damageSources.Remove(other);
         }
     }
-
+    private void Update()
+    {
+        Debug.Log(currentHealth);
+    }
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);

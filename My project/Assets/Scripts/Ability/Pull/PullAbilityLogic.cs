@@ -5,7 +5,6 @@ public class PullAbilityLogic : MonoBehaviour
     public LayerMask pullableLayer;
     public float stopDistance;
     public float pullStrength;
-    public float abilityDuration;
     bool canDelete = false;
     NavMeshAgent agent = null;
     PullAbilityObj pullAbilityObj;
@@ -15,9 +14,9 @@ public class PullAbilityLogic : MonoBehaviour
     }
     private void Update()
     {
-        abilityDuration += Time.deltaTime;
+        pullAbilityObj.abilityDuration += Time.deltaTime;
 
-        if (abilityDuration >= 5f)
+        if (pullAbilityObj.abilityDuration >= 5f)
         {
             Reset();
         }
