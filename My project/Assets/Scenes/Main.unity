@@ -224,149 +224,17 @@ MonoBehaviour:
   abilities:
   - {fileID: 3357642690421476694}
   - {fileID: 464288672}
---- !u!1 &255444134 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4714099099495090019, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
-  m_PrefabInstance: {fileID: 3357642690421476689}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &464288672 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2735317918603102501, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
   m_PrefabInstance: {fileID: 3357642690421476689}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 255444134}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4b1281a3c68bf1347b92efd2602348a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &464288674
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 255444134}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e16974580d437149b38e0a11de54115, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyMask:
-    serializedVersion: 2
-    m_Bits: 128
-  areaOfEffect: 15
-  waveDamage: 20
---- !u!4 &588188413 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3495872234130255554, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
-  m_PrefabInstance: {fileID: 3357642690421476689}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &588188414 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7098953905482609337, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
-  m_PrefabInstance: {fileID: 3357642690421476689}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33e0912f44b175d468ab07834bc1f217, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &787424214
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 787424215}
-  - component: {fileID: 787424217}
-  - component: {fileID: 787424218}
-  - component: {fileID: 787424216}
-  m_Layer: 0
-  m_Name: Circuit
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &787424215
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 787424214}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.34, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 588188413}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &787424216
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 787424214}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 6.5
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &787424217
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 787424214}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1133b34e8d1bfe842a1142e77e39a67e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  dmgPerTick: 1.5
-  timeBfrHeal: 5
-  health: {fileID: 588188414}
-  healRadius: 6.5
-  activated: 0
---- !u!114 &787424218
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 787424214}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d4108e660326064f92b4f8ad16512a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityName: Circuit Overcharge
-  cooldownTimer: 0
-  cooldownTime: 0
-  abilityDuration: 0
-  isOnCooldown: 0
-  activationKey: 51
-  ultiLogic: {fileID: 787424217}
 --- !u!1 &1060685140
 GameObject:
   m_ObjectHideFlags: 0
@@ -1031,22 +899,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 2091489860241189188, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2735317918603102501, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
-      propertyPath: cooldownTime
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2735317918603102501, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
-      propertyPath: effectRadius
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2878644632902734008, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.34
-      objectReference: {fileID: 0}
     - target: {fileID: 3495872234130255554, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1095,14 +947,6 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 2064611703}
-    - target: {fileID: 4652546794469162480, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
-      propertyPath: m_Name
-      value: Magnetic
-      objectReference: {fileID: 0}
-    - target: {fileID: 4714099099495090019, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
-      propertyPath: m_Name
-      value: Kinetic
-      objectReference: {fileID: 0}
     - target: {fileID: 7098953905482609337, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
       propertyPath: glitchController
       value: 
@@ -1113,14 +957,8 @@ PrefabInstance:
       objectReference: {fileID: 2064611704}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 3495872234130255554, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 787424215}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4714099099495090019, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 464288674}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
 --- !u!114 &3357642690421476694 stripped
 MonoBehaviour:

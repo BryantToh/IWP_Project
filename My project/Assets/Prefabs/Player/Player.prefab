@@ -38,6 +38,7 @@ Transform:
   - {fileID: 2445101762258806181}
   - {fileID: 5770097853139177835}
   - {fileID: 2878644632902734008}
+  - {fileID: 990637357711391061}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &5324228072658763400
@@ -188,7 +189,7 @@ GameObject:
   - component: {fileID: 5770097853139177835}
   - component: {fileID: 3774254763159952102}
   m_Layer: 0
-  m_Name: AbilityHolder
+  m_Name: Magnetic
   m_TagString: Abilityholder
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -224,6 +225,7 @@ MonoBehaviour:
   abilityName: Magnetic Surge
   cooldownTimer: 0
   cooldownTime: 3
+  abilityDuration: 0
   isOnCooldown: 0
   activationKey: 49
   playerObj: {fileID: 2091489860241189188}
@@ -240,8 +242,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2878644632902734008}
   - component: {fileID: 2735317918603102501}
+  - component: {fileID: 3642105258688516263}
   m_Layer: 0
-  m_Name: Giganigga
+  m_Name: Kinetic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -256,7 +259,7 @@ Transform:
   m_GameObject: {fileID: 4714099099495090019}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.34, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -276,13 +279,125 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Kinetic Repulsion
   cooldownTimer: 0
-  cooldownTime: 0
+  cooldownTime: 5
+  abilityDuration: 0
   isOnCooldown: 0
   activationKey: 50
-  effectRadius: 3
   affectedLayer:
     serializedVersion: 2
     m_Bits: 128
+  canAOE: 0
+--- !u!114 &3642105258688516263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4714099099495090019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e16974580d437149b38e0a11de54115, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 128
+  areaOfEffect: 15
+  waveDamage: 20
+--- !u!1 &8236630753585601681
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 990637357711391061}
+  - component: {fileID: 2229661135304375334}
+  - component: {fileID: 3827368336759785502}
+  - component: {fileID: 5550551813844348541}
+  m_Layer: 0
+  m_Name: Circuit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &990637357711391061
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8236630753585601681}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.34, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3495872234130255554}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2229661135304375334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8236630753585601681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1133b34e8d1bfe842a1142e77e39a67e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  dmgPerTick: 1.5
+  timeBfrHeal: 5
+  health: {fileID: 7098953905482609337}
+  healRadius: 6.5
+  activated: 0
+--- !u!114 &3827368336759785502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8236630753585601681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d4108e660326064f92b4f8ad16512a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: Circuit Overcharge
+  cooldownTimer: 0
+  cooldownTime: 0
+  abilityDuration: 0
+  isOnCooldown: 0
+  activationKey: 51
+  ultiLogic: {fileID: 2229661135304375334}
+--- !u!135 &5550551813844348541
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8236630753585601681}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 6.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1520549427847999527
 PrefabInstance:
   m_ObjectHideFlags: 0
