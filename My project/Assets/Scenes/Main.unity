@@ -257,6 +257,116 @@ MonoBehaviour:
     m_Bits: 128
   areaOfEffect: 15
   waveDamage: 20
+--- !u!4 &588188413 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3495872234130255554, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
+  m_PrefabInstance: {fileID: 3357642690421476689}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &588188414 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7098953905482609337, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
+  m_PrefabInstance: {fileID: 3357642690421476689}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33e0912f44b175d468ab07834bc1f217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &787424214
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 787424215}
+  - component: {fileID: 787424217}
+  - component: {fileID: 787424218}
+  - component: {fileID: 787424216}
+  m_Layer: 0
+  m_Name: Circuit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &787424215
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 787424214}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.34, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 588188413}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &787424216
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 787424214}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 6.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &787424217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 787424214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1133b34e8d1bfe842a1142e77e39a67e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  dmgPerTick: 1.5
+  timeBfrHeal: 5
+  health: {fileID: 588188414}
+  healRadius: 6.5
+  activated: 0
+--- !u!114 &787424218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 787424214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d4108e660326064f92b4f8ad16512a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: Circuit Overcharge
+  cooldownTimer: 0
+  cooldownTime: 0
+  abilityDuration: 0
+  isOnCooldown: 0
+  activationKey: 51
+  ultiLogic: {fileID: 787424217}
 --- !u!1 &1060685140
 GameObject:
   m_ObjectHideFlags: 0
@@ -289,13 +399,13 @@ MonoBehaviour:
   pools:
   - tag: sentinel
     prefab: {fileID: 2471943973610747615, guid: 69bee1a14ec9f3146931d63b6b5a2c57, type: 3}
-    size: 0
+    size: 1
   - tag: juggernaut
     prefab: {fileID: 4586161582616152287, guid: 65cdb9e9d5421e941949268a65f6f25e, type: 3}
-    size: 0
+    size: 1
   - tag: phase
     prefab: {fileID: 1890580175814041271, guid: ba4bc0d94b0464e4294aa5d18c30193e, type: 3}
-    size: 0
+    size: 1
   - tag: breaker
     prefab: {fileID: 6410415046215191302, guid: 5d52b77826c698f4ebe69e813f85a17f, type: 3}
     size: 1
@@ -1003,7 +1113,10 @@ PrefabInstance:
       objectReference: {fileID: 2064611704}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 3495872234130255554, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 787424215}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4714099099495090019, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
       insertIndex: -1

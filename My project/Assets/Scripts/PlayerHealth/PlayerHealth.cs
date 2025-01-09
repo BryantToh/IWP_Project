@@ -20,7 +20,7 @@ public class PlayerHealth : MonoBehaviour
     public GlitchController glitchController;
     PlayerMovement player;
     private HashSet<Collider> damageSources = new HashSet<Collider>();
-
+    Coroutine healingCoroutine;
     private void Start()
     {
         damage = Unit.Damage;
@@ -111,6 +111,31 @@ public class PlayerHealth : MonoBehaviour
         if (currentHealth <= 0)
         {
             gameObject.SetActive(false);
+        }
+    }
+    public void Healing(float totalHealing)
+    {
+        float healingDuration = 3f; // Duration over which the healing will occur
+        float healAmountPerSecond = totalHealing / healingDuration;
+
+        if (healingCoroutine != null)
+        {
+            StopCoroutine(healingCoroutine);
+        }
+
+        healingCoroutine = StartCoroutine(HealOverTime(healAmountPerSecond, healingDuration));
+    }
+
+    private IEnumerator HealOverTime(float healAmountPerSecond, float duration)
+    {
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            currentHealth += healAmountPerSecond * Time.deltaTime;
+            currentHealth = Mathf.Min(currentHealth, Unit.Health); // Cap health to the maximum
+            elapsedTime += Time.deltaTime;
+            yield return null;
         }
     }
 }
