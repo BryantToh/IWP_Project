@@ -6,26 +6,26 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     public OnField Unit;
-    float currentHealth;
-    float damage;
-    float juggernautDamage;
+    public GlitchController glitchController;
     SentinelHealth sentinel;
     JuggernautHealth juggernaut;
     MindbreakersHealth mindbreakers;
+    PlayerMovement player;
+    Coroutine healingCoroutine;
+    private HashSet<Collider> damageSources = new HashSet<Collider>();
+    float currentHealth;
+    float damage;
+    float juggernautDamage;
     private float jHitCount = 0.0f;
     private float resetDamageTimer = 0.0f;
     int hitCount = 0;
     private float checkTimer = 3f;
     private float timer = 0;
-    public GlitchController glitchController;
-    PlayerMovement player;
-    private HashSet<Collider> damageSources = new HashSet<Collider>();
-    Coroutine healingCoroutine;
     private void Start()
     {
         damage = Unit.Damage;
         juggernautDamage = damage;
-        currentHealth = Unit.Health;
+        currentHealth = 50f;
         player = GameObject.FindGameObjectWithTag("PlayerObj").GetComponent<PlayerMovement>();
     }
 
@@ -115,25 +115,22 @@ public class PlayerHealth : MonoBehaviour
     }
     public void Healing(float totalHealing)
     {
-        float healingDuration = 3f; // Duration over which the healing will occur
+        float healingDuration = 3f;
         float healAmountPerSecond = totalHealing / healingDuration;
-
         if (healingCoroutine != null)
         {
             StopCoroutine(healingCoroutine);
         }
-
         healingCoroutine = StartCoroutine(HealOverTime(healAmountPerSecond, healingDuration));
     }
 
     private IEnumerator HealOverTime(float healAmountPerSecond, float duration)
     {
         float elapsedTime = 0f;
-
         while (elapsedTime < duration)
         {
             currentHealth += healAmountPerSecond * Time.deltaTime;
-            currentHealth = Mathf.Min(currentHealth, Unit.Health); // Cap health to the maximum
+            currentHealth = Mathf.Clamp(currentHealth, currentHealth, Unit.Health);
             elapsedTime += Time.deltaTime;
             yield return null;
         }

@@ -55,7 +55,6 @@ public class PhaseTransparent : MonoBehaviour
 
         Color finalColor = new Color(startColor.r, startColor.g, startColor.b, targetAlpha);
         material.SetColor("_BaseColor", finalColor);
-        Debug.Log(targetAlpha);
         if (targetAlpha <= 0f)
             faded = true;
         else
