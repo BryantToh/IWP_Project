@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
@@ -55,6 +54,8 @@ public class PlayerHealth : MonoBehaviour
         {
             glitchController.ResetGlitch();
         }
+
+        Debug.LogWarning(currentHealth);
     }
 
     private void OnTriggerEnter(Collider other)

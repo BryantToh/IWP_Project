@@ -79,6 +79,7 @@ public class UltiLogic : BaseAbility
     {
         numberOfEnemies = GetNumberOfEnemiesInRange();
         float healingAmount = (numberOfEnemies * enemyMultiplier) + (totalDamageDealt * damageMultiplier);
+        Debug.Log(healingAmount);
         return healingAmount;
     }
     private void StartCooldown()
@@ -104,10 +105,15 @@ public class UltiLogic : BaseAbility
     private IEnumerator DmgNHeal(Health enemyHealth, Collider enemyCollider)
     {
         float elapsedTime = 0f;
+
         while (elapsedTime < timeBfrHeal)
         {
-            enemyHealth.TakeDamage(dmgPerTick);
-            totalDamageDealt += dmgPerTick;
+            float damageToDeal = enemyHealth.currentHealth * 0.2f + 2f;
+            damageToDeal = Mathf.Max(damageToDeal, 1f);
+
+            enemyHealth.TakeDamage(damageToDeal);
+            totalDamageDealt += damageToDeal;
+
             yield return new WaitForSeconds(1f);
             elapsedTime += 1f;
         }
@@ -116,6 +122,7 @@ public class UltiLogic : BaseAbility
         activeEnemies.Remove(enemyCollider);
         totalDamageDealt = 0f;
         numberOfEnemies = 0f;
+
         if (activeEnemies.Count == 0)
         {
             noEnemiesDetected = true;
