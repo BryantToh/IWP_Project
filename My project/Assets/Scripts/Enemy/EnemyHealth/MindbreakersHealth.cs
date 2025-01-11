@@ -10,12 +10,13 @@ public class MindbreakersHealth : Health, IPooledEnemy
     [Header("Projectile")]
     public GameObject mindProjectile, spawnPoint;
     float projectileSpeed = 5f;
-    
+    DeathLogic deathLogic;
     public void OnEnemySpawn()
     {
         glitchCon = GameObject.Find("GameController").GetComponent<GlitchController>(); 
         player = GameObject.FindGameObjectWithTag("PlayerObj").GetComponentInChildren<PlayerHealth>();
         mindBreaker = GetComponent<MindBreakersEnemy>();
+        deathLogic = GameObject.FindGameObjectWithTag("deathdefi").GetComponent<DeathLogic>();
     }
 
     public void OnGet()
@@ -64,6 +65,7 @@ public class MindbreakersHealth : Health, IPooledEnemy
         base.TakeDamage(damage);
         if (canDie)
         {
+            deathLogic.KilledWhenDeathDefiance();
             spawner.mindOnField--;
             ObjectPooler.Instance.Release("breaker", this);
         }

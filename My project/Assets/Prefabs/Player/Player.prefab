@@ -1,5 +1,56 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1171065973720442482
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5232378110129187368}
+  - component: {fileID: 3145282113623146138}
+  m_Layer: 0
+  m_Name: Death
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5232378110129187368
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1171065973720442482}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3495872234130255554}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3145282113623146138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1171065973720442482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1023d3c37732f3641aa935e6b6228032, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityName: Death Defiance
+  cooldownTimer: 0
+  cooldownTime: 60
+  abilityDuration: 5
+  isOnCooldown: 0
+  activationKey: 113
+  playerHealth: {fileID: 7098953905482609337}
 --- !u!1 &2091489860241189188
 GameObject:
   m_ObjectHideFlags: 0
@@ -39,6 +90,7 @@ Transform:
   - {fileID: 5770097853139177835}
   - {fileID: 2878644632902734008}
   - {fileID: 990637357711391061}
+  - {fileID: 5232378110129187368}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &5324228072658763400
@@ -314,7 +366,6 @@ GameObject:
   m_Component:
   - component: {fileID: 990637357711391061}
   - component: {fileID: 2229661135304375334}
-  - component: {fileID: 3827368336759785502}
   - component: {fileID: 5550551813844348541}
   m_Layer: 0
   m_Name: Circuit
@@ -350,33 +401,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1133b34e8d1bfe842a1142e77e39a67e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  dmgPerTick: 1.5
-  timeBfrHeal: 5
-  health: {fileID: 7098953905482609337}
-  healRadius: 6.5
-  activated: 0
---- !u!114 &3827368336759785502
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8236630753585601681}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d4108e660326064f92b4f8ad16512a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   abilityName: Circuit Overcharge
   cooldownTimer: 0
-  cooldownTime: 0
+  cooldownTime: 45
   abilityDuration: 0
   isOnCooldown: 0
   activationKey: 51
-  ultiLogic: {fileID: 2229661135304375334}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  health: {fileID: 7098953905482609337}
+  dmgPerTick: 1.5
+  timeBfrHeal: 5
+  healRadius: 6.5
 --- !u!135 &5550551813844348541
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -8,11 +8,15 @@ public class PlayerHealth : MonoBehaviour
     public GlitchController glitchController;
     SentinelHealth sentinel;
     JuggernautHealth juggernaut;
+    PhaseHealth phase;
     MindbreakersHealth mindbreakers;
     PlayerMovement player;
     Coroutine healingCoroutine;
     private HashSet<Collider> damageSources = new HashSet<Collider>();
-    float currentHealth;
+    [SerializeField]
+    DeathLogic deathLogic;
+    [HideInInspector]
+    public float currentHealth;
     float damage;
     float juggernautDamage;
     private float jHitCount = 0.0f;
@@ -20,11 +24,12 @@ public class PlayerHealth : MonoBehaviour
     int hitCount = 0;
     private float checkTimer = 3f;
     private float timer = 0;
+
     private void Start()
     {
         damage = Unit.Damage;
         juggernautDamage = damage;
-        currentHealth = 50f;
+        currentHealth = Unit.Health;
         player = GameObject.FindGameObjectWithTag("PlayerObj").GetComponent<PlayerMovement>();
     }
 
@@ -50,12 +55,15 @@ public class PlayerHealth : MonoBehaviour
             }
         }
 
+        if (currentHealth <= 0f)
+        {
+            gameObject.SetActive(false);
+        }
+
         if (glitchController.isResetting)
         {
             glitchController.ResetGlitch();
         }
-
-        Debug.LogWarning(currentHealth);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -66,6 +74,8 @@ public class PlayerHealth : MonoBehaviour
 
             sentinel = other.GetComponent<SentinelHealth>();
             juggernaut = other.GetComponent<JuggernautHealth>();
+            phase = other.GetComponent<PhaseHealth>();
+            mindbreakers = other.GetComponent<MindbreakersHealth>();
 
             if (sentinel != null)
             {
@@ -85,6 +95,14 @@ public class PlayerHealth : MonoBehaviour
                     jHitCount++;
                 }
                 resetDamageTimer = 0.0f;
+            }
+            else if (phase != null)
+            {
+                phase.TakeDamage(damage);
+            }
+            else if (mindbreakers != null)
+            {
+                mindbreakers.TakeDamage(damage);
             }
         }
     }
@@ -109,7 +127,7 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && !deathLogic.activated)
         {
             gameObject.SetActive(false);
         }

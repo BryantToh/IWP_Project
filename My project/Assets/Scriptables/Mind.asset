@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Mind
   m_EditorClassIdentifier: 
   Health: 200
-  Damage: 1
+  Damage: 100
   maxDashCount: 0
