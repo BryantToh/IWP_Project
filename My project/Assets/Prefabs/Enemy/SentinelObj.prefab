@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4700773464362531654}
   m_Layer: 7
   m_Name: SentinelObj
-  m_TagString: Untagged
+  m_TagString: EnemyObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -81,6 +81,7 @@ MonoBehaviour:
   alreadyAttacked: 0
   playerInAttackRange: 0
   attackRange: 2.5
+  pullAbilityObj: {fileID: 0}
 --- !u!114 &2654405568796090962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,6 +95,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Unit: {fileID: 11400000, guid: e21115792ff7a0e4fac39dacf1251be8, type: 2}
+  currentHealth: 0
   spawner: {fileID: 688018859374531481, guid: 701ff5d9103c418498770cfb68ab8aca, type: 3}
   rotationSpd: 100
 --- !u!195 &4700773464362531654

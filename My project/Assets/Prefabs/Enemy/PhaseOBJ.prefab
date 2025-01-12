@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6755728607464223460}
   m_Layer: 7
   m_Name: PhaseOBJ
-  m_TagString: Untagged
+  m_TagString: EnemyObj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -104,6 +104,7 @@ MonoBehaviour:
   alreadyAttacked: 0
   playerInAttackRange: 0
   attackRange: 1.5
+  pullAbilityObj: {fileID: 0}
 --- !u!114 &776565028818792353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,6 +118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Unit: {fileID: 11400000, guid: 763ed384cd02ba440a5d0a37457cdcd8, type: 2}
+  currentHealth: 0
   spawner: {fileID: 0}
 --- !u!114 &6755728607464223460
 MonoBehaviour:

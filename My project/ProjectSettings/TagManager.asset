@@ -12,6 +12,7 @@ TagManager:
   - Abilityholder
   - PullObj
   - deathdefi
+  - EnemyObj
   layers:
   - Default
   - TransparentFX

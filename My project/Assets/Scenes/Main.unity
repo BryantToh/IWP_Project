@@ -872,12 +872,13 @@ MonoBehaviour:
   sensY: 400
   player: {fileID: 3357642690421476690}
   mainCamera: {fileID: 2064611703}
-  enemyTag: Enemy
+  enemyTag: EnemyObj
   lockTargetKey: 9
-  targetLockOffset: {x: -0.1, y: 0}
+  targetLockOffset: {x: 0.1, y: 0}
   minDistance: 1
   maxDistance: 20
   currentTarget: {fileID: 0}
+  currentTargetHealth: {fileID: 0}
   rotSpeed: 0
 --- !u!114 &2064611709
 MonoBehaviour:
