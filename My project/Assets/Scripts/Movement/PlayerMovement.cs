@@ -46,7 +46,6 @@ public class PlayerMovement : MonoBehaviour
     {
         Inputs();
         CheckIdle();
-        RotateToTarget();
     }
 
     private void LateUpdate()
@@ -115,11 +114,6 @@ public class PlayerMovement : MonoBehaviour
         {
             isMoving = false;
         }
-    }
-    private void RotateToTarget()
-    {
-        if (cam.currentTarget != null)
-            cam.player = transform;
     }
 
     private void ResetMovementBools()

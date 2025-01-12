@@ -5,8 +5,8 @@ using UnityEngine;
 public class PlayerCam : MonoBehaviour
 {
     [Header("Camera Sensitivity")]
-    public float sensX = 100f;
-    public float sensY = 100f;
+    public float sensX;
+    public float sensY;
 
     [Header("Player & Camera Settings")]
     public Transform player;
@@ -16,17 +16,15 @@ public class PlayerCam : MonoBehaviour
     [SerializeField] private string enemyTag = "Enemy";
     [SerializeField] private KeyCode lockTargetKey = KeyCode.Tab;
     [SerializeField] private Vector2 targetLockOffset = Vector2.zero;
-    [SerializeField] private float minDistance = 1f;
-    [SerializeField] private float maxDistance = 20f;
+    [SerializeField] private float maxDistance;
 
+    public bool isTargeting;
     private float xRotation;
     private float yRotation;
-    private bool isTargeting;
     [HideInInspector]
-    public Transform currentTarget;
     public Health currentTargetHealth;
-    private float maxAngle = 360f;
-    private float rotSpeed = 5f;
+    public Transform currentTarget;
+    private float rotSpeed = 8f;
 
     void Start()
     {
@@ -52,7 +50,6 @@ public class PlayerCam : MonoBehaviour
 
         if (currentTargetHealth != null && isTargeting)
         {
-            // Check if the current target is dead and switch to the next target
             if (currentTargetHealth.currentHealth <= 0f)
             {
                 SwitchToNextTarget();
@@ -77,19 +74,20 @@ public class PlayerCam : MonoBehaviour
     {
         if (!currentTarget) return;
 
-        Vector3 directionToTarget = currentTarget.position - transform.position;
+        Vector3 viewPos = mainCamera.WorldToViewportPoint(currentTarget.position);
+        viewPos.x += targetLockOffset.x;
+        viewPos.y += targetLockOffset.y;
 
-        // Smoothly adjust player and camera rotation to face the target
+        Vector3 directionToTarget = mainCamera.ViewportToWorldPoint(viewPos) - transform.position;
+        directionToTarget.y = 0f;
+
         Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
-        player.rotation = Quaternion.Slerp(player.rotation, Quaternion.Euler(0f, targetRotation.eulerAngles.y, 0f), rotSpeed * Time.deltaTime);
-
-        // Camera adjustment for Y rotation
-        xRotation = Mathf.Lerp(xRotation, targetRotation.eulerAngles.x, rotSpeed * Time.deltaTime);
-        yRotation = targetRotation.eulerAngles.y;
+        xRotation = Mathf.LerpAngle(xRotation, targetRotation.eulerAngles.x, rotSpeed * Time.deltaTime);
+        yRotation = Mathf.LerpAngle(yRotation, targetRotation.eulerAngles.y, rotSpeed * Time.deltaTime);
 
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0f);
+        player.rotation = Quaternion.Slerp(player.rotation, Quaternion.Euler(0f, targetRotation.eulerAngles.y, 0f), rotSpeed * Time.deltaTime);
     }
-
     private void ToggleTargetLock()
     {
         if (isTargeting)
@@ -110,17 +108,25 @@ public class PlayerCam : MonoBehaviour
     private void SwitchToNextTarget()
     {
         GameObject nextTarget = FindClosestTarget();
-        if (nextTarget != null)
+
+        // Only switch to a new target if it's different and actually closer
+        if (nextTarget != null && nextTarget != currentTarget)
         {
-            SetNewTarget(nextTarget.transform);
+            float distanceToNewTarget = Vector3.Distance(transform.position, nextTarget.transform.position);
+
+            // Add a small dead zone to avoid switching to a target that is too close
+            if (distanceToNewTarget < maxDistance * 0.8f)
+            {
+                SetNewTarget(nextTarget.transform);
+            }
         }
         else
         {
-            // No valid targets left
             isTargeting = false;
             currentTarget = null;
         }
     }
+
 
     private void SetNewTarget(Transform newTarget)
     {
@@ -137,7 +143,7 @@ public class PlayerCam : MonoBehaviour
 
         foreach (GameObject enemy in enemies)
         {
-            if (!enemy.activeInHierarchy) continue; // Ignore inactive enemies
+            if (!enemy.activeInHierarchy) continue;
 
             Vector3 directionToEnemy = enemy.transform.position - transform.position;
             float distanceToEnemy = directionToEnemy.magnitude;
