@@ -42,12 +42,10 @@ public class PlayerCam : MonoBehaviour
         {
             AdjustCameraToTarget();
         }
-
         if (Input.GetKeyDown(lockTargetKey))
         {
             ToggleTargetLock();
         }
-
         if (currentTargetHealth != null && isTargeting)
         {
             if (currentTargetHealth.currentHealth <= 0f)
@@ -108,17 +106,9 @@ public class PlayerCam : MonoBehaviour
     private void SwitchToNextTarget()
     {
         GameObject nextTarget = FindClosestTarget();
-
-        // Only switch to a new target if it's different and actually closer
-        if (nextTarget != null && nextTarget != currentTarget)
+        if (nextTarget != null)
         {
-            float distanceToNewTarget = Vector3.Distance(transform.position, nextTarget.transform.position);
-
-            // Add a small dead zone to avoid switching to a target that is too close
-            if (distanceToNewTarget < maxDistance * 0.8f)
-            {
-                SetNewTarget(nextTarget.transform);
-            }
+            SetNewTarget(nextTarget.transform);
         }
         else
         {
@@ -126,7 +116,6 @@ public class PlayerCam : MonoBehaviour
             currentTarget = null;
         }
     }
-
 
     private void SetNewTarget(Transform newTarget)
     {
