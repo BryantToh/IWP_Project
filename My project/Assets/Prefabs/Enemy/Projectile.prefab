@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1174896042483381409}
   - component: {fileID: 4987712715839149407}
   - component: {fileID: 3065927153138573702}
+  - component: {fileID: -2047822032280576331}
   m_Layer: 0
   m_Name: Projectile
   m_TagString: MindProjectile
@@ -103,7 +104,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -136,3 +137,19 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 116
   m_CollisionDetection: 1
+--- !u!114 &-2047822032280576331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3262385259042822002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 011360e9904a2ce4080c1d4c057ed1e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Unit: {fileID: 11400000, guid: f882328b50889ac46b55e66d1303eb09, type: 2}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128

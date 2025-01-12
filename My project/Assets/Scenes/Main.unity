@@ -280,7 +280,7 @@ MonoBehaviour:
   pools:
   - tag: sentinel
     prefab: {fileID: 2471943973610747615, guid: 69bee1a14ec9f3146931d63b6b5a2c57, type: 3}
-    size: 0
+    size: 2
   - tag: juggernaut
     prefab: {fileID: 4586161582616152287, guid: 65cdb9e9d5421e941949268a65f6f25e, type: 3}
     size: 0

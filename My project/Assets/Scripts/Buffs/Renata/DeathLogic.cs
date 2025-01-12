@@ -60,8 +60,6 @@ public class DeathLogic : BaseAbility
         {
             BuffEffect();
         }
-
-        Debug.Log(playerHealth.currentHealth);
     }
 
     void BuffEffect()

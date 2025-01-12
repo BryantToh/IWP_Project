@@ -9,7 +9,7 @@ public class MindbreakersHealth : Health, IPooledEnemy
     GlitchController glitchCon;
     [Header("Projectile")]
     public GameObject mindProjectile, spawnPoint;
-    float projectileSpeed = 5f;
+    float projectileSpeed = 3.5f;
     DeathLogic deathLogic;
     public void OnEnemySpawn()
     {
@@ -49,7 +49,6 @@ public class MindbreakersHealth : Health, IPooledEnemy
         {
             damageSources.Add(other);
             ShootMindProj();
-            player.TakeDamage(Unit.Damage);
         }
     }
 
