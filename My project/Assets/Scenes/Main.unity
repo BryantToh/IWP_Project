@@ -280,7 +280,7 @@ MonoBehaviour:
   pools:
   - tag: sentinel
     prefab: {fileID: 2471943973610747615, guid: 69bee1a14ec9f3146931d63b6b5a2c57, type: 3}
-    size: 3
+    size: 1
   - tag: juggernaut
     prefab: {fileID: 4586161582616152287, guid: 65cdb9e9d5421e941949268a65f6f25e, type: 3}
     size: 0
@@ -919,10 +919,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1171065973720442482, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
-      propertyPath: m_TagString
-      value: deathdefi
-      objectReference: {fileID: 0}
     - target: {fileID: 2091489860241189188, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
       propertyPath: m_Name
       value: Player
@@ -971,18 +967,14 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 2064611708}
-    - target: {fileID: 3709613230700040967, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
-      propertyPath: followTarget
-      value: 
-      objectReference: {fileID: 1505090650}
     - target: {fileID: 3774254763159952102, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
       propertyPath: cam
       value: 
       objectReference: {fileID: 2064611703}
-    - target: {fileID: 7098953905482609337, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
-      propertyPath: deathLogic
-      value: 
-      objectReference: {fileID: 2042100441}
+    - target: {fileID: 5389818784367007806, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
+      propertyPath: m_TagString
+      value: Surge
+      objectReference: {fileID: 0}
     - target: {fileID: 7098953905482609337, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
       propertyPath: glitchController
       value: 
@@ -991,6 +983,10 @@ PrefabInstance:
       propertyPath: playerCam
       value: 
       objectReference: {fileID: 2064611704}
+    - target: {fileID: 8126529781437411401, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
+      propertyPath: cooldownTime
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

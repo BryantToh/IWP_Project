@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6350081581122395961}
   - component: {fileID: 2654405568796090962}
   - component: {fileID: 4700773464362531654}
+  - component: {fileID: 1062238989816805172}
   m_Layer: 7
   m_Name: SentinelObj
   m_TagString: EnemyObj
@@ -51,11 +52,11 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 4.5, y: 1, z: 4.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6350081581122395961
 MonoBehaviour:
@@ -98,6 +99,7 @@ MonoBehaviour:
   currentHealth: 0
   spawner: {fileID: 688018859374531481, guid: 701ff5d9103c418498770cfb68ab8aca, type: 3}
   rotationSpd: 100
+  spinAnim: {fileID: 1062238989816805172}
 --- !u!195 &4700773464362531654
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -108,7 +110,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 5
+  m_Speed: 4
   m_Acceleration: 5
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -120,6 +122,23 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!111 &1062238989816805172
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2471943973610747615}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Animation: {fileID: 7400000, guid: 32238f21ab7be3844bbbff45273de687, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 32238f21ab7be3844bbbff45273de687, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_UpdateMode: 0
+  m_CullingType: 0
 --- !u!1 &8509376302735947339
 GameObject:
   m_ObjectHideFlags: 0

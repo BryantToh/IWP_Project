@@ -8,8 +8,9 @@ public class SentinelHealth : Health, IPooledEnemy
     private HashSet<Collider> damageSources = new HashSet<Collider>();
     public float rotationSpd;
     float rotationAmount;
+    public Animation spinAnim;
     SentinelEnemy sentinel;
-
+    SurgeLogic surgeLogic;
     protected override void Start()
     {
         base.Start();
@@ -19,8 +20,8 @@ public class SentinelHealth : Health, IPooledEnemy
     {
         player = GameObject.FindGameObjectWithTag("PlayerObj").GetComponentInChildren<PlayerHealth>();
         sentinel = GetComponent<SentinelEnemy>();
+        surgeLogic = GameObject.FindGameObjectWithTag("Surge").GetComponent<SurgeLogic>();
     }
-
     public void AttackPlayer(Collider other)
     {
         if (!sentinel.playerInAttackRange)
@@ -30,10 +31,22 @@ public class SentinelHealth : Health, IPooledEnemy
         {
             damageSources.Add(other);
             StartCoroutine(attackCoroutine());
-            player.TakeDamage(Unit.Damage);
         }
     }
-
+    public void AttackPlayerEvent()
+    {
+        if (Vector3.Distance(player.transform.position, transform.position) <= sentinel.attackRange)
+        {
+            player.TakeDamage(Unit.Damage);
+        }
+        else if (Vector3.Distance(player.transform.position, transform.position) > sentinel.attackRange)
+        {
+            if (!surgeLogic.attackDodged)
+                surgeLogic.attackDodged = true;
+            else
+                Debug.Log("passive already active");
+        }
+    }
     public void AttackReset(Collider other)
     {
         if (damageSources.Contains(other))
@@ -52,7 +65,6 @@ public class SentinelHealth : Health, IPooledEnemy
         {
             elapsedTime += Time.deltaTime;
 
-            // Calculate the interpolation factor (0 to 1).
             float t = elapsedTime / duration;
             t = Mathf.SmoothStep(0f, 1f, t); // Smoothly interpolate the value.
 
@@ -64,17 +76,19 @@ public class SentinelHealth : Health, IPooledEnemy
             transform.rotation *= Quaternion.Euler(0, rotationStep, 0);
 
             // Calculate vertical movement using a sine wave for smooth up-and-down motion.
-            float verticalOffset = Mathf.Sin(t * Mathf.PI) * 0.8f;
+            //float verticalOffset = Mathf.Sin(t * Mathf.PI) * 0.8f;
 
             // Apply the position change.
-            transform.position = new Vector3(startPos.x, startPos.y + verticalOffset, startPos.z);
+            spinAnim.Play();
+            //transform.position = new Vector3(startPos.x, startPos.y + verticalOffset, startPos.z);
             rotationAmount = currentRotationStep;
             yield return null;
         }
 
         // Ensure the final rotation and position are reset correctly.
         transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y + (360f - rotationAmount), transform.eulerAngles.z);
-        transform.position = startPos;
+        //transform.position = startPos;
+
     }
 
     public override void TakeDamage(float damage)
