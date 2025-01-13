@@ -1,25 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class SurgeLogic : MonoBehaviour
 {
     private Dictionary<NavMeshAgent, (float acceleration, float speed, float attackRange)> originalValues =
-    new Dictionary<NavMeshAgent, (float acceleration, float speed, float attackRange)>();
+        new Dictionary<NavMeshAgent, (float acceleration, float speed, float attackRange)>();
 
-    NavMeshAgent[] agent;
+    private NavMeshAgent[] agents;
     public bool attackDodged = false;
-    bool buffActive = false;
-    bool isOnCooldown = false;
-    bool buffAlrActive = false;
-    bool coroutineActive = false;
-    float cooldownTime = 4f;
-    float cooldownTimer;
-    string enemyTag = "EnemyObj";
 
-    void Update()
+    private bool buffActive = false;
+    private bool isOnCooldown = false;
+    private bool coroutineActive = false;
+
+    private const float BuffDurationTime = 1.5f;
+    private const float CooldownTime = 4f;
+    private float cooldownTimer;
+
+    private const string EnemyTag = "EnemyObj";
+
+    private void Update()
+    {
+        HandleCooldown();
+
+        if (attackDodged && !buffActive && !coroutineActive)
+        {
+            ActivateBuff();
+        }
+
+        if (buffActive)
+        {
+            ApplyBuff();
+        }
+    }
+
+    private void HandleCooldown()
     {
         if (isOnCooldown)
         {
@@ -29,85 +46,70 @@ public class SurgeLogic : MonoBehaviour
                 isOnCooldown = false;
             }
         }
-
-        if (isOnCooldown)
-        {
-            Debug.Log("Ability is on cooldown.");
-            return;
-        }
-
-        if (attackDodged)
-        {
-            buffActive = true;
-            StartCoroutine(BuffDuration());
-        }
-
-        if (buffActive)
-        {
-            buffEffect();
-        }
     }
+
+    private void ActivateBuff()
+    {
+        buffActive = true;
+        StartCoroutine(BuffDuration());
+    }
+
     private void GetEnemies()
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
-        agent = new NavMeshAgent[enemies.Length];
-        for (int i = 0; i < enemies.Length; i++)
+        GameObject[] enemyObjects = GameObject.FindGameObjectsWithTag(EnemyTag);
+        agents = new NavMeshAgent[enemyObjects.Length];
+
+        for (int i = 0; i < enemyObjects.Length; i++)
         {
-            agent[i] = enemies[i].GetComponent<NavMeshAgent>();
+            agents[i] = enemyObjects[i].GetComponent<NavMeshAgent>();
         }
     }
-    private void buffEffect()
+
+    private void ApplyBuff()
     {
-        if (buffAlrActive)
-            return;
+        if (originalValues.Count > 0) return;
 
         GetEnemies();
-        foreach (NavMeshAgent EnemyAgent in agent)
+        foreach (NavMeshAgent agent in agents)
         {
-            if (!originalValues.ContainsKey(EnemyAgent))
+            if (!originalValues.ContainsKey(agent))
             {
-                EnemyAIController enemyAIController = EnemyAgent.GetComponent<EnemyAIController>();
-                originalValues[EnemyAgent] = (EnemyAgent.acceleration, EnemyAgent.speed, enemyAIController.attackRange);
+                var enemyAI = agent.GetComponent<EnemyAIController>();
+                originalValues[agent] = (agent.acceleration, agent.speed, enemyAI.attackRange);
 
-                EnemyAgent.acceleration /= 2;
-                EnemyAgent.speed /= 2;
-                enemyAIController.attackRange /= 2;
+                agent.acceleration /= 2;
+                agent.speed /= 2;
+                enemyAI.attackRange /= 2;
             }
         }
-        buffAlrActive = true;
     }
 
-    private void ResetChanges()
+    private void ResetBuff()
     {
         foreach (var entry in originalValues)
         {
-            NavMeshAgent EnemyAgent = entry.Key;
-            (float originalAcceleration, float originalSpeed, float originalAttackRange) = entry.Value;
+            var agent = entry.Key;
+            var (originalAcceleration, originalSpeed, originalAttackRange) = entry.Value;
 
-            EnemyAgent.acceleration = originalAcceleration;
-            EnemyAgent.speed = originalSpeed;
-            EnemyAIController enemyAIController = EnemyAgent.GetComponent<EnemyAIController>();
-            enemyAIController.attackRange = originalAttackRange;
+            agent.acceleration = originalAcceleration;
+            agent.speed = originalSpeed;
+
+            var enemyAI = agent.GetComponent<EnemyAIController>();
+            enemyAI.attackRange = originalAttackRange;
         }
 
         originalValues.Clear();
-        cooldownTimer = cooldownTime;
         buffActive = false;
-        isOnCooldown = true;
-        attackDodged = false;
-        buffAlrActive = false;
         coroutineActive = false;
+        isOnCooldown = true;
+        cooldownTimer = CooldownTime;
+        attackDodged = false;
     }
 
     private IEnumerator BuffDuration()
     {
-        if (coroutineActive)
-            yield break;
-        else
-        {
-            yield return new WaitForSeconds(1.5f);
-            coroutineActive = true;
-            ResetChanges();
-        }
+        coroutineActive = true;
+        yield return new WaitForSeconds(BuffDurationTime);
+        ResetBuff();
     }
 }
