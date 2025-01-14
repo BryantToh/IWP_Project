@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class GlitchController : MonoBehaviour
@@ -8,6 +9,7 @@ public class GlitchController : MonoBehaviour
     public float scanLinesStrength;
     int glitchStack = 0;
     public bool isResetting = false;
+    public bool test = false;
 
     private void Start()
     {
@@ -21,50 +23,79 @@ public class GlitchController : MonoBehaviour
         mat.SetFloat("_NoiseAmount", noiseAmount);
         mat.SetFloat("_GlitchStrength", glitchStrength);
         mat.SetFloat("_ScanLinesStrength", scanLinesStrength);
+
+        ResetGlitch();
+        CheckReset();
     }
 
     public void GlitchEffect()
     {
-        if (glitchStack != 5)
-        {
-            // Apply glitch effect
-            noiseAmount += 10f;
-            glitchStrength += 4f;
-            scanLinesStrength -= 0.18f;
+        noiseAmount = 20f;
+        glitchStrength = 40f;
+        scanLinesStrength = 0.3f;
 
-            // Clamp values to valid ranges
-            noiseAmount = Mathf.Clamp(noiseAmount, 0, 50);
-            glitchStrength = Mathf.Clamp(glitchStrength, 0, 50);
-            scanLinesStrength = Mathf.Clamp(scanLinesStrength, 0, 1);
+        //if (glitchStack != 5)
+        //{
+        //    // Apply glitch effect
+        //    noiseAmount += 10f;
+        //    glitchStrength += 4f;
+        //    scanLinesStrength -= 0.18f;
 
-            glitchStack++;
+        //    // Clamp values to valid ranges
+        //    noiseAmount = Mathf.Clamp(noiseAmount, 0, 50);
+        //    glitchStrength = Mathf.Clamp(glitchStrength, 0, 50);
+        //    scanLinesStrength = Mathf.Clamp(scanLinesStrength, 0, 1);
 
-            // Interrupt the reset process
-            isResetting = false;
-        }
+        //    glitchStack++;
+
+        //    // Interrupt the reset process
+        //    isResetting = false;
+        //}
     }
+
     public void ResetGlitch()
     {
-        if (!isResetting) return; // Only run if resetting is active
+        if (!isResetting) return;
 
-        // Smoothly transition the values
-        noiseAmount = Mathf.Lerp(noiseAmount, 0, Time.deltaTime);
-        glitchStrength = Mathf.Lerp(glitchStrength, 0, Time.deltaTime);
-        scanLinesStrength = Mathf.Lerp(scanLinesStrength, 1, Time.deltaTime);
+        //// Smoothly transition the values
+        //noiseAmount = Mathf.Lerp(noiseAmount, 0, Time.deltaTime);
+        //glitchStrength = Mathf.Lerp(glitchStrength, 0, Time.deltaTime);
+        //scanLinesStrength = Mathf.Lerp(scanLinesStrength, 1, Time.deltaTime);
 
-        // Clamp values to valid ranges
-        noiseAmount = Mathf.Clamp(noiseAmount, 0, float.MaxValue);
-        glitchStrength = Mathf.Clamp(glitchStrength, 0, float.MaxValue);
-        scanLinesStrength = Mathf.Clamp(scanLinesStrength, 0, 1);
+        //// Clamp values to valid ranges
+        //noiseAmount = Mathf.Clamp(noiseAmount, 0, float.MaxValue);
+        //glitchStrength = Mathf.Clamp(glitchStrength, 0, float.MaxValue);
+        //scanLinesStrength = Mathf.Clamp(scanLinesStrength, 0, 1);
 
-        // Check if values are approximately at their targets
-        if (noiseAmount <= 0.1f && glitchStrength <= 0.1f && scanLinesStrength >= 0.95f)
+        //// Check if values are approximately at their targets
+        //if (noiseAmount <= 0.1f && glitchStrength <= 0.1f && scanLinesStrength >= 0.95f)
+        //{
+        //    noiseAmount = 0;
+        //    glitchStrength = 0;
+        //    scanLinesStrength = 1;
+        //    isResetting = false;
+        //    glitchStack = 0;
+        //}
+
+        noiseAmount = 0;
+        glitchStrength = 0;
+        scanLinesStrength = 1;
+        isResetting = false;
+        glitchStack = 0;
+    }
+
+    private void CheckReset()
+    {
+        if (test)
         {
-            noiseAmount = 0;
-            glitchStrength = 0;
-            scanLinesStrength = 1;
-            isResetting = false;
-            glitchStack = 0;
+            StartCoroutine(ResetThingsCoroutine());
         }
+    }
+
+    private IEnumerator ResetThingsCoroutine()
+    {
+        test = false;
+        yield return new WaitForSeconds(0.3f);
+        isResetting = true;
     }
 }
