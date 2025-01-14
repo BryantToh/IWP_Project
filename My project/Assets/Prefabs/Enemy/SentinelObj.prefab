@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 6350081581122395961}
   - component: {fileID: 2654405568796090962}
   - component: {fileID: 4700773464362531654}
-  - component: {fileID: 1062238989816805172}
+  - component: {fileID: 1744030085791799597}
+  - component: {fileID: 8216045994266686793}
   m_Layer: 7
   m_Name: SentinelObj
   m_TagString: EnemyObj
@@ -99,7 +100,7 @@ MonoBehaviour:
   currentHealth: 0
   spawner: {fileID: 688018859374531481, guid: 701ff5d9103c418498770cfb68ab8aca, type: 3}
   rotationSpd: 100
-  spinAnim: {fileID: 1062238989816805172}
+  spinAnim: {fileID: 6899192629826469541}
 --- !u!195 &4700773464362531654
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -122,23 +123,41 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!111 &1062238989816805172
-Animation:
+--- !u!114 &1744030085791799597
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2471943973610747615}
   m_Enabled: 1
-  serializedVersion: 4
-  m_Animation: {fileID: 7400000, guid: 32238f21ab7be3844bbbff45273de687, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 32238f21ab7be3844bbbff45273de687, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 0
-  m_AnimatePhysics: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e41d2ace5ef4988479dbc86dea2fe620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  senHealth: {fileID: 2654405568796090962}
+--- !u!95 &8216045994266686793
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2471943973610747615}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
   m_UpdateMode: 0
-  m_CullingType: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8509376302735947339
 GameObject:
   m_ObjectHideFlags: 0
@@ -151,6 +170,8 @@ GameObject:
   - component: {fileID: 7632234425775658525}
   - component: {fileID: 2492260391689663877}
   - component: {fileID: 1589190687424966944}
+  - component: {fileID: 6899192629826469541}
+  - component: {fileID: 6102460389925429364}
   m_Layer: 0
   m_Name: Sentinel
   m_TagString: Enemy
@@ -247,3 +268,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!111 &6899192629826469541
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8509376302735947339}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Animation: {fileID: 7400000, guid: 32238f21ab7be3844bbbff45273de687, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 32238f21ab7be3844bbbff45273de687, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_UpdateMode: 0
+  m_CullingType: 0
+--- !u!114 &6102460389925429364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8509376302735947339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e41d2ace5ef4988479dbc86dea2fe620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  senHealth: {fileID: 2654405568796090962}

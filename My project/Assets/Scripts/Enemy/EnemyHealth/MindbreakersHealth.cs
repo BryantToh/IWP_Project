@@ -6,14 +6,12 @@ public class MindbreakersHealth : Health, IPooledEnemy
     PlayerHealth player;
     private HashSet<Collider> damageSources = new HashSet<Collider>();
     MindBreakersEnemy mindBreaker;
-    GlitchController glitchCon;
     [Header("Projectile")]
     public GameObject mindProjectile, spawnPoint;
     float projectileSpeed = 3.5f;
     DeathLogic deathLogic;
     public void OnEnemySpawn()
     {
-        glitchCon = GameObject.Find("GameController").GetComponent<GlitchController>(); 
         player = GameObject.FindGameObjectWithTag("PlayerObj").GetComponentInChildren<PlayerHealth>();
         mindBreaker = GetComponent<MindBreakersEnemy>();
         deathLogic = GameObject.FindGameObjectWithTag("deathdefi").GetComponent<DeathLogic>();

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class SentinelHealth : Health, IPooledEnemy
@@ -15,7 +16,43 @@ public class SentinelHealth : Health, IPooledEnemy
     {
         base.Start();
     }
+    private void SetAnimProperty()
+    {
+        AnimationCurve curve = AnimationUtility.GetEditorCurve(spinAnim.clip,
+        new EditorCurveBinding
+        {
+            path = "",
+            type = typeof(Transform),
+            propertyName = "Position.x"
+        });
+        if (curve != null)
+        {
+            // Modify the keyframes in the curve.
+            Keyframe[] keyframes = curve.keys;
+            for (int i = 0; i < keyframes.Length; i++)
+            {
+                keyframes[i].value = transform.position.x; // Example: Offset the value by 1.
+            }
+            // Apply the modified keyframes back to the curve.
+            curve.keys = keyframes;
 
+            // Update the animation clip with the modified curve.
+            AnimationUtility.SetEditorCurve(spinAnim.clip,
+                new EditorCurveBinding
+                {
+                    path = "",
+                    type = typeof(Transform),
+                    propertyName = "Position.x"
+                },
+                curve);
+
+            Debug.Log("Animation clip property modified.");
+        }
+        else
+        {
+            Debug.LogWarning("Curve not found.");
+        }
+    }
     public void OnEnemySpawn()
     {
         player = GameObject.FindGameObjectWithTag("PlayerObj").GetComponentInChildren<PlayerHealth>();
@@ -77,7 +114,6 @@ public class SentinelHealth : Health, IPooledEnemy
 
             // Calculate vertical movement using a sine wave for smooth up-and-down motion.
             //float verticalOffset = Mathf.Sin(t * Mathf.PI) * 0.8f;
-
             // Apply the position change.
             spinAnim.Play();
             //transform.position = new Vector3(startPos.x, startPos.y + verticalOffset, startPos.z);
@@ -88,7 +124,6 @@ public class SentinelHealth : Health, IPooledEnemy
         // Ensure the final rotation and position are reset correctly.
         transform.rotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y + (360f - rotationAmount), transform.eulerAngles.z);
         //transform.position = startPos;
-
     }
 
     public override void TakeDamage(float damage)
