@@ -3,6 +3,7 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     public OnField Unit;
+    [HideInInspector]
     public float currentHealth;
     [HideInInspector]
     public EnemySpawner spawner;

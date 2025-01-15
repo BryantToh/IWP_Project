@@ -30,7 +30,7 @@ public class Projectile : MonoBehaviour
         if (other.CompareTag("PlayerObj"))
         {
             glitchCon.GlitchEffect();
-            glitchCon.test = true;
+            glitchCon.resetChecking = true;
             collided = true;
             player.TakeDamage(Unit.Damage);
             Destroy(gameObject);

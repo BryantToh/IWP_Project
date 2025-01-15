@@ -10,6 +10,7 @@ public class SentinelHealth : Health, IPooledEnemy
     float rotationAmount;
     public Animator spinAnim;
     SentinelEnemy sentinel;
+    DeathLogic deathLogic;
     SurgeLogic surgeLogic;
     protected override void Start()
     {
@@ -18,6 +19,7 @@ public class SentinelHealth : Health, IPooledEnemy
     public void OnEnemySpawn()
     {
         player = GameObject.FindGameObjectWithTag("PlayerObj").GetComponentInChildren<PlayerHealth>();
+        deathLogic = GameObject.FindGameObjectWithTag("deathdefi").GetComponent<DeathLogic>();
         sentinel = GetComponent<SentinelEnemy>();
         surgeLogic = GameObject.FindGameObjectWithTag("Surge").GetComponent<SurgeLogic>();
     }
@@ -93,6 +95,7 @@ public class SentinelHealth : Health, IPooledEnemy
         base.TakeDamage(damage);
         if (canDie)
         {
+            deathLogic.KilledWhenDeathDefiance();
             spawner.sentinelOnField--;
             ObjectPooler.Instance.Release("sentinel", this);
         }

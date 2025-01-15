@@ -7,9 +7,8 @@ public class GlitchController : MonoBehaviour
     public float noiseAmount;
     public float glitchStrength;
     public float scanLinesStrength;
-    int glitchStack = 0;
     public bool isResetting = false;
-    public bool test = false;
+    public bool resetChecking = false;
 
     private void Start()
     {
@@ -81,12 +80,11 @@ public class GlitchController : MonoBehaviour
         glitchStrength = 0;
         scanLinesStrength = 1;
         isResetting = false;
-        glitchStack = 0;
     }
 
     private void CheckReset()
     {
-        if (test)
+        if (resetChecking)
         {
             StartCoroutine(ResetThingsCoroutine());
         }
@@ -94,7 +92,7 @@ public class GlitchController : MonoBehaviour
 
     private IEnumerator ResetThingsCoroutine()
     {
-        test = false;
+        resetChecking = false;
         yield return new WaitForSeconds(0.3f);
         isResetting = true;
     }

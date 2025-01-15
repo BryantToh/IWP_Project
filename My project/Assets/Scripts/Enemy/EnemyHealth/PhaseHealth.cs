@@ -6,7 +6,8 @@ public class PhaseHealth : Health, IPooledEnemy
     PlayerHealth player;
     private HashSet<Collider> damageSources = new HashSet<Collider>();
     PhaseEnemy phase;
-
+    DeathLogic deathLogic;
+    SurgeLogic surgeLogic;
     protected override void Start()
     {
         base.Start();
@@ -16,6 +17,8 @@ public class PhaseHealth : Health, IPooledEnemy
     {
         player = GameObject.FindGameObjectWithTag("PlayerObj").GetComponentInChildren<PlayerHealth>();
         phase = GetComponent<PhaseEnemy>();
+        deathLogic = GameObject.FindGameObjectWithTag("deathdefi").GetComponent<DeathLogic>();
+        surgeLogic = GameObject.FindGameObjectWithTag("Surge").GetComponent<SurgeLogic>();
     }
 
     public void AttackPlayer(Collider other)
@@ -26,10 +29,22 @@ public class PhaseHealth : Health, IPooledEnemy
         if (!damageSources.Contains(other))
         {
             damageSources.Add(other);
-            player.TakeDamage(Unit.Damage);
         }
     }
-
+    public void AttackPlayerEvent()
+    {
+        if (Vector3.Distance(player.transform.position, transform.position) <= phase.attackRange)
+        {
+            player.TakeDamage(Unit.Damage);
+        }
+        else if (Vector3.Distance(player.transform.position, transform.position) > phase.attackRange)
+        {
+            if (!surgeLogic.attackDodged)
+                surgeLogic.attackDodged = true;
+            else
+                Debug.Log("passive already active");
+        }
+    }
     public void AttackReset(Collider other)
     {
         if (damageSources.Contains(other))
@@ -43,6 +58,7 @@ public class PhaseHealth : Health, IPooledEnemy
         base.TakeDamage(damage);
         if (canDie)
         {
+            deathLogic.KilledWhenDeathDefiance();
             spawner.phaseOnField--;
             ObjectPooler.Instance.Release("phase", this);
         }
