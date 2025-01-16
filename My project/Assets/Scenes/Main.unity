@@ -476,7 +476,12 @@ MonoBehaviour:
   playerDash: {fileID: 3357642690421476693}
   missileObj: {fileID: 4141486662870594867, guid: 17cabfc54dc664e48839c2f2c1aa3516, type: 3}
   spawnPoint: {fileID: 1886344356}
-  damage: 50
+  damage: 40
+  _maxDistancePredict: 100
+  _minDistancePredict: 1
+  _maxTimePrediction: 5
+  _deviationAmount: 10
+  _deviationSpeed: 2
 --- !u!1 &1370479793
 GameObject:
   m_ObjectHideFlags: 0

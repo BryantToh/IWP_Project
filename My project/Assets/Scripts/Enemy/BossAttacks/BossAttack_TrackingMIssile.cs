@@ -5,13 +5,20 @@ public class BossAttack_TrackingMIssile : MonoBehaviour
     public PlayerHealth player;
     public Dashing playerDash;
     public GameObject missileObj;
-    GameObject missileHolder;
     public Transform spawnPoint;
+    Vector3 _standardPrediction, _deviatedPrediction;
+    GameObject missileHolder;
     SurgeLogic surgeLogic;
     public float damage;
+    public float _maxDistancePredict = 100;
+    public float _minDistancePredict = 5;
+    public float _maxTimePrediction = 5;
+    public float _deviationAmount = 10;
+    public float _deviationSpeed = 2;
     float explodeTime;
     float explodeTimer = 5f;
     float speed = 5f;
+    float rotateSpeed = 50;
     bool spawned = false;
 
     private void Start()
@@ -22,52 +29,79 @@ public class BossAttack_TrackingMIssile : MonoBehaviour
 
     private void Update()
     {
-        if (spawned)
+        if (spawned && missileHolder != null)
         {
             explodeTime -= Time.deltaTime;
             if (explodeTime <= 0)
             {
                 ExplodeMissile();
                 explodeTime = explodeTimer;
-                spawned = false;
             }
         }
-
         MissileHitPlayer();
     }
+
+    private void FixedUpdate()
+    {
+        if (missileHolder != null)
+        {
+            Rigidbody missileRb = missileHolder.GetComponent<Rigidbody>();
+
+            // Predict player movement and adjust target
+            var leadTimePercentage = Mathf.InverseLerp(_minDistancePredict, _maxDistancePredict, Vector3.Distance(missileHolder.transform.position, player.transform.position));
+            PredictMovement(leadTimePercentage);
+            AddDeviation(leadTimePercentage);
+
+            // Adjust missile rotation toward the predicted position
+            RotateRocket();
+
+            // Update missile velocity to maintain speed in its forward direction
+            missileRb.linearVelocity = missileHolder.transform.forward * speed;
+        }
+    }
+
 
     public void ShootMissile()
     {
         if (!spawned)
         {
-            GameObject obj = Instantiate(missileObj, spawnPoint.position, Quaternion.Euler(90, 0, 0));
+            // Instantiate the missile
+            GameObject obj = Instantiate(missileObj, spawnPoint.position, Quaternion.identity);
+
+            // Assign the missile to the holder
             missileHolder = obj;
-            missileHolder.transform.LookAt(player.transform);
+
+            // Calculate initial direction toward the player
+            Vector3 initialDirection = (player.transform.position - spawnPoint.position).normalized;
+
+            // Set the missile's forward direction
+            missileHolder.transform.rotation = Quaternion.LookRotation(initialDirection);
+
+            // Apply initial velocity
             Rigidbody missileRb = missileHolder.GetComponent<Rigidbody>();
-            Vector3 newPos = new Vector3(player.transform.position.x, player.transform.position.y + 1f, player.transform.position.z);
-            Vector3 direction = (newPos - spawnPoint.position).normalized;
-            missileRb.linearVelocity = direction * speed;
+            missileRb.linearVelocity = initialDirection * speed;
+
+            // Mark the missile as spawned
             spawned = true;
         }
     }
 
+
     public void ExplodeMissile()
     {
-        if (missileHolder != null)
+        CheckCollision checkExplode = missileHolder.GetComponent<CheckCollision>();
+        if (checkExplode.collided && !playerDash.isDashing)
         {
-            CheckCollision checkExplode = missileHolder.GetComponent<CheckCollision>();
-            if (checkExplode.collided && !playerDash.isDashing)
-            {
-                DamageOnPosition();
-            }
-            else if (checkExplode.collided && playerDash.isDashing)
-            {
-                if (!surgeLogic.attackDodged)
-                    surgeLogic.attackDodged = true;
-            }
-            Destroy(missileHolder);
-            checkExplode.collided = false;
+            DamageOnPosition();
         }
+        else if (checkExplode.collided && playerDash.isDashing)
+        {
+            if (!surgeLogic.attackDodged)
+                surgeLogic.attackDodged = true;
+        }
+        Destroy(missileHolder);
+        checkExplode.collided = false;
+        spawned = false;
     }
 
     public void MissileHitPlayer()
@@ -89,6 +123,7 @@ public class BossAttack_TrackingMIssile : MonoBehaviour
             }
             Destroy(missileHolder);
             checkExplode.headOnCollide = false;
+            spawned = false;
         }
     }
 
@@ -102,8 +137,32 @@ public class BossAttack_TrackingMIssile : MonoBehaviour
             float maxDistance = 3.5f;
             float scaledDamage = Mathf.Lerp(maxDamage, minDamage, Mathf.Clamp01(distance / maxDistance));
             player.TakeDamage(scaledDamage);
-
-            Debug.Log($"Damage dealt: {scaledDamage}, Distance: {distance}");
         }
+    }
+
+    private void PredictMovement(float leadTimePercentage)
+    {
+        Rigidbody playerRb = player.GetComponent<Rigidbody>();
+        var predictionTime = Mathf.Lerp(0, _maxTimePrediction, leadTimePercentage);
+
+        _standardPrediction = playerRb.position + playerRb.linearVelocity * predictionTime;
+    }
+
+    private void AddDeviation(float leadTimePercentage)
+    {
+        var deviation = new Vector3(Mathf.Cos(Time.time * _deviationSpeed), 0, 0);
+
+        var predictionOffset = missileHolder.transform.TransformDirection(deviation) * _deviationAmount * leadTimePercentage;
+
+        _deviatedPrediction = _standardPrediction + predictionOffset;
+    }
+
+    private void RotateRocket()
+    {
+        Rigidbody missileRb = missileHolder.GetComponent<Rigidbody>();
+        var heading = _deviatedPrediction - missileHolder.transform.position;
+
+        var rotation = Quaternion.LookRotation(heading);
+        missileRb.MoveRotation(Quaternion.RotateTowards(missileHolder.transform.rotation, rotation, rotateSpeed * Time.deltaTime));
     }
 }
