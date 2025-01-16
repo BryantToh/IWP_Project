@@ -16,6 +16,7 @@ public class Dashing : MonoBehaviour
     private Vector3 delayedForceToApply;
     public float dashCount;
     private bool isAddingDash = false;
+    public bool isDashing = false;
 
     [Header("Cooldown")]
     public float dashCD;
@@ -56,6 +57,8 @@ public class Dashing : MonoBehaviour
     {
         if (dashCDTimer > 0) return;
 
+        isDashing = true;
+
         if (dashCount > 0)
             dashCDTimer = dashCD;
 
@@ -87,6 +90,7 @@ public class Dashing : MonoBehaviour
     {
         if (disableGravity)
             rb.useGravity = false;
+        isDashing = false;
     }
 
     private Vector3 GetDirection(Transform forwardT)

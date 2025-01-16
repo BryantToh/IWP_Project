@@ -5,8 +5,8 @@ using UnityEngine.AI;
 
 public class SurgeLogic : MonoBehaviour
 {
-    private Dictionary<NavMeshAgent, (float acceleration, float speed, float attackRange)> originalValues =
-        new Dictionary<NavMeshAgent, (float acceleration, float speed, float attackRange)>();
+    private Dictionary<NavMeshAgent, (float acceleration, float speed, float attackTiming)> originalValues =
+        new Dictionary<NavMeshAgent, (float acceleration, float speed, float attackTiming)>();
 
     private NavMeshAgent[] agents;
     public bool attackDodged = false;
@@ -23,7 +23,8 @@ public class SurgeLogic : MonoBehaviour
 
     private void Update()
     {
-        HandleCooldown();
+        if (HandleCooldown())
+            return;
 
         if (attackDodged && !buffActive && !coroutineActive)
         {
@@ -36,7 +37,7 @@ public class SurgeLogic : MonoBehaviour
         }
     }
 
-    private void HandleCooldown()
+    private bool HandleCooldown()
     {
         if (isOnCooldown)
         {
@@ -46,6 +47,8 @@ public class SurgeLogic : MonoBehaviour
                 isOnCooldown = false;
             }
         }
+
+        return isOnCooldown;
     }
 
     private void ActivateBuff()
@@ -75,11 +78,11 @@ public class SurgeLogic : MonoBehaviour
             if (!originalValues.ContainsKey(agent))
             {
                 var enemyAI = agent.GetComponent<EnemyAIController>();
-                originalValues[agent] = (agent.acceleration, agent.speed, enemyAI.attackRange);
+                originalValues[agent] = (agent.acceleration, agent.speed, enemyAI.timeBetweenAttacks);
 
                 agent.acceleration /= 2;
                 agent.speed /= 2;
-                enemyAI.attackRange /= 2;
+                enemyAI.timeBetweenAttacks *= 2;
             }
         }
     }
@@ -89,13 +92,13 @@ public class SurgeLogic : MonoBehaviour
         foreach (var entry in originalValues)
         {
             var agent = entry.Key;
-            var (originalAcceleration, originalSpeed, originalAttackRange) = entry.Value;
+            var (originalAcceleration, originalSpeed, originalAttackTiming) = entry.Value;
 
             agent.acceleration = originalAcceleration;
             agent.speed = originalSpeed;
 
             var enemyAI = agent.GetComponent<EnemyAIController>();
-            enemyAI.attackRange = originalAttackRange;
+            enemyAI.timeBetweenAttacks = originalAttackTiming;
         }
 
         originalValues.Clear();
