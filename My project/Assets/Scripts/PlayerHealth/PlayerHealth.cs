@@ -10,6 +10,7 @@ public class PlayerHealth : MonoBehaviour
     JuggernautHealth juggernaut;
     PhaseHealth phase;
     MindbreakersHealth mindbreakers;
+    OverseerHealth overseer;
     PlayerMovement player;
     Coroutine healingCoroutine;
     private HashSet<Collider> damageSources = new HashSet<Collider>();
@@ -76,6 +77,7 @@ public class PlayerHealth : MonoBehaviour
             juggernaut = other.GetComponent<JuggernautHealth>();
             phase = other.GetComponent<PhaseHealth>();
             mindbreakers = other.GetComponent<MindbreakersHealth>();
+            overseer = other.GetComponent<OverseerHealth>();
 
             if (sentinel != null)
             {
@@ -103,6 +105,10 @@ public class PlayerHealth : MonoBehaviour
             else if (mindbreakers != null)
             {
                 mindbreakers.TakeDamage(damage);
+            }
+            else if (overseer != null)
+            {
+                overseer.TakeDamage(damage);
             }
         }
     }

@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -8988029695225213177}
   m_Layer: 0
   m_Name: Missile
-  m_TagString: Untagged
+  m_TagString: Missile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -152,6 +152,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collided: 0
   headOnCollide: 0
+  _maxDistancePredict: 100
+  _minDistancePredict: 15
+  _maxTimePrediction: 3
+  _deviationAmount: 50
+  _deviationSpeed: 2
 --- !u!136 &-8988029695225213177
 CapsuleCollider:
   m_ObjectHideFlags: 0

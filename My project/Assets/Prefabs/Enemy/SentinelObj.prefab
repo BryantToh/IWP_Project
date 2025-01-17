@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6350081581122395961}
   - component: {fileID: 2654405568796090962}
   - component: {fileID: 4700773464362531654}
+  - component: {fileID: 617719132338950933}
   m_Layer: 7
   m_Name: SentinelObj
   m_TagString: EnemyObj
@@ -121,6 +122,19 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &617719132338950933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2471943973610747615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 823fe816d23b8534da91637912225fb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pushForce: 20
 --- !u!1 &8509376302735947339
 GameObject:
   m_ObjectHideFlags: 0

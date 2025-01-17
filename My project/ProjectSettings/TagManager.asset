@@ -14,6 +14,7 @@ TagManager:
   - deathdefi
   - EnemyObj
   - Surge
+  - Boss
   layers:
   - Default
   - TransparentFX

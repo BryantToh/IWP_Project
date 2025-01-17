@@ -31,7 +31,7 @@ public class OverseerHealth : Health
     }
     //public void OnEnemySpawn()
     //{
-        
+
     //}
 
     //public void OnGet()
@@ -54,7 +54,6 @@ public class OverseerHealth : Health
     //    transform.position = Pos;
     //    transform.rotation = Rot;
     //}
-
     public void AttackPlayer(Collider other)
     {
         if (!overseer.playerInAttackRange)
@@ -64,7 +63,7 @@ public class OverseerHealth : Health
         {
             damageSources.Add(other);
             //attack1?.Invoke();
-            attack2?.Invoke();
+            //attack2?.Invoke();
         }
     }
     public void AttackPlayerEvent()
@@ -91,6 +90,10 @@ public class OverseerHealth : Health
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
+        if (currentHealth == Unit.Health * 0.25f || currentHealth == Unit.Health * 0.5f || currentHealth == Unit.Health * 0.75f)
+        {
+            attack3?.Invoke();
+        }
         if (canDie)
         {
             deathLogic.KilledWhenDeathDefiance();

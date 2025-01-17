@@ -10,6 +10,7 @@ public class PlayerCam : MonoBehaviour
 
     [Header("Player & Camera Settings")]
     public Transform player;
+    public PlayerMovement playerMove;
     public Camera mainCamera;
 
     [Header("Targeting Settings")]
@@ -17,10 +18,10 @@ public class PlayerCam : MonoBehaviour
     [SerializeField] private KeyCode lockTargetKey = KeyCode.Tab;
     [SerializeField] private Vector2 targetLockOffset = Vector2.zero;
     [SerializeField] private float maxDistance;
-
     public bool isTargeting;
     private float xRotation;
     private float yRotation;
+
     [HideInInspector]
     public Health currentTargetHealth;
     public Transform currentTarget;
@@ -36,7 +37,10 @@ public class PlayerCam : MonoBehaviour
     {
         if (!isTargeting)
         {
-            HandleManualCameraMovement();
+            if (!playerMove.staggered)
+            {
+                HandleManualCameraMovement();
+            }
         }
         else
         {

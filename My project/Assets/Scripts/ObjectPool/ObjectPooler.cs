@@ -19,9 +19,7 @@ public class ObjectPooler : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-
         poolDictionary = new Dictionary<string, ObjectPool<IPooledEnemy>>();
-
         foreach (Pool pool in pools)
         {
             ObjectPool<IPooledEnemy> objectPool = new ObjectPool<IPooledEnemy>(

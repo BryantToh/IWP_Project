@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     public float moveSpeed;
     public float dashSpeed;
+    public bool staggered = false;
     private bool isMoving = false;
     private bool isAttacking = false;
 
@@ -50,6 +51,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (staggered)
+            return;
+
         MovePlayer();
     }
 

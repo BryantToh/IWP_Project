@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Juggernaut
   m_EditorClassIdentifier: 
   Health: 150
-  Damage: 0
+  Damage: 10
   maxDashCount: 0

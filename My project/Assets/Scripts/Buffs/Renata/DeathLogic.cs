@@ -1,5 +1,3 @@
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class DeathLogic : BaseAbility
@@ -12,6 +10,8 @@ public class DeathLogic : BaseAbility
     float timer = 0f;
     float totalDuration = 5f;
     float healthDecreaseRate = 0f;
+    float buffTimer = 0f;
+    float buffDuration = 5f;
 
     public override void Activate()
     {
@@ -25,7 +25,7 @@ public class DeathLogic : BaseAbility
 
     void Start()
     {
-        timer = abilityDuration;
+        ResetAbility();
         enemyKillCount = 0f;
         healthDecreaseRate = playerHealth.Unit.Health / totalDuration;
     }
@@ -41,10 +41,9 @@ public class DeathLogic : BaseAbility
             }
         }
 
-        if (activated)
+        if (activated && !startDecr)
         {
             timer -= Time.deltaTime;
-
             if (timer <= 0f)
             {
                 ResetAbility();
@@ -53,6 +52,8 @@ public class DeathLogic : BaseAbility
             if (playerHealth.currentHealth <= 0f)
             {
                 startDecr = true;
+                buffTimer = buffDuration;
+                timer = 1f;
             }
         }
 
@@ -72,16 +73,16 @@ public class DeathLogic : BaseAbility
         }
         playerHealth.currentHealth -= healthDecreaseRate * Time.deltaTime;
         playerHealth.currentHealth = Mathf.Clamp(playerHealth.currentHealth, 0f, playerHealth.Unit.Health);
-        timer -= Time.deltaTime;
+        buffTimer -= Time.deltaTime;
 
-        if (timer <= 0f && enemyKillCount < 1)
+        if (buffTimer <= 0f && enemyKillCount < 1)
         {
-            Debug.LogWarning("player dies");
+            Debug.LogWarning("Player dies");
             playerHealth.gameObject.SetActive(false);
         }
-        else if (timer > 0f && enemyKillCount >= 1)
+        else if (buffTimer < 0 && enemyKillCount >= 1)
         {
-            Debug.LogWarning("player survives");
+            Debug.LogWarning("Player survives");
             playerHealth.currentHealth = playerHealth.Unit.Health * 0.7f;
             ResetAbility();
         }
@@ -94,6 +95,7 @@ public class DeathLogic : BaseAbility
         cooldownTimer = cooldownTime;
         startDecr = false;
         healthReset = false;
+        buffTimer = 0f;
     }
 
     public void KilledWhenDeathDefiance()
@@ -101,7 +103,7 @@ public class DeathLogic : BaseAbility
         if (activated)
         {
             enemyKillCount++;
-            Debug.LogWarning("enemy left" + enemyKillCount + " / 1");
+            Debug.LogWarning("Enemy left " + enemyKillCount + " / 1");
         }
     }
 }

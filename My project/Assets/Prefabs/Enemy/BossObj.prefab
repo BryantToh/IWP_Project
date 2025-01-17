@@ -318,9 +318,12 @@ GameObject:
   - component: {fileID: 7497605791821083913}
   - component: {fileID: 2907194745314626079}
   - component: {fileID: 5304030223258687269}
+  - component: {fileID: 4349248204987400291}
+  - component: {fileID: 234635464585899091}
+  - component: {fileID: 6877721864575141005}
   m_Layer: 7
   m_Name: BossObj
-  m_TagString: EnemyObj
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -339,6 +342,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 953333641838672216}
+  - {fileID: 8601685391098199178}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &1908883322645811833
@@ -410,6 +414,55 @@ MonoBehaviour:
   laserBeam: {fileID: 3357607572421095505}
   rangeAttackSpawn: {fileID: 8520517646751503711}
   maxBeamDist: 35
+  laserShot: 0
+  attack1:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4349248204987400291}
+        m_TargetAssemblyTypeName: BossAttack_Laser, Assembly-CSharp
+        m_MethodName: BeamAttack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  attack2:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 234635464585899091}
+        m_TargetAssemblyTypeName: BossAttack_TrackingMIssile, Assembly-CSharp
+        m_MethodName: ShootMissile
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  attack3:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6877721864575141005}
+        m_TargetAssemblyTypeName: BossAttack_Zoning, Assembly-CSharp
+        m_MethodName: SpawnBall
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  attack4:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!195 &5304030223258687269
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -432,3 +485,115 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &4349248204987400291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7580427433605010016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dea3285cd9a54034f8f2c120d7386ab7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  laserBeam: {fileID: 3357607572421095505}
+  rangeAttackSpawn: {fileID: 8520517646751503711}
+  maxBeamDist: 20
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  laserShot: 0
+--- !u!114 &234635464585899091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7580427433605010016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8478bc71abef90749b838f38a2c503c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  playerDash: {fileID: 0}
+  missileObj: {fileID: 4141486662870594867, guid: 17cabfc54dc664e48839c2f2c1aa3516, type: 3}
+  spawnPoint: {fileID: 8520517646751503711}
+  damage: 10
+--- !u!114 &6877721864575141005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7580427433605010016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0f9186a2f8a2aa429f934a86b0ab69b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoneObj: {fileID: 6457969325275196717, guid: 9e158c17dd5b57f41a9a2070924c3016, type: 3}
+--- !u!1001 &5589291006040966475
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5508439801105980165}
+    m_Modifications:
+    - target: {fileID: 4237453786748598721, guid: 9e158c17dd5b57f41a9a2070924c3016, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4237453786748598721, guid: 9e158c17dd5b57f41a9a2070924c3016, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4237453786748598721, guid: 9e158c17dd5b57f41a9a2070924c3016, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4237453786748598721, guid: 9e158c17dd5b57f41a9a2070924c3016, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4237453786748598721, guid: 9e158c17dd5b57f41a9a2070924c3016, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4237453786748598721, guid: 9e158c17dd5b57f41a9a2070924c3016, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4237453786748598721, guid: 9e158c17dd5b57f41a9a2070924c3016, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4237453786748598721, guid: 9e158c17dd5b57f41a9a2070924c3016, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4237453786748598721, guid: 9e158c17dd5b57f41a9a2070924c3016, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4237453786748598721, guid: 9e158c17dd5b57f41a9a2070924c3016, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6457969325275196717, guid: 9e158c17dd5b57f41a9a2070924c3016, type: 3}
+      propertyPath: m_Name
+      value: ZoneHolder
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9e158c17dd5b57f41a9a2070924c3016, type: 3}
+--- !u!4 &8601685391098199178 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4237453786748598721, guid: 9e158c17dd5b57f41a9a2070924c3016, type: 3}
+  m_PrefabInstance: {fileID: 5589291006040966475}
+  m_PrefabAsset: {fileID: 0}
