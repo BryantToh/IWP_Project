@@ -7,6 +7,7 @@ public class OverseerHealth : Health
 {
     PlayerHealth player;
     private HashSet<Collider> damageSources = new HashSet<Collider>();
+    public Dashing playerDash;
     OverseerEnemy overseer;
     DeathLogic deathLogic;
     SurgeLogic surgeLogic;
@@ -62,22 +63,42 @@ public class OverseerHealth : Health
         if (!damageSources.Contains(other))
         {
             damageSources.Add(other);
-            //attack1?.Invoke();
-            //attack2?.Invoke();
+            int randomAttack = Random.Range(0, 3);
+
+            switch (randomAttack)
+            {
+                case 0:
+                    overseer.attackRange = overseer.rangedAttack;
+                    attack1?.Invoke();
+                    break;
+                case 1:
+                    overseer.attackRange = overseer.rangedAttack;
+                    attack2?.Invoke();
+                    break;
+                case 2:
+                    overseer.attackRange = overseer.meleeAttack;
+                    attack4?.Invoke();
+                    break;
+            }
         }
     }
     public void AttackPlayerEvent()
     {
-        if (Vector3.Distance(player.transform.position, transform.position) <= overseer.attackRange)
+        if (Vector3.Distance(player.transform.position, transform.position) <= overseer.attackRange && !playerDash.isDashing)
         {
             player.TakeDamage(Unit.Damage);
         }
-        else if (Vector3.Distance(player.transform.position, transform.position) > overseer.attackRange)
+        else if (Vector3.Distance(player.transform.position, transform.position) <= overseer.attackRange && playerDash.isDashing ||
+            Vector3.Distance(player.transform.position, transform.position) > overseer.attackRange && playerDash.isDashing)
         {
             if (!surgeLogic.attackDodged)
                 surgeLogic.attackDodged = true;
             else
                 Debug.Log("passive already active");
+        }
+        else
+        {
+            Debug.Log("player out of range");
         }
     }
     public void AttackReset(Collider other)

@@ -152,6 +152,7 @@ GameObject:
   - component: {fileID: 4615676932024315670}
   - component: {fileID: 7739359977328277606}
   - component: {fileID: 5536078416465404398}
+  - component: {fileID: 7065944030446817264}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Enemy
@@ -274,6 +275,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7065944030446817264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4325692240475085569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e04041013da46c43b47da0cba88903b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: {fileID: 2907194745314626079}
 --- !u!1 &5820492763904937186
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,6 +335,7 @@ GameObject:
   - component: {fileID: 4349248204987400291}
   - component: {fileID: 234635464585899091}
   - component: {fileID: 6877721864575141005}
+  - component: {fileID: 6407915601229576853}
   m_Layer: 7
   m_Name: BossObj
   m_TagString: Boss
@@ -393,6 +408,7 @@ MonoBehaviour:
   playerInAttackRange: 0
   attackRange: 0
   rangedAttack: 15
+  meleeAttack: 0
 --- !u!114 &2907194745314626079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,6 +424,7 @@ MonoBehaviour:
   Unit: {fileID: 11400000, guid: 9352133a910eabc4a817edd107566fc2, type: 2}
   currentHealth: 0
   spawner: {fileID: 0}
+  playerDash: {fileID: 0}
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -462,7 +479,19 @@ MonoBehaviour:
         m_CallState: 2
   attack4:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6407915601229576853}
+        m_TargetAssemblyTypeName: BossAttack_Punch, Assembly-CSharp
+        m_MethodName: Punching
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!195 &5304030223258687269
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -535,6 +564,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoneObj: {fileID: 6457969325275196717, guid: 9e158c17dd5b57f41a9a2070924c3016, type: 3}
+  player: {fileID: 0}
+  playerMove: {fileID: 0}
+  pushBackForce: 0
+--- !u!114 &6407915601229576853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7580427433605010016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90e2951d64a1bf74a917ce835e059cd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5589291006040966475
 PrefabInstance:
   m_ObjectHideFlags: 0

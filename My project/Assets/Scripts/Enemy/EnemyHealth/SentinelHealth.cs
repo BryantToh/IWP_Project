@@ -5,6 +5,7 @@ using UnityEngine;
 public class SentinelHealth : Health, IPooledEnemy
 {
     PlayerHealth player;
+    Dashing playerDash;
     private HashSet<Collider> damageSources = new HashSet<Collider>();
     public float rotationSpd;
     float rotationAmount;
@@ -18,7 +19,8 @@ public class SentinelHealth : Health, IPooledEnemy
     }
     public void OnEnemySpawn()
     {
-        player = GameObject.FindGameObjectWithTag("PlayerObj").GetComponentInChildren<PlayerHealth>();
+        player = GameObject.FindGameObjectWithTag("PlayerObj").GetComponent<PlayerHealth>();
+        playerDash = player.GetComponent<Dashing>();
         deathLogic = GameObject.FindGameObjectWithTag("deathdefi").GetComponent<DeathLogic>();
         sentinel = GetComponent<SentinelEnemy>();
         surgeLogic = GameObject.FindGameObjectWithTag("Surge").GetComponent<SurgeLogic>();
@@ -37,14 +39,13 @@ public class SentinelHealth : Health, IPooledEnemy
     }
     public void AttackPlayerEvent()
     {
-        if (Vector3.Distance(player.transform.position, transform.position) <= sentinel.attackRange)
+        if (Vector3.Distance(player.transform.position, transform.position) <= sentinel.attackRange && !playerDash.isDashing)
         {
             player.TakeDamage(Unit.Damage);
-            Debug.Log("hit");
         }
-        else if (Vector3.Distance(player.transform.position, transform.position) > sentinel.attackRange)
+        else if (Vector3.Distance(player.transform.position, transform.position) <= sentinel.attackRange && playerDash.isDashing || 
+            Vector3.Distance(player.transform.position, transform.position) > sentinel.attackRange && playerDash.isDashing)
         {
-            Debug.Log("dodged");
             if (!surgeLogic.attackDodged)
                 surgeLogic.attackDodged = true;
             else

@@ -5,6 +5,7 @@ public class OverseerEnemy : EnemyAIController
     Collider playerCol;
     OverseerHealth enemyHealth;
     public float rangedAttack;
+    public float meleeAttack;
     protected override void Start()
     {
         player = GameObject.FindGameObjectWithTag("PlayerObj").transform;
@@ -17,11 +18,12 @@ public class OverseerEnemy : EnemyAIController
     {
         agent.stoppingDistance = attackRange;
         base.Update();
+
+        Debug.Log(attackRange);
     }
 
     protected override void Chasing()
     {
-        attackRange = rangedAttack;
         base.Chasing();
     }
 

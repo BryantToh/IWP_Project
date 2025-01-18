@@ -12,6 +12,7 @@ public class MoveBalls : MonoBehaviour
 
     void Start()
     {
+
         // Ensure the GameObject has exactly 3 children
         if (transform.childCount != 3)
         {
