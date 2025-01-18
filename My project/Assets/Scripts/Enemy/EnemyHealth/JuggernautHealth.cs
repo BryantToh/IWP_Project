@@ -15,6 +15,7 @@ public class JuggernautHealth : Health, IPooledEnemy
 
     public void OnEnemySpawn()
     {
+        currentHealth = Unit.Health;
         player = GameObject.FindGameObjectWithTag("PlayerObj").GetComponentInChildren<PlayerHealth>();
         juggernaut = GetComponent<JuggernautEnemy>();
         deathLogic = GameObject.FindGameObjectWithTag("deathdefi").GetComponent<DeathLogic>();

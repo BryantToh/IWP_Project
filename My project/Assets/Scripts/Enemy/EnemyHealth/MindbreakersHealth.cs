@@ -12,6 +12,7 @@ public class MindbreakersHealth : Health, IPooledEnemy
     DeathLogic deathLogic;
     public void OnEnemySpawn()
     {
+        currentHealth = Unit.Health;
         player = GameObject.FindGameObjectWithTag("PlayerObj").GetComponentInChildren<PlayerHealth>();
         mindBreaker = GetComponent<MindBreakersEnemy>();
         deathLogic = GameObject.FindGameObjectWithTag("deathdefi").GetComponent<DeathLogic>();

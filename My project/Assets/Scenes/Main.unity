@@ -287,7 +287,7 @@ MonoBehaviour:
   pools:
   - tag: sentinel
     prefab: {fileID: 2471943973610747615, guid: 69bee1a14ec9f3146931d63b6b5a2c57, type: 3}
-    size: 0
+    size: 1
   - tag: juggernaut
     prefab: {fileID: 4586161582616152287, guid: 65cdb9e9d5421e941949268a65f6f25e, type: 3}
     size: 0
@@ -537,6 +537,10 @@ PrefabInstance:
     - target: {fileID: 7580427433605010016, guid: 8922d8acaad3491458858a8fa68b2dba, type: 3}
       propertyPath: m_Name
       value: BossObj
+      objectReference: {fileID: 0}
+    - target: {fileID: 7580427433605010016, guid: 8922d8acaad3491458858a8fa68b2dba, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1035,6 +1039,14 @@ PrefabInstance:
     - target: {fileID: 2091489860241189188, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2229661135304375334, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
+      propertyPath: dmgPerTick
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2229661135304375334, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
+      propertyPath: cooldownTime
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3495872234130255554, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
       propertyPath: m_LocalPosition.x

@@ -15,6 +15,7 @@ public class PhaseHealth : Health, IPooledEnemy
 
     public void OnEnemySpawn()
     {
+        currentHealth = Unit.Health;
         player = GameObject.FindGameObjectWithTag("PlayerObj").GetComponentInChildren<PlayerHealth>();
         phase = GetComponent<PhaseEnemy>();
         deathLogic = GameObject.FindGameObjectWithTag("deathdefi").GetComponent<DeathLogic>();

@@ -10,7 +10,7 @@ public class ShockWaveAttack : MonoBehaviour
     private HashSet<Health> damagedEnemies = new HashSet<Health>();
     [SerializeField]
     float areaOfEffect = 0f;
-    float dmgInterval = 3f;
+    float dmgInterval = 1.3f;
     public float waveDamage = 0f;
     int waveCount = 0;
     void Start()
@@ -24,7 +24,7 @@ public class ShockWaveAttack : MonoBehaviour
             AOEShockwave();
         }
 
-        if (waveCount == 5)
+        if (waveCount == 3)
         {
             ResetAbility();
         }
