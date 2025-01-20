@@ -13,7 +13,10 @@ public class PlayerHealth : MonoBehaviour
     OverseerHealth overseer;
     PlayerMovement player;
     Coroutine healingCoroutine;
-    private HashSet<Collider> damageSources = new HashSet<Collider>();
+    [HideInInspector]
+    public HashSet<Collider> damageSources = new HashSet<Collider>();
+    [HideInInspector]
+    public List<Collider> detectedColliders = new List<Collider>();
     [SerializeField]
     DeathLogic deathLogic;
     [HideInInspector]
@@ -66,59 +69,57 @@ public class PlayerHealth : MonoBehaviour
             glitchController.ResetGlitch();
         }
     }
-
-    private void OnTriggerEnter(Collider other)
+    private void FixedUpdate()
     {
-        if (AttackCheck.checkEnemy && !damageSources.Contains(other) && player.kickSteps >= 0)
+        if (AttackCheck.checkEnemy && player.kickSteps > -1)
         {
-            damageSources.Add(other);
+            for (int i = detectedColliders.Count - 1; i >= 0; i--)
+            {
+                Collider other = detectedColliders[i];
 
-            sentinel = other.GetComponent<SentinelHealth>();
-            juggernaut = other.GetComponent<JuggernautHealth>();
-            phase = other.GetComponent<PhaseHealth>();
-            mindbreakers = other.GetComponent<MindbreakersHealth>();
-            overseer = other.GetComponent<OverseerHealth>();
+                if (!damageSources.Contains(other))
+                    return;
 
-            if (sentinel != null)
-            {
-                sentinel.TakeDamage(damage);
-            }
-            else if (juggernaut != null)
-            {
-                if (jHitCount < 4)
+                SentinelHealth sentinel = other.GetComponentInParent<SentinelHealth>();
+                JuggernautHealth juggernaut = other.GetComponentInParent<JuggernautHealth>();
+                PhaseHealth phase = other.GetComponentInParent<PhaseHealth>();
+                MindbreakersHealth mindbreakers = other.GetComponentInParent<MindbreakersHealth>();
+                OverseerHealth overseer = other.GetComponentInParent<OverseerHealth>();
+                if (sentinel != null)
                 {
-                    juggernaut.TakeDamage(juggernautDamage);
-                    jHitCount++;
+                    sentinel.TakeDamage(damage);
                 }
-                else if (jHitCount >= 4)
+                else if (juggernaut != null)
                 {
-                    juggernautDamage += 2;
-                    juggernaut.TakeDamage(juggernautDamage);
-                    jHitCount++;
+                    if (jHitCount < 4)
+                    {
+                        juggernaut.TakeDamage(juggernautDamage);
+                        jHitCount++;
+                    }
+                    else if (jHitCount >= 4)
+                    {
+                        juggernautDamage += 2;
+                        juggernaut.TakeDamage(juggernautDamage);
+                        jHitCount++;
+                    }
+                    resetDamageTimer = 0.0f;
                 }
-                resetDamageTimer = 0.0f;
-            }
-            else if (phase != null)
-            {
-                phase.TakeDamage(damage);
-            }
-            else if (mindbreakers != null)
-            {
-                mindbreakers.TakeDamage(damage);
-            }
-            else if (overseer != null)
-            {
-                overseer.TakeDamage(damage);
+                else if (phase != null)
+                {
+                    phase.TakeDamage(damage);
+                }
+                else if (mindbreakers != null)
+                {
+                    mindbreakers.TakeDamage(damage);
+                }
+                else if (overseer != null)
+                {
+                    overseer.TakeDamage(damage);
+                }
+                detectedColliders.RemoveAt(i);
+                damageSources.Remove(other);
             }
         }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (damageSources.Contains(other))
-        {
-            damageSources.Remove(other);
-        }
-        AttackCheck.checkEnemy = false;
     }
     private void OnCollisionEnter(Collision other)
     {

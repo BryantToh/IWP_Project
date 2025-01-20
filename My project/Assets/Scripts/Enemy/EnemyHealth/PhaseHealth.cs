@@ -68,6 +68,7 @@ public class PhaseHealth : Health, IPooledEnemy
     public void OnGet()
     {
         gameObject.SetActive(true);
+        currentHealth = Unit.Health;
     }
 
     public void OnRelease()

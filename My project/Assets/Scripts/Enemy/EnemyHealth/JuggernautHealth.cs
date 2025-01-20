@@ -68,6 +68,7 @@ public class JuggernautHealth : Health, IPooledEnemy
     public void OnGet()
     {
         gameObject.SetActive(true);
+        currentHealth = Unit.Health;
     }
 
     public void OnRelease()
