@@ -63,23 +63,24 @@ public class OverseerHealth : Health
         if (!damageSources.Contains(other))
         {
             damageSources.Add(other);
-            int randomAttack = Random.Range(0, 3);
+            attack2?.Invoke();
 
-            switch (randomAttack)
-            {
-                case 0:
-                    overseer.attackRange = overseer.rangedAttack;
-                    attack1?.Invoke();
-                    break;
-                case 1:
-                    overseer.attackRange = overseer.rangedAttack;
-                    attack2?.Invoke();
-                    break;
-                case 2:
-                    overseer.attackRange = overseer.meleeAttack;
-                    attack4?.Invoke();
-                    break;
-            }
+            //int randomAttack = Random.Range(0, 3);
+
+            //switch (randomAttack)
+            //{
+            //    case 0:
+            //        overseer.attackRange = overseer.rangedAttack;
+            //        attack1?.Invoke();
+            //        break;
+            //    case 1:
+            //        overseer.attackRange = overseer.rangedAttack;
+            //        break;
+            //    case 2:
+            //        overseer.attackRange = overseer.meleeAttack;
+            //        attack4?.Invoke();
+            //        break;
+            //}
         }
     }
     public void AttackPlayerEvent()
