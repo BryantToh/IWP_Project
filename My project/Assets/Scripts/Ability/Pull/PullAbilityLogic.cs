@@ -33,12 +33,12 @@ public class PullAbilityLogic : MonoBehaviour
 
                 if (direction.magnitude > stopDistance)
                 {
-                    Vector3 newPosition = Vector3.MoveTowards(
-                        other.transform.position,
-                        transform.position,
-                        pullStrength * Time.deltaTime
-                    );
-                    agent.Warp(newPosition);
+                    //Vector3 newPosition = Vector3.MoveTowards(
+                    //    other.transform.position,
+                    //    transform.position,
+                    //    pullStrength * Time.deltaTime
+                    //);
+                    agent.SetDestination(transform.position);
                 }
                 else
                 {

@@ -6,7 +6,7 @@ public class EnemyAIController : MonoBehaviour
     public NavMeshAgent agent;
     public Transform player;
     public LayerMask Ground, playerobj;
-
+    public PullAbilityObj pullObj;
     [Header("Attack")]
     public float timeBetweenAttacks;
     [HideInInspector]
@@ -19,10 +19,14 @@ public class EnemyAIController : MonoBehaviour
     protected virtual void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        pullObj = GameObject.FindGameObjectWithTag("Abilityholder").GetComponent<PullAbilityObj>();
     }
 
     protected virtual void Update()
     {
+        if (pullObj.pullOff)
+            return;
+
         if (Vector3.Distance(transform.position, player.position) <= attackRange)
             playerInAttackRange = true;
         else
@@ -31,10 +35,12 @@ public class EnemyAIController : MonoBehaviour
         if (playerInAttackRange)
         {
             Attacking();
+            Debug.Log("attack");
         }
         else
         {
             Chasing();
+            Debug.LogWarning("chasing");
         }
     }
 

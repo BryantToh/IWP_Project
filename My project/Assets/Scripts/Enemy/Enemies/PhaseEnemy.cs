@@ -22,21 +22,21 @@ public class PhaseEnemy : EnemyAIController
 
     protected override void Update()
     {
-        if (!pullAbilityObj.pullOff)
-        {
-            if (Vector3.Distance(transform.position, player.position) <= attackRange)
-                playerInAttackRange = true;
-            else
-                playerInAttackRange = false;
+        if (pullAbilityObj.pullOff)
+            return;
 
-            if (playerInAttackRange)
-            {
-                Attacking();
-            }
-            else
-            {
-                Phasing();
-            }
+        if (Vector3.Distance(transform.position, player.position) <= attackRange)
+            playerInAttackRange = true;
+        else
+            playerInAttackRange = false;
+
+        if (playerInAttackRange)
+        {
+            Attacking();
+        }
+        else
+        {
+            Phasing();
         }
     }
 

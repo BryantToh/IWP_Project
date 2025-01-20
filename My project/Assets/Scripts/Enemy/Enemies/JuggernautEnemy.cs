@@ -16,7 +16,7 @@ public class JuggernautEnemy : EnemyAIController
 
     protected override void Update()
     {
-        if (!pullAbilityObj.pullOff)
+        //if (!pullAbilityObj.pullOff)
             base.Update();
     }
 
