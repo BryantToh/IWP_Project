@@ -112,7 +112,7 @@ public class OverseerHealth : Health
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
-        if (currentHealth == Unit.Health * 0.25f || currentHealth == Unit.Health * 0.5f || currentHealth == Unit.Health * 0.75f)
+        if (currentHealth == Unit.Health * 0.5f)
         {
             attack3?.Invoke();
         }

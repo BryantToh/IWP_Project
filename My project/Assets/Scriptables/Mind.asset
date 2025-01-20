@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc076f9791c4c124b909a586078a94ac, type: 3}
   m_Name: Mind
   m_EditorClassIdentifier: 
-  Health: 20
-  Damage: 0
+  Health: 125
+  Damage: 10
   maxDashCount: 0

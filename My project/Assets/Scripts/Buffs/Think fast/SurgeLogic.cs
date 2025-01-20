@@ -15,8 +15,8 @@ public class SurgeLogic : MonoBehaviour
     private bool isOnCooldown = false;
     private bool coroutineActive = false;
 
-    private const float BuffDurationTime = 1.5f;
-    private const float CooldownTime = 4f;
+    private const float BuffDurationTime = 3f;
+    private const float CooldownTime = 6f;
     private float cooldownTimer;
 
     private const string EnemyTag = "EnemyObj";
