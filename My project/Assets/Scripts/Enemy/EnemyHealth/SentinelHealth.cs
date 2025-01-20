@@ -1,24 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Search;
 using UnityEngine;
 
 public class SentinelHealth : Health, IPooledEnemy
 {
     PlayerHealth player;
     Dashing playerDash;
-    private HashSet<Collider> damageSources = new HashSet<Collider>();
-    public float rotationSpd;
-    float rotationAmount;
     public Animator spinAnim;
     SentinelEnemy sentinel;
     DeathLogic deathLogic;
     SurgeLogic surgeLogic;
+    private HashSet<Collider> damageSources = new HashSet<Collider>();
+    public float rotationSpd;
+    float rotationAmount;
     protected override void Start()
     {
         base.Start();
     }
     public void OnEnemySpawn()
     {
+        pooler = ObjectPooler.Instance;
         player = GameObject.FindGameObjectWithTag("PlayerObj").GetComponent<PlayerHealth>();
         playerDash = player.GetComponent<Dashing>();
         deathLogic = GameObject.FindGameObjectWithTag("deathdefi").GetComponent<DeathLogic>();
@@ -96,22 +98,27 @@ public class SentinelHealth : Health, IPooledEnemy
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
-        if (canDie)
+        if (canDie && !isReleased) // Ensure release is only called once
         {
+            ObjectPooler.Instance.Release("sentinel", this);
+            isReleased = true; // Set to true to prevent further releases
             deathLogic.KilledWhenDeathDefiance();
             spawner.sentinelOnField--;
-            ObjectPooler.Instance.Release("sentinel", this);
         }
     }
 
     public void OnGet()
     {
-        gameObject.SetActive(true);
         currentHealth = Unit.Health;
+        //pooler.isPooled = true;
+        isReleased = false;
+        canDie = false;
+        gameObject.SetActive(true);
     }
 
     public void OnRelease()
     {
+        pooler.isPooled = false;
         gameObject.SetActive(false);
     }
 

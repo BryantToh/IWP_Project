@@ -8,7 +8,9 @@ public class Health : MonoBehaviour
     [HideInInspector]
     public EnemySpawner spawner;
     [HideInInspector]
-    protected bool canDie = false;
+    public bool canDie = false;
+    public bool isReleased = false;
+    protected ObjectPooler pooler;
     protected virtual void Start()
     {
         currentHealth = Unit.Health;

@@ -1,16 +1,32 @@
 using UnityEditor;
 using UnityEngine;
+
 public class EnemySpawner : MonoBehaviour
 {
     ObjectPooler pooler;
     public Vector3 minRange;
     public Vector3 maxRange;
-    ObjectPooler.Pool sentinelPool, juggernautPool, phasePool, mindPool, overseerPool;
-    public int sentinelOnField = 0;
-    public int juggernautOnField = 0;
-    public int phaseOnField = 0;
-    public int mindOnField = 0;
-    public int overseerOnField = 0;
+
+    // Enemy pools
+    ObjectPooler.Pool sentinelPool, juggernautPool, phasePool, mindPool;
+
+    [HideInInspector] public int sentinelOnField = 0;
+    [HideInInspector] public int juggernautOnField = 0;
+    [HideInInspector] public int phaseOnField = 0;
+    [HideInInspector] public int mindOnField = 0;
+
+    // Timers and spawn intervals
+    private float sentinelTimer = 0f;
+    public float sentinelSpawnInterval;
+
+    private float juggernautTimer = 0f;
+    public float juggernautSpawnInterval;
+
+    private float phaseTimer = 0f;
+    public float phaseSpawnInterval;
+
+    private float mindTimer = 0f;
+    public float mindSpawnInterval;
 
     private void Start()
     {
@@ -19,7 +35,6 @@ public class EnemySpawner : MonoBehaviour
         juggernautPool = pooler.GetPool("juggernaut");
         phasePool = pooler.GetPool("phase");
         mindPool = pooler.GetPool("breaker");
-        overseerPool = pooler.GetPool("overseer");
     }
 
     private void Update()
@@ -29,30 +44,42 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemies()
     {
-        if (sentinelPool != null && sentinelOnField < sentinelPool.size)
+        float deltaTime = Time.deltaTime;
+
+        // Sentinel
+        sentinelTimer += deltaTime;
+        if (sentinelPool != null && sentinelOnField < sentinelPool.size && sentinelTimer >= sentinelSpawnInterval)
         {
             pooler.SpawnfromPool("sentinel", randomPos(), Quaternion.identity);
             sentinelOnField++;
+            sentinelTimer = 0f; // Reset timer
         }
-        if (juggernautPool != null && juggernautOnField < juggernautPool.size)
+
+        // Juggernaut
+        juggernautTimer += deltaTime;
+        if (juggernautPool != null && juggernautOnField < juggernautPool.size && juggernautTimer >= juggernautSpawnInterval)
         {
             pooler.SpawnfromPool("juggernaut", randomPos(), Quaternion.identity);
             juggernautOnField++;
+            juggernautTimer = 0f; // Reset timer
         }
-        if (phasePool != null && phaseOnField < phasePool.size)
+
+        // Phase
+        phaseTimer += deltaTime;
+        if (phasePool != null && phaseOnField < phasePool.size && phaseTimer >= phaseSpawnInterval)
         {
             pooler.SpawnfromPool("phase", randomPos(), Quaternion.identity);
             phaseOnField++;
+            phaseTimer = 0f; // Reset timer
         }
-        if (mindPool != null && mindOnField < mindPool.size)
+
+        // Mind
+        mindTimer += deltaTime;
+        if (mindPool != null && mindOnField < mindPool.size && mindTimer >= mindSpawnInterval)
         {
             pooler.SpawnfromPool("breaker", randomPos(), Quaternion.identity);
             mindOnField++;
-        }
-        if (overseerPool != null && overseerOnField < overseerPool.size)
-        {
-            pooler.SpawnfromPool("overseer", randomPos(), Quaternion.identity);
-            overseerOnField++;
+            mindTimer = 0f; // Reset timer
         }
     }
 

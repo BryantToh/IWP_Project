@@ -15,7 +15,7 @@ public class PhaseHealth : Health, IPooledEnemy
 
     public void OnEnemySpawn()
     {
-        currentHealth = Unit.Health;
+        pooler = ObjectPooler.Instance;
         player = GameObject.FindGameObjectWithTag("PlayerObj").GetComponentInChildren<PlayerHealth>();
         phase = GetComponent<PhaseEnemy>();
         deathLogic = GameObject.FindGameObjectWithTag("deathdefi").GetComponent<DeathLogic>();
@@ -57,22 +57,27 @@ public class PhaseHealth : Health, IPooledEnemy
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
-        if (canDie)
+        if (canDie && !isReleased) // Ensure release is only called once
         {
+            ObjectPooler.Instance.Release("phase", this);
+            isReleased = true; // Set to true to prevent further releases
             deathLogic.KilledWhenDeathDefiance();
             spawner.phaseOnField--;
-            ObjectPooler.Instance.Release("phase", this);
         }
     }
 
     public void OnGet()
     {
-        gameObject.SetActive(true);
         currentHealth = Unit.Health;
+        //pooler.isPooled = true;
+        isReleased = false;
+        canDie = false;
+        gameObject.SetActive(true);
     }
 
     public void OnRelease()
     {
+        pooler.isPooled = false;
         gameObject.SetActive(false);
     }
 

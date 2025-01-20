@@ -55,6 +55,8 @@ public class ObjectPooler : MonoBehaviour
 
     public List<Pool> pools;
     public Dictionary<string, ObjectPool<IPooledEnemy>> poolDictionary;
+    public bool isInPool { get; private set; } = false;
+    public bool isPooled = false;
 
     public IPooledEnemy SpawnfromPool(string tag, Vector3 position, Quaternion rotation)
     {
@@ -74,6 +76,11 @@ public class ObjectPooler : MonoBehaviour
 
     public void Release(string tag, IPooledEnemy Obj)
     {
+        //isInPool = isPooled;
+        
+        //if (isInPool)
+        //    return;
+
         if (poolDictionary.TryGetValue(tag, out ObjectPool<IPooledEnemy> pool))
         {
             pool.Release(Obj);
