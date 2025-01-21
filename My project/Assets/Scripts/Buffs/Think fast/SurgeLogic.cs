@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem.Users;
 
 public class SurgeLogic : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class SurgeLogic : MonoBehaviour
     private bool buffActive = false;
     private bool isOnCooldown = false;
     private bool coroutineActive = false;
+    public bool isUse = false;
 
     private const float BuffDurationTime = 3f;
     private const float CooldownTime = 6f;
@@ -55,6 +57,7 @@ public class SurgeLogic : MonoBehaviour
     {
         buffActive = true;
         StartCoroutine(BuffDuration());
+        isUse = true;
     }
 
     private void GetEnemies()

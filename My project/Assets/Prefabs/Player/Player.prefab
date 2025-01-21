@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Death Defiance
   cooldownTimer: 0
-  cooldownTime: 60
+  cooldownTime: 80
   abilityDuration: 5
   isOnCooldown: 0
   activationKey: 113
@@ -134,8 +134,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db2e56c3064980d4188f97040ff3687d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 8
   dashSpeed: 20
+  staggered: 0
   animator: {fileID: 3529837917133140046}
   cam: {fileID: 0}
   orientation: {fileID: 2445101762258806181}
@@ -159,6 +160,7 @@ MonoBehaviour:
   dashForce: 30
   dashDuration: 0.2
   dashCount: 0
+  isDashing: 0
   dashCD: 0.7
   dashCDTimer: 0
   useCameraForward: 0
@@ -201,6 +203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Unit: {fileID: 11400000, guid: 1fbbeb976c1cd174da171cacfd9993aa, type: 2}
   glitchController: {fileID: 0}
+  detectedColliders: []
   deathLogic: {fileID: 3145282113623146138}
   currentHealth: 0
 --- !u!1 &3203290637295283628
@@ -280,7 +283,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Magnetic Surge
   cooldownTimer: 0
-  cooldownTime: 3
+  cooldownTime: 7
   abilityDuration: 0
   isOnCooldown: 0
   activationKey: 49
@@ -335,7 +338,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Kinetic Repulsion
   cooldownTimer: 0
-  cooldownTime: 5
+  cooldownTime: 12
   abilityDuration: 0
   isOnCooldown: 0
   activationKey: 50
@@ -405,6 +408,74 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDodged: 0
+--- !u!1 &7110913954471652511
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6801057551516064602}
+  - component: {fileID: 2736831380635828183}
+  - component: {fileID: 2590453568924183652}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Parts
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6801057551516064602
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7110913954471652511}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.2461532, y: 0, z: 0, w: 0.96923095}
+  m_LocalPosition: {x: 0, y: 0.238, z: -0.115}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2119826320915371611}
+  m_LocalEulerAnglesHint: {x: -28.5, y: 0, z: 0}
+--- !u!114 &2736831380635828183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7110913954471652511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fc0fca4b57d89f4eac8c4ef77750b44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!136 &2590453568924183652
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7110913954471652511}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.08
+  m_Height: 0.6
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8236630753585601681
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,7 +523,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Circuit Overcharge
   cooldownTimer: 0
-  cooldownTime: 45
+  cooldownTime: 30
   abilityDuration: 0
   isOnCooldown: 0
   activationKey: 51
@@ -460,7 +531,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   health: {fileID: 7098953905482609337}
-  dmgPerTick: 1.5
+  dmgPerTick: 0.8
   timeBfrHeal: 5
   healRadius: 6.5
 --- !u!135 &5550551813844348541
@@ -566,7 +637,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -751476226918971245, guid: 5e1794c5a095d2c4ca69e41465bbba8e, type: 3}
       propertyPath: m_TagString
-      value: Parts
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5e1794c5a095d2c4ca69e41465bbba8e, type: 3}
       propertyPath: m_Name
@@ -586,7 +657,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 608321761475470972, guid: 5e1794c5a095d2c4ca69e41465bbba8e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6801057551516064602}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5e1794c5a095d2c4ca69e41465bbba8e, type: 3}
       insertIndex: -1
@@ -624,12 +698,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -4332706925441422008, guid: 5e1794c5a095d2c4ca69e41465bbba8e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7056623387856158874}
-    - targetCorrespondingSourceObject: {fileID: -751476226918971245, guid: 5e1794c5a095d2c4ca69e41465bbba8e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 451395058875656238}
-    - targetCorrespondingSourceObject: {fileID: -751476226918971245, guid: 5e1794c5a095d2c4ca69e41465bbba8e, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4642152573102189634}
   m_SourcePrefab: {fileID: 100100000, guid: 5e1794c5a095d2c4ca69e41465bbba8e, type: 3}
 --- !u!4 &1337756936181962700 stripped
 Transform:
@@ -686,6 +754,11 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!4 &2119826320915371611 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 608321761475470972, guid: 5e1794c5a095d2c4ca69e41465bbba8e, type: 3}
+  m_PrefabInstance: {fileID: 1520549427847999527}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4512347731001195018 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3135921509060577837, guid: 5e1794c5a095d2c4ca69e41465bbba8e, type: 3}
@@ -846,46 +919,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fc0fca4b57d89f4eac8c4ef77750b44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &6955858001292277940 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -751476226918971245, guid: 5e1794c5a095d2c4ca69e41465bbba8e, type: 3}
-  m_PrefabInstance: {fileID: 1520549427847999527}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &451395058875656238
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6955858001292277940}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fc0fca4b57d89f4eac8c4ef77750b44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!136 &4642152573102189634
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6955858001292277940}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.05
-  m_Height: 0.6
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.27, z: 0}
 --- !u!1 &8505981894608925843 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2084811680363313996, guid: 5e1794c5a095d2c4ca69e41465bbba8e, type: 3}
@@ -922,7 +955,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.05
+  m_Radius: 0.08
   m_Height: 0.6
   m_Direction: 1
   m_Center: {x: 0, y: 0.27, z: 0}

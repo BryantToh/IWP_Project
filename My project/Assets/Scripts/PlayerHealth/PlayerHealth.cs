@@ -85,42 +85,53 @@ public class PlayerHealth : MonoBehaviour
                 PhaseHealth phase = other.GetComponentInParent<PhaseHealth>();
                 MindbreakersHealth mindbreakers = other.GetComponentInParent<MindbreakersHealth>();
                 OverseerHealth overseer = other.GetComponentInParent<OverseerHealth>();
+
+                float currentDamage = damage;
+
+                // Check if chargeAttack is true, and apply double damage
+                if (player.chargeAttack)
+                {
+                    currentDamage *= 2f;
+                }
+
                 if (sentinel != null)
                 {
-                    sentinel.TakeDamage(damage);
+                    sentinel.TakeDamage(currentDamage);
                 }
                 else if (juggernaut != null)
                 {
                     if (jHitCount < 4)
                     {
-                        juggernaut.TakeDamage(juggernautDamage);
+                        juggernaut.TakeDamage(juggernautDamage * (player.chargeAttack ? 2f : 1f));
                         jHitCount++;
                     }
                     else if (jHitCount >= 4)
                     {
                         juggernautDamage += 2;
-                        juggernaut.TakeDamage(juggernautDamage);
+                        juggernaut.TakeDamage(juggernautDamage * (player.chargeAttack ? 2f : 1f));
                         jHitCount++;
                     }
                     resetDamageTimer = 0.0f;
                 }
                 else if (phase != null)
                 {
-                    phase.TakeDamage(damage);
+                    phase.TakeDamage(currentDamage);
                 }
                 else if (mindbreakers != null)
                 {
-                    mindbreakers.TakeDamage(damage);
+                    mindbreakers.TakeDamage(currentDamage);
                 }
                 else if (overseer != null)
                 {
-                    overseer.TakeDamage(damage);
+                    overseer.TakeDamage(currentDamage);
                 }
+
                 detectedColliders.RemoveAt(i);
                 damageSources.Remove(other);
             }
         }
     }
+
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("MindProjectile"))

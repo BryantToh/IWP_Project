@@ -11,14 +11,15 @@ public class UltiLogic : BaseAbility
     public float dmgPerTick;
     public float timeBfrHeal;
     public float healRadius;
+    public bool inUse = false;
+    const float noEnemyCooldownTime = 2f;
     float enemyMultiplier = 0.4f;
     float damageMultiplier = 0.2f;
     float totalDamageDealt;
-    bool activated = false;
     float noEnemyTimer = 0f;
-    const float noEnemyCooldownTime = 2f;
-    bool noEnemiesDetected = false;
     float numberOfEnemies = 0f;
+    bool noEnemiesDetected = false;
+    bool activated = false;
     private void Update()
     {
         if (isOnCooldown)
@@ -97,6 +98,7 @@ public class UltiLogic : BaseAbility
             return;
         }
 
+        inUse = true;
         activated = true;
         noEnemyTimer = 0f;
         noEnemiesDetected = false;

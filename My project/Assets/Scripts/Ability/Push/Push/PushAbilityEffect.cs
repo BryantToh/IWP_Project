@@ -6,6 +6,7 @@ public class PushAbilityEffect : BaseAbility
     public LayerMask affectedLayer;
     [HideInInspector]
     public bool canAOE = false;
+    public bool inUse = false;
     private bool hasBeenUsed = false;
     private void Update()
     {
@@ -44,5 +45,6 @@ public class PushAbilityEffect : BaseAbility
             return;
         }
         ApplyPushback(transform.position);
+        inUse = true;
     }
 }

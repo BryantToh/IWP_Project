@@ -5,6 +5,7 @@ public class DeathLogic : BaseAbility
     public PlayerHealth playerHealth;
     float enemyKillCount = 0f;
     public bool activated = false;
+    public bool isUse = false;
     bool startDecr = false;
     bool healthReset = false;
     float timer = 0f;

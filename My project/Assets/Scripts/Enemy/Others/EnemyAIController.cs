@@ -5,7 +5,6 @@ public class EnemyAIController : MonoBehaviour
 {
     public NavMeshAgent agent;
     public Transform player;
-    public LayerMask Ground, playerobj;
     public PullAbilityObj pullObj;
     [Header("Attack")]
     public float timeBetweenAttacks;
@@ -35,12 +34,10 @@ public class EnemyAIController : MonoBehaviour
         if (playerInAttackRange)
         {
             Attacking();
-            Debug.Log("attack");
         }
         else
         {
             Chasing();
-            Debug.LogWarning("chasing");
         }
     }
 

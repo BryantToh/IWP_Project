@@ -3,14 +3,16 @@ using UnityEngine.AI;
 public class PullAbilityLogic : MonoBehaviour
 {
     public LayerMask pullableLayer;
+    NavMeshAgent agent = null;
+    PullAbilityObj pullAbilityObj;
     public float stopDistance;
     public float pullStrength;
     bool canDelete = false;
-    NavMeshAgent agent = null;
-    PullAbilityObj pullAbilityObj;
+    public bool inUse = false;
     private void Start()
     {
         pullAbilityObj = GameObject.FindGameObjectWithTag("Abilityholder").GetComponent<PullAbilityObj>();
+        inUse = true;
     }
     private void Update()
     {

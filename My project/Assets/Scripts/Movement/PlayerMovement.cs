@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private Coroutine kickCoroutine;
     private Queue<PrimaryActionCommand> _primaryActionCommandQueue = new Queue<PrimaryActionCommand>();
     public int kickSteps = -1;
-    public bool isCharging = false;
+    public bool chargeAttack = false;
 
     public void ReadPrimaryActionCommand(PrimaryActionCommand command)
     {
@@ -142,8 +142,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (command.Action == 1)
         {
+            chargeAttack = true;
             animator.SetTrigger("HeavyKick");
-
             AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
             while (!stateInfo.IsName("Heavy_Attack"))
             {
@@ -151,6 +151,7 @@ public class PlayerMovement : MonoBehaviour
                 yield return null;
             }
             yield return new WaitForSeconds(stateInfo.length - 0.2f);
+            chargeAttack = false;
         }
         else
         {
