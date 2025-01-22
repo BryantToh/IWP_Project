@@ -4,6 +4,7 @@ using UnityEngine;
 public class PhaseHealth : Health, IPooledEnemy
 {
     PlayerHealth player;
+    Dashing playerDash;
     private HashSet<Collider> damageSources = new HashSet<Collider>();
     PhaseEnemy phase;
     DeathLogic deathLogic;
@@ -17,6 +18,7 @@ public class PhaseHealth : Health, IPooledEnemy
     {
         pooler = ObjectPooler.Instance;
         player = GameObject.FindGameObjectWithTag("PlayerObj").GetComponentInChildren<PlayerHealth>();
+        playerDash = player.GetComponent<Dashing>();
         phase = GetComponent<PhaseEnemy>();
         deathLogic = GameObject.FindGameObjectWithTag("deathdefi").GetComponent<DeathLogic>();
         surgeLogic = GameObject.FindGameObjectWithTag("Surge").GetComponent<SurgeLogic>();
@@ -34,11 +36,12 @@ public class PhaseHealth : Health, IPooledEnemy
     }
     public void AttackPlayerEvent()
     {
-        if (Vector3.Distance(player.transform.position, transform.position) <= phase.attackRange)
+        if (Vector3.Distance(player.transform.position, transform.position) <= phase.attackRange && !playerDash.isDashing)
         {
             player.TakeDamage(Unit.Damage);
         }
-        else if (Vector3.Distance(player.transform.position, transform.position) > phase.attackRange)
+        else if (Vector3.Distance(player.transform.position, transform.position) <= phase.attackRange && playerDash.isDashing ||
+            Vector3.Distance(player.transform.position, transform.position) > phase.attackRange && playerDash.isDashing)
         {
             if (!surgeLogic.attackDodged)
                 surgeLogic.attackDodged = true;

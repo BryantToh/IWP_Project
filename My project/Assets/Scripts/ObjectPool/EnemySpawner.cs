@@ -8,14 +8,15 @@ public class EnemySpawner : MonoBehaviour
     public Vector3 maxRange;
 
     // Enemy pools
-    ObjectPooler.Pool sentinelPool, juggernautPool, phasePool, mindPool;
+    ObjectPooler.Pool sentinelPool, juggernautPool, phasePool, mindPool, sentineltutPool;
 
     [HideInInspector] public int sentinelOnField = 0;
     [HideInInspector] public int juggernautOnField = 0;
     [HideInInspector] public int phaseOnField = 0;
     [HideInInspector] public int mindOnField = 0;
+    [HideInInspector] public int sentineltutOnField = 0;
 
-    // Timers and spawn intervals
+    //Timers and spawn intervals
     private float sentinelTimer = 0f;
     public float sentinelSpawnInterval;
 
@@ -35,6 +36,7 @@ public class EnemySpawner : MonoBehaviour
         juggernautPool = pooler.GetPool("juggernaut");
         phasePool = pooler.GetPool("phase");
         mindPool = pooler.GetPool("breaker");
+        sentineltutPool = pooler.GetPool("sentineltut");
     }
 
     private void Update()
@@ -80,6 +82,12 @@ public class EnemySpawner : MonoBehaviour
             pooler.SpawnfromPool("breaker", randomPos(), Quaternion.identity);
             mindOnField++;
             mindTimer = 0f; // Reset timer
+        }
+
+        if(sentineltutPool != null && sentineltutOnField < sentineltutPool.size)
+        {
+            pooler.SpawnfromPool("sentineltut", randomPos(), Quaternion.identity);
+            sentineltutOnField++;
         }
     }
 

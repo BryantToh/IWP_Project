@@ -4,6 +4,7 @@ using UnityEngine;
 public class JuggernautHealth : Health, IPooledEnemy
 {
     PlayerHealth player;
+    Dashing playerDash;
     private HashSet<Collider> damageSources = new HashSet<Collider>();
     JuggernautEnemy juggernaut;
     DeathLogic deathLogic;
@@ -17,6 +18,7 @@ public class JuggernautHealth : Health, IPooledEnemy
     {
         pooler = ObjectPooler.Instance;
         player = GameObject.FindGameObjectWithTag("PlayerObj").GetComponentInChildren<PlayerHealth>();
+        playerDash = player.GetComponent<Dashing>();
         juggernaut = GetComponent<JuggernautEnemy>();
         deathLogic = GameObject.FindGameObjectWithTag("deathdefi").GetComponent<DeathLogic>();
         surgeLogic = GameObject.FindGameObjectWithTag("Surge").GetComponent<SurgeLogic>();
@@ -34,11 +36,12 @@ public class JuggernautHealth : Health, IPooledEnemy
     }
     public void AttackPlayerEvent()
     {
-        if (Vector3.Distance(player.transform.position, transform.position) <= juggernaut.attackRange)
+        if (Vector3.Distance(player.transform.position, transform.position) <= juggernaut.attackRange && !playerDash.isDashing)
         {
             player.TakeDamage(Unit.Damage);
         }
-        else if (Vector3.Distance(player.transform.position, transform.position) > juggernaut.attackRange)
+        else if (Vector3.Distance(player.transform.position, transform.position) <= juggernaut.attackRange && playerDash.isDashing ||
+            Vector3.Distance(player.transform.position, transform.position) > juggernaut.attackRange && playerDash.isDashing)
         {
             if (!surgeLogic.attackDodged)
                 surgeLogic.attackDodged = true;

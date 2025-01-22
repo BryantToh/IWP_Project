@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using UnityEngine.AI;
 
 public class TutorialController : MonoBehaviour
 {
@@ -12,11 +13,14 @@ public class TutorialController : MonoBehaviour
     public DeathLogic deathLogic;
     public SurgeLogic surgeLogic;
     public GameObject teleporter;
-
+    public GameObject senObj;
+    SentinelHealth health;
+    public NavMeshAgent agent;
     private int index = 0;
     private float horizontalInput;
     private float verticalInput;
     private bool normalAttack = false;
+    float ogSpeed = 0;
 
     private void Start()
     {
@@ -26,6 +30,16 @@ public class TutorialController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (senObj == null)
+        {
+            senObj = GameObject.FindGameObjectWithTag("EnemyObj");
+            agent = senObj.GetComponent<NavMeshAgent>();
+            health = senObj.GetComponent<SentinelHealth>();
+            ogSpeed = agent.speed;
+            agent.speed = 0;
+            health.Unit.Damage = 0;
+        }
+
         if (index == 0)
         {
             CheckMovementInput();
@@ -33,6 +47,7 @@ public class TutorialController : MonoBehaviour
         else if (index == 1)
         {
             CheckMouseInput();
+            agent.speed = ogSpeed;
         }
         else if (index == 2)
         {
