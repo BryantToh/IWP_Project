@@ -23,6 +23,7 @@ public class EnemyAIController : MonoBehaviour
 
     protected virtual void Update()
     {
+        Debug.Log(pullObj.pullOff);
         if (pullObj.pullOff)
             return;
 
