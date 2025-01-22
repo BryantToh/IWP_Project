@@ -13,6 +13,7 @@ public class TutorialController : MonoBehaviour
     public DeathLogic deathLogic;
     public SurgeLogic surgeLogic;
 
+    private int index = 0;
     private float horizontalInput;
     private float verticalInput;
     private bool normalAttack = false;
@@ -25,18 +26,22 @@ public class TutorialController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (CheckMovementInput())
+        if (index == 0)
         {
-            instructionText.text = "Click left click for normal attack 5 times";
-            if (CheckMouseInput())
-            {
-                instructionText.text = "Press numbers 1, 2 and 3 to use your abilities";
-                if (CheckAbilityUse())
-                {
-                    instructionText.text = "Q is an active buff";
-                    //CheckBuffUse();
-                }
-            }
+            CheckMovementInput();
+        }
+        else if (index == 1)
+        {
+            CheckMouseInput();
+        }
+        else if (index == 2)
+        {
+            CheckAbilityUse();
+
+        }
+        else if (index == 3)
+        {
+            CheckBuffUse();
         }
     }
 
@@ -47,7 +52,8 @@ public class TutorialController : MonoBehaviour
 
         if (horizontalInput != 0 && verticalInput != 0)
         {
-            UpdateInstructionText("Niceu");
+            instructionText.text = "Click left click for normal attack 5 times";
+            index++;
             return true;
         }
         else return false;
@@ -55,7 +61,7 @@ public class TutorialController : MonoBehaviour
 
     bool CheckMouseInput()
     {
-        if (player.kickSteps == 4 && !normalAttack)
+        if (player.kickSteps == 4)
         {
             instructionText.text = "Niceu, now hold down left click for heavy attack";
             normalAttack = true;
@@ -63,7 +69,8 @@ public class TutorialController : MonoBehaviour
 
         if (player.chargeAttack && normalAttack)
         {
-            UpdateInstructionText("Nice, let's try using your abilities");
+            instructionText.text = "Press numbers 1, 2 and 3 to use your abilities";
+            index++;
             return true;
         }
         else return false;
@@ -73,7 +80,8 @@ public class TutorialController : MonoBehaviour
     {
         if (/*pullAbilityLogic.inUse && */pushAbilityEffect.inUse && ultiLogic.inUse)
         {
-            UpdateInstructionText("Even nicer, now let's introduce you to your buffs");
+            UpdateInstructionText("Q is an active buff while the passive buff only occurs when you dodge a enemy attack");
+            index++;
             return true;
         }
         else return false;
@@ -83,7 +91,8 @@ public class TutorialController : MonoBehaviour
     {
         if (surgeLogic.isUse && deathLogic.isUse)
         {
-            UpdateInstructionText("Nice. Remember that your Q buff's effect will only activate when you die. Use it wisely");
+            UpdateInstructionText("Your Q will only work successfully when you die, so use it at the right time");
+            index++;
             return true;
         }
         else return false;
