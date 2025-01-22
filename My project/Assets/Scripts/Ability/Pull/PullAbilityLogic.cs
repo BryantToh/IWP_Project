@@ -9,13 +9,12 @@ public class PullAbilityLogic : MonoBehaviour
     public float stopDistance;
     public float pullStrength;
     bool canDelete = false;
-    public bool inUse = false;
 
     private List<NavMeshAgent> agentsStored = new List<NavMeshAgent>();
     private void Start()
     {
         pullAbilityObj = GameObject.FindGameObjectWithTag("Abilityholder").GetComponent<PullAbilityObj>();
-        inUse = true;
+        pullAbilityObj.inUse = true;
     }
     private void Update()
     {

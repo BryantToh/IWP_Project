@@ -45,6 +45,7 @@ public class DeathLogic : BaseAbility
         if (activated && !startDecr)
         {
             timer -= Time.deltaTime;
+            Debug.Log("asdasd");
             if (timer <= 0f)
             {
                 ResetAbility();
@@ -61,6 +62,7 @@ public class DeathLogic : BaseAbility
         if (startDecr)
         {
             BuffEffect();
+            isUse = true;
         }
     }
 

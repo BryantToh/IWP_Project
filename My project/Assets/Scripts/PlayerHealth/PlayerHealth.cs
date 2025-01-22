@@ -19,7 +19,6 @@ public class PlayerHealth : MonoBehaviour
     public List<Collider> detectedColliders = new List<Collider>();
     [SerializeField]
     DeathLogic deathLogic;
-    [HideInInspector]
     public float currentHealth;
     float damage;
     float juggernautDamage;
@@ -57,11 +56,6 @@ public class PlayerHealth : MonoBehaviour
                 timer = 0;
                 hitCount = 0;
             }
-        }
-
-        if (currentHealth <= 0f)
-        {
-            gameObject.SetActive(false);
         }
 
         if (glitchController.isResetting)

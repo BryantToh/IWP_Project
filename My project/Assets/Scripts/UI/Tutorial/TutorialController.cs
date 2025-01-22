@@ -1,26 +1,26 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.InputSystem;
 using System.Collections;
 
 public class TutorialController : MonoBehaviour
 {
     public PlayerMovement player;
     public TMP_Text instructionText;
-    public PullAbilityLogic pullAbilityLogic;
+    public PullAbilityObj pullAbilityObj;
     public PushAbilityEffect pushAbilityEffect;
     public UltiLogic ultiLogic;
     public DeathLogic deathLogic;
     public SurgeLogic surgeLogic;
+    public GameObject teleporter;
 
     private int index = 0;
     private float horizontalInput;
     private float verticalInput;
     private bool normalAttack = false;
-    private bool isDisplayingText = false;
 
     private void Start()
     {
+        teleporter.SetActive(false);
         instructionText.text = "Hello, use WASD to move around";
     }
 
@@ -37,12 +37,9 @@ public class TutorialController : MonoBehaviour
         else if (index == 2)
         {
             CheckAbilityUse();
-
         }
         else if (index == 3)
-        {
-            CheckBuffUse();
-        }
+            teleporter.SetActive(true);
     }
 
     bool CheckMovementInput()
@@ -50,7 +47,7 @@ public class TutorialController : MonoBehaviour
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
-        if (horizontalInput != 0 && verticalInput != 0)
+        if (horizontalInput != 0 && verticalInput != 0 && -horizontalInput != 0 && -verticalInput != 0)
         {
             instructionText.text = "Click left click for normal attack 5 times";
             index++;
@@ -78,39 +75,23 @@ public class TutorialController : MonoBehaviour
 
     bool CheckAbilityUse()
     {
-        if (/*pullAbilityLogic.inUse && */pushAbilityEffect.inUse && ultiLogic.inUse)
+        bool canUsePush = false;
+        bool canUseUlti = false;
+
+        if (pullAbilityObj.inUse)
         {
-            UpdateInstructionText("Q is an active buff while the passive buff only occurs when you dodge a enemy attack");
+            canUsePush = true;
+        }
+        if (pushAbilityEffect.inUse && canUsePush)
+        {
+            canUseUlti = true;
+        }
+        if (ultiLogic.inUse && pullAbilityObj.inUse && pushAbilityEffect.inUse && canUseUlti)
+        {
+            instructionText.text = "Congratz you done with tutorial. Touch the ball to exit tutorial";
             index++;
             return true;
         }
         else return false;
-    }
-
-    bool CheckBuffUse()
-    {
-        if (surgeLogic.isUse && deathLogic.isUse)
-        {
-            UpdateInstructionText("Your Q will only work successfully when you die, so use it at the right time");
-            index++;
-            return true;
-        }
-        else return false;
-    }
-
-    private void UpdateInstructionText(string newText)
-    {
-        if (!isDisplayingText)
-        {
-            StartCoroutine(DisplayTextCoroutine(newText));
-        }
-    }
-
-    private IEnumerator DisplayTextCoroutine(string newText)
-    {
-        isDisplayingText = true;
-        instructionText.text = newText;
-        yield return new WaitForSeconds(5f);
-        isDisplayingText = false;
     }
 }

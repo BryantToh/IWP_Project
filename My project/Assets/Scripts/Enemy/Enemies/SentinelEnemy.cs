@@ -17,8 +17,7 @@ public class SentinelEnemy : EnemyAIController
 
     protected override void Update()
     {
-        //if (!pullAbilityObj.pullOff)
-            base.Update();
+        base.Update();
     }
 
     protected override void Chasing()

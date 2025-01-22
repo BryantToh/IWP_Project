@@ -110,10 +110,10 @@ public class SentinelHealth : Health, IPooledEnemy
     public void OnGet()
     {
         currentHealth = Unit.Health;
-        //pooler.isPooled = true;
         isReleased = false;
         canDie = false;
         gameObject.SetActive(true);
+        spinAnim.StopPlayback();
     }
 
     public void OnRelease()

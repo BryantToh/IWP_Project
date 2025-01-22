@@ -17,7 +17,7 @@ public class SurgeLogic : MonoBehaviour
     private bool coroutineActive = false;
     public bool isUse = false;
 
-    private const float BuffDurationTime = 3f;
+    private const float BuffDurationTime = 5f;
     private const float CooldownTime = 6f;
     private float cooldownTimer;
 
@@ -83,9 +83,9 @@ public class SurgeLogic : MonoBehaviour
                 var enemyAI = agent.GetComponent<EnemyAIController>();
                 originalValues[agent] = (agent.acceleration, agent.speed, enemyAI.timeBetweenAttacks);
 
-                agent.acceleration /= 2;
-                agent.speed /= 2;
-                enemyAI.timeBetweenAttacks *= 2;
+                agent.acceleration /= 5;
+                agent.speed /= 5;
+                enemyAI.timeBetweenAttacks *= 5;
             }
         }
     }

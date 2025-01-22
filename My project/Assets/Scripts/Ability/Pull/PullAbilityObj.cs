@@ -6,6 +6,7 @@ public class PullAbilityObj : BaseAbility
     public Camera cam;
     public GameObject pullObj;
     public bool pullOff = false;
+    public bool inUse = false;
 
     private void Update()
     {
