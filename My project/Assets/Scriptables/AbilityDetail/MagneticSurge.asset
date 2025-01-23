@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e76146a6414d1247b63a1b8776f98ec, type: 3}
+  m_Name: MagneticSurge
+  m_EditorClassIdentifier: 
+  abilityImage: {fileID: 0}
+  abilityName: Magnetic Surge
+  abilityDescription: Spawns a black hole that pulls in nearby enemies for 5 seconds
+    before disappearing. 7 seconds cooldown

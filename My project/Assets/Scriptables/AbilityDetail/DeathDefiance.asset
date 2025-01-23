@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e76146a6414d1247b63a1b8776f98ec, type: 3}
+  m_Name: DeathDefiance
+  m_EditorClassIdentifier: 
+  abilityImage: {fileID: 0}
+  abilityName: Death Defiance
+  abilityDescription: Infuses player with a undying formula for 5 seconds. If player
+    takes fatal damage when this buff is active, they are restored to 100% of their
+    max health but suffers a short circuit equal to a percent of their max health
+    until they die from reaching 0 health. Short circuit stops when player kills
+    5 enemies before their health reaches 0. Setting the player health back to 70%
+    of the max health. 45 seconds cooldown.

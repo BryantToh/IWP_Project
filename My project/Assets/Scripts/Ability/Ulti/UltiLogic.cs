@@ -12,7 +12,7 @@ public class UltiLogic : BaseAbility
     public float timeBfrHeal;
     public float healRadius;
     public bool inUse = false;
-    const float noEnemyCooldownTime = 2f;
+    const float noEnemyCooldownTime = 1.5f;
     float enemyMultiplier = 0.4f;
     float damageMultiplier = 0.2f;
     float totalDamageDealt;

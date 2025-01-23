@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -17,6 +18,9 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (movement == null && inputcontroller == null)
+            return;
+
         if (inputcontroller.TryGetPrimaryAction(out PrimaryActionCommand action))
             movement.ReadPrimaryActionCommand(action);
     }
