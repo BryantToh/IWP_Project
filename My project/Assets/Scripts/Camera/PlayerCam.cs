@@ -27,11 +27,6 @@ public class PlayerCam : MonoBehaviour
     public Transform currentTarget;
     private float rotSpeed = 8f;
 
-    void Start()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
 
     void LateUpdate()
     {

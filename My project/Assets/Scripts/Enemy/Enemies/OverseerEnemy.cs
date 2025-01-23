@@ -18,8 +18,6 @@ public class OverseerEnemy : EnemyAIController
     {
         agent.stoppingDistance = attackRange;
         base.Update();
-
-        Debug.Log(attackRange);
     }
 
     protected override void Chasing()

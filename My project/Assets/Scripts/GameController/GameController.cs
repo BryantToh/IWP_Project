@@ -9,11 +9,6 @@ public class GameController : MonoBehaviour
     private PlayerMovement movement;
     [SerializeField]
     private InputController inputcontroller;
-    void Start()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
 
     // Update is called once per frame
     private void Update()

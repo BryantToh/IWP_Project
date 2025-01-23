@@ -49,7 +49,7 @@ public class Projectile : MonoBehaviour
             if (!surgeLogic.attackDodged)
                 surgeLogic.attackDodged = true;
             else
-                Debug.Log("passive already active");
+                Debug.Log("passive already active");      
         }
     }
 

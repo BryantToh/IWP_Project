@@ -5,8 +5,10 @@ public class timer : MonoBehaviour
     public TMP_Text timerObj;
     public OverseerHealth bossObj;
     public PlayerHealth player;
-    private float time = 30f;
+    public UIController uiController;
+    private float time = 5f;
     private float timeClock;
+    public bool gameOver = false;
     void Start()
     {
         timeClock = time;
@@ -15,19 +17,20 @@ public class timer : MonoBehaviour
 
     void Update()
     {
-        //timeClock -= Time.deltaTime;
-        //timerObj.text = "Time: " + timeClock.ToString("0:00");
-        //if (timeClock <= 0f)
-        //{
-        //    timeClock = 0f;
-        //    timerObj = null;
-        //    bossObj.gameObject.SetActive(true);
-        //}
+        timeClock -= Time.deltaTime;
+        timerObj.text = "Time: " + timeClock.ToString("0:00");
+        if (timeClock <= 0f)
+        {
+            timeClock = 0f;
+            timerObj = null;
+            bossObj.gameObject.SetActive(true);
+        }
 
-        //if (bossObj.currentHealth <= 0f && bossObj.isActiveAndEnabled)
-        //{
-        //    Debug.Log("you won nigga");
-        //    player.currentHealth = 9999999;
-        //}
+        if (bossObj.currentHealth <= 0f && bossObj.isActiveAndEnabled)
+        {
+            gameOver = true;
+            uiController.ShowGameOver(gameOver);
+            uiController.paused += 1;
+        }
     }
 }

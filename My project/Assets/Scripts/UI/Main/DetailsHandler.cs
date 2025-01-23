@@ -20,7 +20,7 @@ public class DetailsHandler : MonoBehaviour
             return;
         }
         var currentAbility = scriptableObj[index];
-        abilityImage.sprite = currentAbility.abilityImage.sprite;
+        //abilityImage.sprite = currentAbility.abilityImage.sprite;
         abilityName.text = currentAbility.abilityName;
         description.text = currentAbility.abilityDescription;
     }
