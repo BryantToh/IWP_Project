@@ -5,6 +5,7 @@ public class SentinelEnemy : EnemyAIController
 {
     SentinelHealth enemyHealth;
     Collider playerCol;
+    public ParticleSystem attackNotice;
     public PullAbilityObj pullAbilityObj;
     protected override void Start()
     {
@@ -32,8 +33,22 @@ public class SentinelEnemy : EnemyAIController
         if (!alreadyAttacked)
         {
             alreadyAttacked = true;
+
+            // Play the attack notice particle system slightly before the attack resets
+            float noticeTime = timeBetweenAttacks - 0.2f;
+            if (noticeTime > 0)
+                Invoke(nameof(PlayAttackNotice), noticeTime);
+
             enemyHealth.AttackPlayer(playerCol);
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
+        }
+    }
+
+    private void PlayAttackNotice()
+    {
+        if (attackNotice != null)
+        {
+            attackNotice.Play();
         }
     }
 

@@ -44,10 +44,12 @@ public class SentinelHealth : Health, IPooledEnemy
         if (Vector3.Distance(player.transform.position, transform.position) <= sentinel.attackRange && !playerDash.isDashing)
         {
             player.TakeDamage(Unit.Damage);
+            Debug.Log("nigga");
         }
         else if (Vector3.Distance(player.transform.position, transform.position) <= sentinel.attackRange && playerDash.isDashing || 
             Vector3.Distance(player.transform.position, transform.position) > sentinel.attackRange && playerDash.isDashing)
         {
+            Debug.LogWarning("asdasd");
             if (!surgeLogic.attackDodged)
                 surgeLogic.attackDodged = true;
             else
