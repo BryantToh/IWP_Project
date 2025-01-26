@@ -6,6 +6,8 @@ public class PhaseEnemy : EnemyAIController
     PhaseHealth enemyHealth;
     Collider playerCol;
     PhaseTransparent phasing;
+    public Animator animator;
+    public ParticleSystem attackNotice;
     NavMeshAgent navMesh;
     public PullAbilityObj pullAbilityObj;
     protected override void Start()
@@ -42,6 +44,7 @@ public class PhaseEnemy : EnemyAIController
 
     private void Phasing()
     {
+        animator.SetBool("Moving", true);
         navMesh.speed = 0f;
         phasing.FadeOut();
     }
@@ -56,6 +59,7 @@ public class PhaseEnemy : EnemyAIController
 
     protected override void Chasing()
     {
+        animator.SetBool("Moving", true);
         navMesh.speed = 6f;
         base.Chasing();
     }
@@ -66,13 +70,20 @@ public class PhaseEnemy : EnemyAIController
 
         if (!alreadyAttacked)
         {
+            animator.SetBool("Moving", false);
             phasing.FadeIn();
             alreadyAttacked = true;
             enemyHealth.AttackPlayer(playerCol);
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
     }
-
+    public void PlayAttackNotice()
+    {
+        if (attackNotice != null)
+        {
+            attackNotice.Play();
+        }
+    }
     protected override void ResetAttack()
     {
         base.ResetAttack();

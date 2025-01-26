@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Search;
 using UnityEngine;
 
 public class SentinelHealth : Health, IPooledEnemy
@@ -44,12 +43,10 @@ public class SentinelHealth : Health, IPooledEnemy
         if (Vector3.Distance(player.transform.position, transform.position) <= sentinel.attackRange && !playerDash.isDashing)
         {
             player.TakeDamage(Unit.Damage);
-            Debug.Log("nigga");
         }
         else if (Vector3.Distance(player.transform.position, transform.position) <= sentinel.attackRange && playerDash.isDashing || 
             Vector3.Distance(player.transform.position, transform.position) > sentinel.attackRange && playerDash.isDashing)
         {
-            Debug.LogWarning("asdasd");
             if (!surgeLogic.attackDodged)
                 surgeLogic.attackDodged = true;
             else

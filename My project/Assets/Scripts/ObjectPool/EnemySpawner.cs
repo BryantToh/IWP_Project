@@ -16,7 +16,7 @@ public class EnemySpawner : MonoBehaviour
     [HideInInspector] public int mindOnField = 0;
     [HideInInspector] public int sentineltutOnField = 0;
 
-    //Timers and spawn intervals
+    // Timers and spawn intervals
     private float sentinelTimer = 0f;
     public float sentinelSpawnInterval;
 
@@ -29,6 +29,12 @@ public class EnemySpawner : MonoBehaviour
     private float mindTimer = 0f;
     public float mindSpawnInterval;
 
+    // Number of enemies to spawn at the start
+    int initialSentinels = 4;
+    int initialJuggernauts = 2;
+    int initialPhases = 3;
+    int initialMinds = 1;
+
     private void Start()
     {
         pooler = ObjectPooler.Instance;
@@ -37,11 +43,56 @@ public class EnemySpawner : MonoBehaviour
         phasePool = pooler.GetPool("phase");
         mindPool = pooler.GetPool("breaker");
         sentineltutPool = pooler.GetPool("sentineltut");
+
+        SpawnInitialEnemies(); // Spawn initial enemies
     }
 
     private void Update()
     {
         SpawnEnemies();
+    }
+
+    private void SpawnInitialEnemies()
+    {
+        // Spawn initial sentinels
+        for (int i = 0; i < initialSentinels; i++)
+        {
+            if (sentinelOnField < sentinelPool.size)
+            {
+                pooler.SpawnfromPool("sentinel", randomPos(), Quaternion.identity);
+                sentinelOnField++;
+            }
+        }
+
+        // Spawn initial juggernauts
+        for (int i = 0; i < initialJuggernauts; i++)
+        {
+            if (juggernautOnField < juggernautPool.size)
+            {
+                pooler.SpawnfromPool("juggernaut", randomPos(), Quaternion.identity);
+                juggernautOnField++;
+            }
+        }
+
+        // Spawn initial phases
+        for (int i = 0; i < initialPhases; i++)
+        {
+            if (phaseOnField < phasePool.size)
+            {
+                pooler.SpawnfromPool("phase", randomPos(), Quaternion.identity);
+                phaseOnField++;
+            }
+        }
+
+        // Spawn initial minds
+        for (int i = 0; i < initialMinds; i++)
+        {
+            if (mindOnField < mindPool.size)
+            {
+                pooler.SpawnfromPool("breaker", randomPos(), Quaternion.identity);
+                mindOnField++;
+            }
+        }
     }
 
     private void SpawnEnemies()
@@ -84,7 +135,7 @@ public class EnemySpawner : MonoBehaviour
             mindTimer = 0f; // Reset timer
         }
 
-        if(sentineltutPool != null && sentineltutOnField < sentineltutPool.size)
+        if (sentineltutPool != null && sentineltutOnField < sentineltutPool.size)
         {
             pooler.SpawnfromPool("sentineltut", randomPos(), Quaternion.identity);
             sentineltutOnField++;

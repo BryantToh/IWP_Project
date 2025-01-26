@@ -5,6 +5,8 @@ public class JuggernautEnemy : EnemyAIController
     Collider playerCol;
     JuggernautHealth enemyHealth;
     public PullAbilityObj pullAbilityObj;
+    public Animator animator;
+    public ParticleSystem attackNotice;
     protected override void Start()
     {
         pullAbilityObj = GameObject.FindGameObjectWithTag("Abilityholder").GetComponent<PullAbilityObj>();
@@ -22,6 +24,7 @@ public class JuggernautEnemy : EnemyAIController
 
     protected override void Chasing()
     {
+        animator.SetBool("Moving", true);
         base.Chasing();
     }
 
@@ -31,12 +34,20 @@ public class JuggernautEnemy : EnemyAIController
 
         if (!alreadyAttacked)
         {
+            animator.SetBool("Moving", false);
             alreadyAttacked = true;
             enemyHealth.AttackPlayer(playerCol);
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
     }
 
+    public void PlayAttackNotice()
+    {
+        if (attackNotice != null)
+        {
+            attackNotice.Play();
+        }
+    }
     protected override void ResetAttack()
     {
         base.ResetAttack();

@@ -6,6 +6,8 @@ public class OverseerEnemy : EnemyAIController
     OverseerHealth enemyHealth;
     public float rangedAttack;
     public float meleeAttack;
+    public Animator animator;
+    public ParticleSystem attackNotice;
     protected override void Start()
     {
         player = GameObject.FindGameObjectWithTag("PlayerObj").transform;
@@ -22,6 +24,7 @@ public class OverseerEnemy : EnemyAIController
 
     protected override void Chasing()
     {
+        animator.SetBool("Moving", true);
         base.Chasing();
     }
 
@@ -29,14 +32,27 @@ public class OverseerEnemy : EnemyAIController
     {
         agent.SetDestination(transform.position);
 
+        if (Vector3.Distance(transform.position, player.position) > attackRange)
+            return;
+
         if (!alreadyAttacked)
         {
+            animator.SetBool("Moving", false);
             alreadyAttacked = true;
+            float noticeTime = timeBetweenAttacks - 0.2f;
+            if (noticeTime > 0)
+                Invoke(nameof(PlayAttackNotice), noticeTime);
             enemyHealth.AttackPlayer(playerCol);
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
     }
-
+    public void PlayAttackNotice()
+    {
+        if (attackNotice != null)
+        {
+            attackNotice.Play();
+        }
+    }
     protected override void ResetAttack()
     {
         base.ResetAttack();

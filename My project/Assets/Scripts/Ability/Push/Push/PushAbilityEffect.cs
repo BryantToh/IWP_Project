@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PushAbilityEffect : BaseAbility
 {
     private float effectRadius = 6f;
     public LayerMask affectedLayer;
+    public Image imageIcon;
     [HideInInspector]
     public bool canAOE = false;
     public bool inUse = false;
@@ -17,6 +19,7 @@ public class PushAbilityEffect : BaseAbility
             {
                 isOnCooldown = false;
                 hasBeenUsed = false;
+                imageIcon.enabled = true;
             }
         }
     }
@@ -46,5 +49,6 @@ public class PushAbilityEffect : BaseAbility
         }
         ApplyPushback(transform.position);
         inUse = true;
+        imageIcon.enabled = false;
     }
 }

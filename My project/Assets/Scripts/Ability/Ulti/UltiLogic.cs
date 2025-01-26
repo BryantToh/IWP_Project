@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UltiLogic : BaseAbility
 {
@@ -8,13 +9,14 @@ public class UltiLogic : BaseAbility
     private LayerMask enemyLayer;
     public PlayerHealth health;
     HashSet<Collider> activeEnemies = new HashSet<Collider>();
+    public Image imageIcon;
     public float dmgPerTick;
     public float timeBfrHeal;
     public float healRadius;
     public bool inUse = false;
     const float noEnemyCooldownTime = 1.5f;
-    float enemyMultiplier = 0.4f;
-    float damageMultiplier = 0.2f;
+    float enemyMultiplier = 0.6f;
+    float damageMultiplier = 0.4f;
     float totalDamageDealt;
     float noEnemyTimer = 0f;
     float numberOfEnemies = 0f;
@@ -27,6 +29,7 @@ public class UltiLogic : BaseAbility
             cooldownTimer -= Time.deltaTime;
             if (cooldownTimer <= 0f)
             {
+                imageIcon.enabled = true;
                 isOnCooldown = false;
             }
         }
@@ -102,6 +105,7 @@ public class UltiLogic : BaseAbility
         activated = true;
         noEnemyTimer = 0f;
         noEnemiesDetected = false;
+        imageIcon.enabled = false;
     }
     private IEnumerator DmgNHeal(Health enemyHealth, Collider enemyCollider)
     {

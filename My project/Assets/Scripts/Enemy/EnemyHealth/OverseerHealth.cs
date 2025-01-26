@@ -16,6 +16,9 @@ public class OverseerHealth : Health
     public Transform rangeAttackSpawn;
     public float maxBeamDist;
     public bool laserShot = false;
+    public Animator animator;
+    public BossAttack_Punch attackPunch;
+    bool pushUsed = false;
 
     public UnityEvent attack1;
     public UnityEvent attack2;
@@ -63,24 +66,26 @@ public class OverseerHealth : Health
         if (!damageSources.Contains(other))
         {
             damageSources.Add(other);
-            attack2?.Invoke();
 
-            //int randomAttack = Random.Range(0, 3);
-
-            //switch (randomAttack)
-            //{
-            //    case 0:
-            //        overseer.attackRange = overseer.rangedAttack;
-            //        attack1?.Invoke();
-            //        break;
-            //    case 1:
-            //        overseer.attackRange = overseer.rangedAttack;
-            //        break;
-            //    case 2:
-            //        overseer.attackRange = overseer.meleeAttack;
-            //        attack4?.Invoke();
-            //        break;
-            //}
+            int randomAttack = Random.Range(0, 3);
+            switch (randomAttack)
+            {
+                case 0:
+                    overseer.attackRange = overseer.rangedAttack;
+                    animator.SetTrigger("Laser");
+                    attack1?.Invoke();
+                    break;
+                case 1:
+                    overseer.attackRange = overseer.rangedAttack;
+                    animator.SetTrigger("Missile");
+                    attack2?.Invoke();
+                    break;
+                case 2:
+                    overseer.attackRange = overseer.meleeAttack;
+                    animator.SetTrigger("Punch");
+                    attack4?.Invoke();
+                    break;
+            }
         }
     }
     public void AttackPlayerEvent()
@@ -107,19 +112,16 @@ public class OverseerHealth : Health
         if (damageSources.Contains(other))
         {
             damageSources.Remove(other);
+            attackPunch.NotPunching();
         }
     }
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
-        if (currentHealth == Unit.Health * 0.5f)
+        if (currentHealth <= Unit.Health * 0.5f && !pushUsed)
         {
             attack3?.Invoke();
-        }
-        if (canDie)
-        {
-            deathLogic.KilledWhenDeathDefiance();
-            spawner.mindOnField--;
+            pushUsed = true;
         }
     }
 }

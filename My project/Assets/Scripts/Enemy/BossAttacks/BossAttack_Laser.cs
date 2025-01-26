@@ -5,6 +5,8 @@ public class BossAttack_Laser : MonoBehaviour
 {
     public GameObject player;
     public GameObject laserBeam;
+    public SurgeLogic surgeLogic;
+    public float damage;
     public Transform rangeAttackSpawn;
     public float maxBeamDist;
     public LayerMask playerLayer;
@@ -18,6 +20,22 @@ public class BossAttack_Laser : MonoBehaviour
         laserBeam.SetActive(true);
         lineRenderer.SetPosition(0, rangeAttackSpawn.position);
         Vector3 targetEndPoint = collidePlayer ? hit.point : rangeAttackSpawn.position + dir * maxBeamDist;
+        if (collidePlayer)
+        {
+            PlayerHealth playerHealth = player.gameObject.GetComponent<PlayerHealth>();
+            Dashing playerDash = player.gameObject.GetComponent<Dashing>();
+            if (!playerDash.isDashing)
+            {
+                playerHealth.TakeDamage(damage);
+            }
+            else
+            {
+                if (!surgeLogic.attackDodged)
+                    surgeLogic.attackDodged = true;
+                else
+                    Debug.Log("passive already active");
+            }
+        }
         StartCoroutine(AnimateLaserBeam(lineRenderer, rangeAttackSpawn.position, targetEndPoint));
     }
 

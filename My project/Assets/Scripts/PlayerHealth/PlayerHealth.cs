@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class PlayerHealth : MonoBehaviour
     public List<Collider> detectedColliders = new List<Collider>();
     [SerializeField]
     DeathLogic deathLogic;
+    public Slider healthSlider;
     public float currentHealth;
     float damage;
     float juggernautDamage;
@@ -27,12 +29,13 @@ public class PlayerHealth : MonoBehaviour
     int hitCount = 0;
     private float checkTimer = 3f;
     private float timer = 0;
-
     private void Start()
     {
         damage = Unit.Damage;
         juggernautDamage = damage;
         currentHealth = Unit.Health;
+        healthSlider.maxValue = Unit.Health;
+        healthSlider.value = currentHealth;
         player = GameObject.FindGameObjectWithTag("PlayerObj").GetComponent<PlayerMovement>();
     }
 
@@ -82,7 +85,6 @@ public class PlayerHealth : MonoBehaviour
 
                 float currentDamage = damage;
 
-                // Check if chargeAttack is true, and apply double damage
                 if (player.chargeAttack)
                 {
                     currentDamage *= 2f;
@@ -139,6 +141,7 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
+        healthSlider.value -= damage;
         if (currentHealth <= 0 && !deathLogic.activated)
         {
             gameObject.SetActive(false);
@@ -154,7 +157,6 @@ public class PlayerHealth : MonoBehaviour
         }
         healingCoroutine = StartCoroutine(HealOverTime(healAmountPerSecond, healingDuration));
     }
-
     private IEnumerator HealOverTime(float healAmountPerSecond, float duration)
     {
         float elapsedTime = 0f;
@@ -162,6 +164,7 @@ public class PlayerHealth : MonoBehaviour
         {
             currentHealth += healAmountPerSecond * Time.deltaTime;
             currentHealth = Mathf.Clamp(currentHealth, currentHealth, Unit.Health);
+            healthSlider.value = currentHealth;
             elapsedTime += Time.deltaTime;
             yield return null;
         }

@@ -5,6 +5,8 @@ public class MindBreakersEnemy : EnemyAIController
     Collider playerCol;
     MindbreakersHealth enemyHealth;
     public PullAbilityObj pullAbilityObj;
+    public Animator animator;
+    public ParticleSystem attackNotice;
     protected override void Start()
     {
         pullAbilityObj = GameObject.FindGameObjectWithTag("Abilityholder").GetComponent<PullAbilityObj>();
@@ -22,6 +24,7 @@ public class MindBreakersEnemy : EnemyAIController
 
     protected override void Chasing()
     {
+        animator.SetBool("Moving", true);
         base.Chasing();
     }
 
@@ -31,12 +34,22 @@ public class MindBreakersEnemy : EnemyAIController
 
         if (!alreadyAttacked)
         {
+            animator.SetBool("Moving", false);
             alreadyAttacked = true;
+            float noticeTime = timeBetweenAttacks - 0.2f;
+            if (noticeTime > 0)
+                Invoke(nameof(PlayAttackNotice), noticeTime);
             enemyHealth.AttackPlayer(playerCol);
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
     }
-
+    public void PlayAttackNotice()
+    {
+        if (attackNotice != null)
+        {
+            attackNotice.Play();
+        }
+    }
     protected override void ResetAttack()
     {
         base.ResetAttack();

@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DeathLogic : BaseAbility
 {
     public PlayerHealth playerHealth;
+    public Image imageIcon;
     float enemyKillCount = 0f;
     public bool activated = false;
     public bool isUse = false;
@@ -22,6 +24,7 @@ public class DeathLogic : BaseAbility
             return;
         }
         activated = true;
+        imageIcon.enabled = false;
     }
 
     void Start()
@@ -39,6 +42,7 @@ public class DeathLogic : BaseAbility
             if (cooldownTimer <= 0f)
             {
                 isOnCooldown = false;
+                imageIcon.enabled = true;
             }
         }
 

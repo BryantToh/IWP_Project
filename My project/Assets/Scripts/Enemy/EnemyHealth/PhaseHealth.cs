@@ -6,6 +6,7 @@ public class PhaseHealth : Health, IPooledEnemy
     PlayerHealth player;
     Dashing playerDash;
     private HashSet<Collider> damageSources = new HashSet<Collider>();
+    public Animator animator;
     PhaseEnemy phase;
     DeathLogic deathLogic;
     SurgeLogic surgeLogic;
@@ -32,6 +33,7 @@ public class PhaseHealth : Health, IPooledEnemy
         if (!damageSources.Contains(other))
         {
             damageSources.Add(other);
+            animator.SetTrigger("Attack");
         }
     }
     public void AttackPlayerEvent()

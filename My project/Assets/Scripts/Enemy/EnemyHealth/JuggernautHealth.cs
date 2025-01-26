@@ -6,6 +6,7 @@ public class JuggernautHealth : Health, IPooledEnemy
     PlayerHealth player;
     Dashing playerDash;
     private HashSet<Collider> damageSources = new HashSet<Collider>();
+    public Animator animator;
     JuggernautEnemy juggernaut;
     DeathLogic deathLogic;
     SurgeLogic surgeLogic;
@@ -31,6 +32,7 @@ public class JuggernautHealth : Health, IPooledEnemy
 
         if (!damageSources.Contains(other))
         {
+            animator.SetTrigger("Attack");
             damageSources.Add(other);
         }
     }
@@ -72,7 +74,6 @@ public class JuggernautHealth : Health, IPooledEnemy
     public void OnGet()
     {
         currentHealth = Unit.Health;
-        //pooler.isPooled = true;
         isReleased = false;
         canDie = false;
         gameObject.SetActive(true);

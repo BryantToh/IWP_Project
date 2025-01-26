@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.InputSystem.Users;
+using UnityEngine.UI;
 
 public class SurgeLogic : MonoBehaviour
 {
@@ -11,7 +11,7 @@ public class SurgeLogic : MonoBehaviour
 
     private NavMeshAgent[] agents;
     public bool attackDodged = false;
-
+    public Image imageIcon;
     private bool buffActive = false;
     private bool isOnCooldown = false;
     private bool coroutineActive = false;
@@ -47,6 +47,7 @@ public class SurgeLogic : MonoBehaviour
             if (cooldownTimer <= 0f)
             {
                 isOnCooldown = false;
+                imageIcon.enabled = true;
             }
         }
 
@@ -56,6 +57,7 @@ public class SurgeLogic : MonoBehaviour
     private void ActivateBuff()
     {
         buffActive = true;
+        imageIcon.enabled = false;
         StartCoroutine(BuffDuration());
         isUse = true;
     }

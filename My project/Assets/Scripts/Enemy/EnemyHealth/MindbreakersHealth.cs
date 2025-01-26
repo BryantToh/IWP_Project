@@ -6,6 +6,7 @@ public class MindbreakersHealth : Health, IPooledEnemy
     PlayerHealth player;
     private HashSet<Collider> damageSources = new HashSet<Collider>();
     MindBreakersEnemy mindBreaker;
+    public Animator animator;
     [Header("Projectile")]
     public GameObject mindProjectile, spawnPoint;
     float projectileSpeed = 3.5f;
@@ -78,6 +79,7 @@ public class MindbreakersHealth : Health, IPooledEnemy
     private void ShootMindProj()
     {
         GameObject obj = Instantiate(mindProjectile, spawnPoint.transform.position, Quaternion.identity);
+        animator.SetTrigger("Attack");
         Rigidbody rb = obj.GetComponent<Rigidbody>();
         if (rb != null)
         {
