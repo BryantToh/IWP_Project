@@ -1,10 +1,12 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class DeathLogic : BaseAbility
 {
     public PlayerHealth playerHealth;
-    public Image imageIcon;
+    public GameObject panel;
+    public TMP_Text cooldownText;
     float enemyKillCount = 0f;
     public bool activated = false;
     public bool isUse = false;
@@ -24,13 +26,14 @@ public class DeathLogic : BaseAbility
             return;
         }
         activated = true;
-        imageIcon.enabled = false;
+        panel.SetActive(true);
     }
 
     void Start()
     {
         ResetAbility();
         enemyKillCount = 0f;
+        panel.SetActive(false);
         healthDecreaseRate = playerHealth.Unit.Health / totalDuration;
     }
 
@@ -39,17 +42,18 @@ public class DeathLogic : BaseAbility
         if (isOnCooldown)
         {
             cooldownTimer -= Time.deltaTime;
+            cooldownText.text = cooldownTimer.ToString("F1");
             if (cooldownTimer <= 0f)
             {
+                cooldownText.text = "";
                 isOnCooldown = false;
-                imageIcon.enabled = true;
+                panel.SetActive(false);
             }
         }
 
         if (activated && !startDecr)
         {
             timer -= Time.deltaTime;
-            Debug.Log("asdasd");
             if (timer <= 0f)
             {
                 ResetAbility();
@@ -72,6 +76,8 @@ public class DeathLogic : BaseAbility
 
     void BuffEffect()
     {
+        AudioManager.instance.PlaySFX("death");
+
         if (!healthReset)
         {
             playerHealth.currentHealth = playerHealth.Unit.Health;

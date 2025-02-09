@@ -2,38 +2,51 @@ using UnityEngine;
 
 public class UIController : MonoBehaviour
 {
-    public GameObject pauseObj, abilityObj, /*settingsObj,*/ gameOverObj, uiCanvas;
+    public GameObject pauseObj, abilityObj, settingsObj, gameOverObj, uiCanvas, normCanvas;
     public DetailsHandler details;
     public PauseManager pauseManager;
     public timer timeKeep;
     public int paused = 0;
+
     private void Start()
     {
         uiCanvas.SetActive(false);
         gameOverObj.SetActive(false);
     }
+
     private void Update()
     {
         HideNShowUI();
     }
 
-    public void HidePause()
+    public void ShowAbility()
     {
         ResetUI();
         abilityObj.SetActive(true);
+        AudioManager.instance.PlaySFX("click");
         details.index = 0;
     }
-    public void HideAbility()
+
+    public void ShowPause()
     {
         ResetUI();
         pauseObj.SetActive(true);
     }
+
+    public void ShowSettings()
+    {
+        ResetUI();
+        settingsObj.SetActive(true);
+        AudioManager.instance.PlaySFX("click");
+    }
+
     void ResetUI()
     {
         pauseObj.SetActive(false);
         abilityObj.SetActive(false);
-        //settingsObj.SetActive(false);
+        settingsObj.SetActive(false);
     }
+
     public void ShowGameOver(bool gameover)
     {
         if (gameover)
@@ -42,7 +55,8 @@ public class UIController : MonoBehaviour
             uiCanvas.SetActive(true);
             gameOverObj.SetActive(gameover);
         }
-    }    
+    }
+
     void HideNShowUI()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && !uiCanvas.activeInHierarchy && !timeKeep.gameOver)
@@ -50,12 +64,32 @@ public class UIController : MonoBehaviour
             uiCanvas.SetActive(true);
             pauseObj.SetActive(true);
             abilityObj.SetActive(false);
+            settingsObj.SetActive(false);
+            normCanvas.SetActive(false);
+            AudioManager.instance.PlaySFX("openpause");
             paused++;
         }
         else if (Input.GetKeyDown(KeyCode.Escape) && uiCanvas.activeInHierarchy && !timeKeep.gameOver)
         {
-            uiCanvas.SetActive(false);
-            paused--;
+            if (settingsObj.activeInHierarchy)
+            {
+                settingsObj.SetActive(false);
+                pauseObj.SetActive(true);
+                AudioManager.instance.PlaySFX("openpause");
+            }
+            else if (abilityObj.activeInHierarchy)
+            {
+                abilityObj.SetActive(false);
+                pauseObj.SetActive(true);
+                AudioManager.instance.PlaySFX("openpause");
+            }
+            else
+            {
+                uiCanvas.SetActive(false);
+                normCanvas.SetActive(true);
+                AudioManager.instance.PlaySFX("openpause");
+                paused--;
+            }
         }
         pauseManager.HandleCursor(paused);
     }

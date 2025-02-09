@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e76146a6414d1247b63a1b8776f98ec, type: 3}
   m_Name: DeathDefiance
   m_EditorClassIdentifier: 
-  abilityImage: {fileID: 0}
+  abilityImage: {fileID: 21300000, guid: 6b43a8dbf05eb9a4594c46fccfcc6be2, type: 3}
+  abilityKey: 'Keybind: Q'
   abilityName: Death Defiance
   abilityDescription: Infuses player with a undying formula for 5 seconds. If player
     takes fatal damage when this buff is active, they are restored to 100% of their

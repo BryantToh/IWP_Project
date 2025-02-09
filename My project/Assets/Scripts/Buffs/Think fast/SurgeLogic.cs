@@ -10,8 +10,8 @@ public class SurgeLogic : MonoBehaviour
         new Dictionary<NavMeshAgent, (float acceleration, float speed, float attackTiming)>();
 
     private NavMeshAgent[] agents;
+    public GameObject panel;
     public bool attackDodged = false;
-    public Image imageIcon;
     private bool buffActive = false;
     private bool isOnCooldown = false;
     private bool coroutineActive = false;
@@ -23,6 +23,10 @@ public class SurgeLogic : MonoBehaviour
 
     private const string EnemyTag = "EnemyObj";
 
+    private void Start()
+    {
+        panel.SetActive(false);
+    }
     private void Update()
     {
         if (HandleCooldown())
@@ -47,7 +51,6 @@ public class SurgeLogic : MonoBehaviour
             if (cooldownTimer <= 0f)
             {
                 isOnCooldown = false;
-                imageIcon.enabled = true;
             }
         }
 
@@ -57,8 +60,9 @@ public class SurgeLogic : MonoBehaviour
     private void ActivateBuff()
     {
         buffActive = true;
-        imageIcon.enabled = false;
+        panel.SetActive(true);
         StartCoroutine(BuffDuration());
+        AudioManager.instance.PlaySFX("dodge");
         isUse = true;
     }
 
@@ -112,6 +116,7 @@ public class SurgeLogic : MonoBehaviour
         isOnCooldown = true;
         cooldownTimer = CooldownTime;
         attackDodged = false;
+        panel.SetActive(false);
     }
 
     private IEnumerator BuffDuration()

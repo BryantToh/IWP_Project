@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PhaseHealth : Health, IPooledEnemy
 {
@@ -10,9 +11,12 @@ public class PhaseHealth : Health, IPooledEnemy
     PhaseEnemy phase;
     DeathLogic deathLogic;
     SurgeLogic surgeLogic;
+    public Slider healthSlider;
     protected override void Start()
     {
         base.Start();
+        healthSlider.maxValue = Unit.Health;
+        healthSlider.value = currentHealth;
     }
 
     public void OnEnemySpawn()
@@ -32,8 +36,9 @@ public class PhaseHealth : Health, IPooledEnemy
 
         if (!damageSources.Contains(other))
         {
-            damageSources.Add(other);
             animator.SetTrigger("Attack");
+            AudioManager.instance.PlaySFX("enemymelee");
+            damageSources.Add(other);
         }
     }
     public void AttackPlayerEvent()
@@ -62,6 +67,7 @@ public class PhaseHealth : Health, IPooledEnemy
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
+        healthSlider.value -= damage;
         if (canDie && !isReleased) // Ensure release is only called once
         {
             ObjectPooler.Instance.Release("phase", this);
@@ -74,7 +80,9 @@ public class PhaseHealth : Health, IPooledEnemy
     public void OnGet()
     {
         currentHealth = Unit.Health;
-        //pooler.isPooled = true;
+        healthSlider.maxValue = Unit.Health;
+        healthSlider.value = currentHealth;
+        pooler.isPooled = true;
         isReleased = false;
         canDie = false;
         gameObject.SetActive(true);

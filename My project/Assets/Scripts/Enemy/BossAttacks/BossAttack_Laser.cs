@@ -46,6 +46,7 @@ public class BossAttack_Laser : MonoBehaviour
 
         while (elapsedTime < duration)
         {
+            AudioManager.instance.PlaySFX("bossmissilelaser");
             elapsedTime += Time.deltaTime;
             float t = elapsedTime / duration;
             Vector3 currentEndPoint = Vector3.Lerp(start, end, t);

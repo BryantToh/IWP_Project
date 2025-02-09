@@ -38,6 +38,7 @@ public class BossAttack_TrackingMIssile : MonoBehaviour
         missileHolder = obj;
         Rigidbody missilerb = missileHolder.GetComponent<Rigidbody>();
         missilerb.linearVelocity = missileHolder.transform.forward * speed;
+        AudioManager.instance.PlaySFX("bossmissile");
         spawned = true;
     }
 
@@ -49,6 +50,7 @@ public class BossAttack_TrackingMIssile : MonoBehaviour
             if (checkExplode.collided)
             {
                 checkExplode.HandleExplosion(player, playerDash, surgeLogic, damage);
+                AudioManager.instance.PlaySFX("bossmissileexplode");
                 explodeTime = explodeTimer;
                 spawned = false;
             }
@@ -63,6 +65,7 @@ public class BossAttack_TrackingMIssile : MonoBehaviour
             if (checkExplode.headOnCollide)
             {
                 checkExplode.HandleContact(player, playerDash, surgeLogic, damage);
+                AudioManager.instance.PlaySFX("bossmissileexplode");
                 spawned = false;
                 explodeTime = explodeTimer;
             }

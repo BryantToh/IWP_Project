@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e76146a6414d1247b63a1b8776f98ec, type: 3}
   m_Name: TemporalSurge
   m_EditorClassIdentifier: 
-  abilityImage: {fileID: 0}
+  abilityImage: {fileID: 21300000, guid: 7fa67ac4d25f5714da3aac00861e114e, type: 3}
+  abilityKey: 'Keybind: Shift (when enemy attacks)'
   abilityName: Temporal Surge
   abilityDescription: On a successful dodge, slows down all enemies movement speed
     by 5 times and increases enemies time between attacks by 5 times. Effects disappear

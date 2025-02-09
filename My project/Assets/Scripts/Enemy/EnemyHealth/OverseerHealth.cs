@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class OverseerHealth : Health
 {
@@ -19,7 +20,7 @@ public class OverseerHealth : Health
     public Animator animator;
     public BossAttack_Punch attackPunch;
     bool pushUsed = false;
-
+    public Slider healthSlider;
     public UnityEvent attack1;
     public UnityEvent attack2;
     public UnityEvent attack3;
@@ -27,37 +28,14 @@ public class OverseerHealth : Health
     protected override void Start()
     {
         base.Start();
+        healthSlider.maxValue = Unit.Health;
+        healthSlider.value = currentHealth;
         player = GameObject.FindGameObjectWithTag("PlayerObj").GetComponentInChildren<PlayerHealth>();
         overseer = GetComponent<OverseerEnemy>();
         deathLogic = GameObject.FindGameObjectWithTag("deathdefi").GetComponent<DeathLogic>();
         surgeLogic = GameObject.FindGameObjectWithTag("Surge").GetComponent<SurgeLogic>();
         laserBeam.SetActive(false);
     }
-    //public void OnEnemySpawn()
-    //{
-
-    //}
-
-    //public void OnGet()
-    //{
-    //    gameObject.SetActive(true);
-    //}
-
-    //public void OnRelease()
-    //{
-    //    gameObject.SetActive(false);
-    //}
-
-    //public void OnDestroyInterface()
-    //{
-    //    Destroy(gameObject);
-    //}
-
-    //public void SetPosNRot(Vector3 Pos, Quaternion Rot)
-    //{
-    //    transform.position = Pos;
-    //    transform.rotation = Rot;
-    //}
     public void AttackPlayer(Collider other)
     {
         if (!overseer.playerInAttackRange)
@@ -118,6 +96,7 @@ public class OverseerHealth : Health
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
+        healthSlider.value -= damage;
         if (currentHealth <= Unit.Health * 0.5f && !pushUsed)
         {
             attack3?.Invoke();

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MindbreakersHealth : Health, IPooledEnemy
 {
@@ -11,6 +12,7 @@ public class MindbreakersHealth : Health, IPooledEnemy
     public GameObject mindProjectile, spawnPoint;
     float projectileSpeed = 3.5f;
     DeathLogic deathLogic;
+    public Slider healthSlider;
     public void OnEnemySpawn()
     {
         pooler = ObjectPooler.Instance;
@@ -19,10 +21,19 @@ public class MindbreakersHealth : Health, IPooledEnemy
         deathLogic = GameObject.FindGameObjectWithTag("deathdefi").GetComponent<DeathLogic>();
     }
 
+    protected override void Start()
+    {
+        base.Start();
+        healthSlider.maxValue = Unit.Health;
+        healthSlider.value = currentHealth;
+    }
+
     public void OnGet()
     {
         currentHealth = Unit.Health;
-        //pooler.isPooled = true;
+        healthSlider.maxValue = Unit.Health;
+        healthSlider.value = currentHealth;
+        pooler.isPooled = true;
         isReleased = false;
         canDie = false;
         gameObject.SetActive(true);
@@ -67,6 +78,7 @@ public class MindbreakersHealth : Health, IPooledEnemy
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
+        healthSlider.value -= damage;
         if (canDie && !isReleased) // Ensure release is only called once
         {
             ObjectPooler.Instance.Release("breaker", this);
@@ -79,6 +91,7 @@ public class MindbreakersHealth : Health, IPooledEnemy
     private void ShootMindProj()
     {
         GameObject obj = Instantiate(mindProjectile, spawnPoint.transform.position, Quaternion.identity);
+        AudioManager.instance.PlaySFX("mindattack");
         animator.SetTrigger("Attack");
         Rigidbody rb = obj.GetComponent<Rigidbody>();
         if (rb != null)

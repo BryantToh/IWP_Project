@@ -7,7 +7,8 @@ public class timer : MonoBehaviour
     public OverseerHealth bossObj;
     public PlayerHealth player;
     public UIController uiController;
-    private float time = 300f; // 5 minutes in seconds
+    public bool bossSpawned = false;
+    private float time = 300f;
     private float timeClock;
     public bool gameOver = false;
 
@@ -23,11 +24,9 @@ public class timer : MonoBehaviour
         {
             timeClock -= Time.deltaTime;
 
-            // Convert timeClock to minutes and seconds
             int minutes = Mathf.FloorToInt(timeClock / 60f);
             int seconds = Mathf.FloorToInt(timeClock % 60f);
 
-            // Update the timer text in MM:SS format
             timerObj.text = $"Time: {minutes:00}:{seconds:00}";
         }
         else if (timeClock <= 0f)

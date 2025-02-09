@@ -19,7 +19,7 @@ public class PushAbilityLogic : MonoBehaviour
         Vector3 pushDirection = (agent.transform.position - sourcePosition).normalized;
 
         Vector3 pushPosition = agent.transform.position + pushDirection * pushForce;
-
+        AudioManager.instance.PlaySFX("push");
         agent.Warp(pushPosition);
 
         StartCoroutine(ResumeAgentAfterDelay(0.5f));

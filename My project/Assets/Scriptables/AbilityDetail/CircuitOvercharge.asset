@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e76146a6414d1247b63a1b8776f98ec, type: 3}
   m_Name: CircuitOvercharge
   m_EditorClassIdentifier: 
-  abilityImage: {fileID: 0}
+  abilityImage: {fileID: 21300000, guid: e3a41a05f196bd848b7d4801694df6ac, type: 3}
+  abilityKey: 'Keybind: 3'
   abilityName: Circuit Overcharge
   abilityDescription: Drains the electricity from nearby enemies, both dealing damage
     and healing the player based off the number of enemies and the total damage dealt
-    by the ability every 0.5 seconds. 60 seconds cooldown.
+    by the ability every 0.5 seconds. 30 seconds cooldown.

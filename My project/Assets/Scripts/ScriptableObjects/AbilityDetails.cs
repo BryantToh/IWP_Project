@@ -3,7 +3,8 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "AbilityDetail")]
 public class AbilityDetails : ScriptableObject
 {
-    public Image abilityImage;
+    public Sprite abilityImage;
+    public string abilityKey;
     public string abilityName;
     public string abilityDescription;
 }

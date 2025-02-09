@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +10,8 @@ public class UltiLogic : BaseAbility
     private LayerMask enemyLayer;
     public PlayerHealth health;
     HashSet<Collider> activeEnemies = new HashSet<Collider>();
-    public Image imageIcon;
+    public GameObject panel;
+    public TMP_Text cooldownText;
     public float dmgPerTick;
     public float timeBfrHeal;
     public float healRadius;
@@ -22,14 +24,20 @@ public class UltiLogic : BaseAbility
     float numberOfEnemies = 0f;
     bool noEnemiesDetected = false;
     bool activated = false;
+    private void Start()
+    {
+        panel.SetActive(false);
+    }
     private void Update()
     {
         if (isOnCooldown)
         {
             cooldownTimer -= Time.deltaTime;
+            cooldownText.text = cooldownTimer.ToString("F1");
             if (cooldownTimer <= 0f)
             {
-                imageIcon.enabled = true;
+                panel.SetActive(false);
+                cooldownText.text = "";
                 isOnCooldown = false;
             }
         }
@@ -40,6 +48,11 @@ public class UltiLogic : BaseAbility
             {
                 StartCooldown();
             }
+        }
+
+        if (activated)
+        {
+            AudioManager.instance.PlaySFX("ulti");
         }
     }
     private void OnTriggerStay(Collider other)
@@ -105,7 +118,7 @@ public class UltiLogic : BaseAbility
         activated = true;
         noEnemyTimer = 0f;
         noEnemiesDetected = false;
-        imageIcon.enabled = false;
+        panel.SetActive(true);
     }
     private IEnumerator DmgNHeal(Health enemyHealth, Collider enemyCollider)
     {

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e76146a6414d1247b63a1b8776f98ec, type: 3}
   m_Name: MagneticSurge
   m_EditorClassIdentifier: 
-  abilityImage: {fileID: 0}
+  abilityImage: {fileID: 21300000, guid: d228aca43fa18fd4b98d9fb8a5b50f31, type: 3}
+  abilityKey: 'Keybind: 1'
   abilityName: Magnetic Surge
   abilityDescription: Spawns a black hole that pulls in nearby enemies for 5 seconds
     before disappearing. 7 seconds cooldown

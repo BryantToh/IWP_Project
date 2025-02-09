@@ -252,6 +252,86 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 317194049}
   m_CullTransparentMesh: 1
+--- !u!1 &449729887
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 449729889}
+  - component: {fileID: 449729888}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &449729888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449729887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1449702255ed3be4697ba3a8067df035, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxClips:
+  - effect: {fileID: 8300000, guid: d9cb4ffdd79eeb748bc63b4c3d551134, type: 3}
+    tag: run
+  - effect: {fileID: 8300000, guid: 3d6634f123677f64d84e86849a0cff2b, type: 3}
+    tag: dash
+  - effect: {fileID: 8300000, guid: 52487ef2c58cb504b8ec056ce15e5921, type: 3}
+    tag: hit
+  - effect: {fileID: 8300000, guid: 4b821557b9529e24a8aa47b588b6a7bd, type: 3}
+    tag: dodge
+  - effect: {fileID: 8300000, guid: f2f0f708637c8be459074be04547df98, type: 3}
+    tag: openpause
+  - effect: {fileID: 8300000, guid: a70538c6fcf57a84eb84641478f51f3e, type: 3}
+    tag: changeability
+  - effect: {fileID: 8300000, guid: 2745dbc34548321419c8f0eb9feb5490, type: 3}
+    tag: click
+  - effect: {fileID: 8300000, guid: 2d2e829cc32651c4baa6429a51c57fb5, type: 3}
+    tag: enemymelee
+  - effect: {fileID: 8300000, guid: 1087b959218bf424bab028feda469455, type: 3}
+    tag: pull
+  - effect: {fileID: 8300000, guid: 9ef08db00763724429bddaf1848db40d, type: 3}
+    tag: push
+  - effect: {fileID: 8300000, guid: 4da413e56fc81754dade5583ab349ecf, type: 3}
+    tag: ulti
+  - effect: {fileID: 8300000, guid: b69a245353154984ba82e13e4a5d5df4, type: 3}
+    tag: death
+  - effect: {fileID: 8300000, guid: 843777d2f38768740b17729a6e3f08e9, type: 3}
+    tag: mindattack
+  - effect: {fileID: 8300000, guid: 1a461601cd73000458cf22d777cb48b6, type: 3}
+    tag: bosspunch
+  - effect: {fileID: 8300000, guid: 9ee178dee1647af4f82dda9239fa864b, type: 3}
+    tag: bossmissile
+  - effect: {fileID: 8300000, guid: a59b9da42896e4147837226df728cc1a, type: 3}
+    tag: bosslaser
+  - effect: {fileID: 8300000, guid: be6183744db816044987dd34dd743858, type: 3}
+    tag: bossmissileexplode
+  audioPrefab: {fileID: 3656237049453273523, guid: 92ba8fe49c059774abadd00b60cb68f9, type: 3}
+--- !u!4 &449729889
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449729887}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 52.44297, y: 111.483, z: -6.945645}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &481625486
 GameObject:
   m_ObjectHideFlags: 0
@@ -1408,4 +1488,5 @@ SceneRoots:
   - {fileID: 1213691328}
   - {fileID: 1782724956}
   - {fileID: 481625490}
+  - {fileID: 449729889}
   - {fileID: 1462136081}

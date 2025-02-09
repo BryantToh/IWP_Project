@@ -1,24 +1,31 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PullAbilityObj : BaseAbility
 {
     public GameObject playerObj;
+    public GameObject panel;
     public Camera cam;
-    public Image imageIcon;
     public GameObject pullObj;
     public bool pullOff = false;
     public bool inUse = false;
-
+    public TMP_Text cooldownText;
+    private void Start()
+    {
+        panel.SetActive(false);
+    }
     private void Update()
     {
         if (isOnCooldown)
         {
             cooldownTimer -= Time.deltaTime;
+            cooldownText.text = cooldownTimer.ToString("F1");
             if (cooldownTimer <= 0f)
             {
+                panel.SetActive(false);
+                cooldownText.text = "";
                 isOnCooldown = false;
-                imageIcon.enabled = true;
             }
         }
     }
@@ -37,6 +44,6 @@ public class PullAbilityObj : BaseAbility
             return;
         }
         GameObject obj = Instantiate(pullObj, Camera.main.transform.position + Camera.main.transform.forward * 7f, Quaternion.identity);
-        imageIcon.enabled = false;
+        panel.SetActive(true);
     }
 }

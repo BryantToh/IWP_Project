@@ -19,6 +19,11 @@ public class PlayerMovement : MonoBehaviour
     public Animator animator;
     private float IdleTimer;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip walkingClip;
+
+    [Header("Others")]
     public PlayerCam cam;
     public Transform orientation;
     Vector3 moveDirection;
@@ -68,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         rb.AddForce(moveDirection * moveSpeed * 5f);
 
-        if (verticalInput != 0 || horizontalInput != 0 && !isAttacking)
+        if ((verticalInput != 0 || horizontalInput != 0) && !isAttacking)
         {
             IdleTimer = 0f;
             isMoving = true;

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e76146a6414d1247b63a1b8776f98ec, type: 3}
   m_Name: KineticRepulsion
   m_EditorClassIdentifier: 
-  abilityImage: {fileID: 0}
+  abilityImage: {fileID: 21300000, guid: d5a3ccdc35324d742b271b9e07262571, type: 3}
+  abilityKey: 'Keybind: 2'
   abilityName: Kinetic Repulsion
   abilityDescription: Pushes away all nearby enemies, does 3 shockwave attacks that
     does damage to enemies in range. 12 seconds cooldown

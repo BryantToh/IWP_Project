@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SentinelHealth : Health, IPooledEnemy
 {
@@ -11,11 +12,15 @@ public class SentinelHealth : Health, IPooledEnemy
     DeathLogic deathLogic;
     SurgeLogic surgeLogic;
     private HashSet<Collider> damageSources = new HashSet<Collider>();
+    public ParticleSystem attackNotice;
+    public Slider healthSlider;
     public float rotationSpd;
     float rotationAmount;
     protected override void Start()
     {
         base.Start();
+        healthSlider.maxValue = Unit.Health;
+        healthSlider.value = currentHealth;
     }
     public void OnEnemySpawn()
     {
@@ -35,11 +40,14 @@ public class SentinelHealth : Health, IPooledEnemy
         {
             damageSources.Add(other);
             spinAnim.SetTrigger("Attack");
+            AudioManager.instance.PlaySFX("enemymelee");
+            attackNotice.Play();
             StartCoroutine(attackCoroutine());
         }
     }
     public void AttackPlayerEvent()
     {
+
         if (Vector3.Distance(player.transform.position, transform.position) <= sentinel.attackRange && !playerDash.isDashing)
         {
             player.TakeDamage(Unit.Damage);
@@ -97,6 +105,8 @@ public class SentinelHealth : Health, IPooledEnemy
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
+        healthSlider.value -= damage;
+        AudioManager.instance.PlaySFX("hit");
         if (canDie && !isReleased) // Ensure release is only called once
         {
             ObjectPooler.Instance.Release("sentinel", this);
@@ -109,6 +119,8 @@ public class SentinelHealth : Health, IPooledEnemy
     public void OnGet()
     {
         currentHealth = Unit.Health;
+        healthSlider.maxValue = Unit.Health;
+        healthSlider.value = currentHealth;
         isReleased = false;
         canDie = false;
         gameObject.SetActive(true);

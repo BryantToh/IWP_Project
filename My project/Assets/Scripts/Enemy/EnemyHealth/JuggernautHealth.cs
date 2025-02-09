@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class JuggernautHealth : Health, IPooledEnemy
 {
@@ -10,9 +11,12 @@ public class JuggernautHealth : Health, IPooledEnemy
     JuggernautEnemy juggernaut;
     DeathLogic deathLogic;
     SurgeLogic surgeLogic;
+    public Slider healthSlider;
     protected override void Start()
     {
         base.Start();
+        healthSlider.maxValue = Unit.Health;
+        healthSlider.value = currentHealth;
     }
 
     public void OnEnemySpawn()
@@ -32,6 +36,7 @@ public class JuggernautHealth : Health, IPooledEnemy
 
         if (!damageSources.Contains(other))
         {
+            AudioManager.instance.PlaySFX("enemymelee");
             animator.SetTrigger("Attack");
             damageSources.Add(other);
         }
@@ -62,6 +67,7 @@ public class JuggernautHealth : Health, IPooledEnemy
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
+        healthSlider.value -= damage;
         if (canDie && !isReleased) // Ensure release is only called once
         {
             ObjectPooler.Instance.Release("juggernaut", this);
@@ -74,6 +80,8 @@ public class JuggernautHealth : Health, IPooledEnemy
     public void OnGet()
     {
         currentHealth = Unit.Health;
+        healthSlider.maxValue = Unit.Health;
+        healthSlider.value = currentHealth;
         isReleased = false;
         canDie = false;
         gameObject.SetActive(true);

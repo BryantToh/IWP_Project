@@ -20,23 +20,19 @@ public class PullAbilityLogic : MonoBehaviour
     {
         pullAbilityObj.abilityDuration += Time.deltaTime;
 
+        AudioManager.instance.PlaySFX("suck");
+        
         if (pullAbilityObj.abilityDuration >= 5f)
         {
             Reset();
         }
 
-        // loop through stored agents
         foreach (NavMeshAgent agent in agentsStored)
         {
             Vector3 direction = transform.position - agent.transform.position;
 
             if (direction.magnitude > stopDistance)
             {
-                //Vector3 newPosition = Vector3.MoveTowards(
-                //    other.transform.position,
-                //    transform.position,
-                //    pullStrength * Time.deltaTime
-                //);
                 agent.SetDestination(transform.position);
             }
             else
@@ -47,7 +43,6 @@ public class PullAbilityLogic : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        // find any agent that entered trigger and store in agentsStored
         if (((1 << other.gameObject.layer) & pullableLayer) != 0 && !canDelete)
         {
             pullAbilityObj.pullOff = true;
@@ -55,7 +50,6 @@ public class PullAbilityLogic : MonoBehaviour
             if (agent != null)
             {
                 agentsStored.Add(agent);
-              
             }
         }
     }
@@ -82,7 +76,9 @@ public class PullAbilityLogic : MonoBehaviour
         }
         agentsStored = new List<NavMeshAgent>();
         pullAbilityObj.isOnCooldown = true;
+        pullAbilityObj.abilityDuration = 0f;
         pullAbilityObj.cooldownTimer = pullAbilityObj.cooldownTime;
+        pullAbilityObj.inUse = false;
         Destroy(gameObject);
     }
 }

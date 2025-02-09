@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Dashing : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class Dashing : MonoBehaviour
     private Rigidbody rb;
     private PlayerMovement playerMove;
     public OnField playerMaxDash;
+    public Image rechargeUI;
 
     [Header("Dashing")]
     public float dashForce;
@@ -28,43 +30,56 @@ public class Dashing : MonoBehaviour
     public bool disableGravity;
 
     Transform forwardT;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         playerMove = GetComponent<PlayerMovement>();
         dashCount = playerMaxDash.maxDashCount;
+        rechargeUI.fillAmount = 1f; // Start at full
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Dash input check
         if (Input.GetKeyDown(KeyCode.LeftShift) && dashCount > 0 && !playerMove.staggered)
         {
             Dash();
         }
 
+        // Cooldown countdown
         if (dashCDTimer > 0)
+        {
             dashCDTimer -= Time.deltaTime;
+        }
 
+        // Start recharging if dash is used
         if (dashCount < 3 && dashCDTimer <= 0 && !isAddingDash)
         {
             StartCoroutine(AddDash());
         }
+
+        // Update UI
+        UpdateDashUI();
     }
 
     private void Dash()
     {
-        if (dashCDTimer > 0) return;
+        if (dashCDTimer > 0) return; // Can't dash if cooldown is active
 
         isDashing = true;
 
         if (dashCount > 0)
+        {
             dashCDTimer = dashCD;
+            dashCount--;
+        }
 
         if (useCameraForward)
             forwardT = playerCam;
-        else 
+        else
             forwardT = player;
 
         Vector3 Direction = GetDirection(forwardT);
@@ -75,6 +90,7 @@ public class Dashing : MonoBehaviour
             rb.useGravity = true;
         }
 
+        AudioManager.instance.PlaySFX("dash");
         delayedForceToApply = DashForce;
         Invoke(nameof(DelayedDashForce), 0.025f);
         Invoke(nameof(ResetDash), dashDuration);
@@ -83,7 +99,6 @@ public class Dashing : MonoBehaviour
     private void DelayedDashForce()
     {
         rb.AddForce(delayedForceToApply, ForceMode.Impulse);
-        dashCount--;
     }
 
     private void ResetDash()
@@ -115,8 +130,23 @@ public class Dashing : MonoBehaviour
     private IEnumerator AddDash()
     {
         isAddingDash = true;
-        yield return new WaitForSeconds(4.0f);
+
+        float rechargeTime = 4.0f; // Time it takes to recharge a dash
+        float timer = 0f;
+
+        while (timer < rechargeTime)
+        {
+            timer += Time.deltaTime;
+            rechargeUI.fillAmount = Mathf.Lerp(rechargeUI.fillAmount, (dashCount + 1) / 3f, timer / rechargeTime);
+            yield return null;
+        }
+
         dashCount++;
         isAddingDash = false;
+    }
+
+    private void UpdateDashUI()
+    {
+        rechargeUI.fillAmount = dashCount / 3f; // Scale UI based on available dashes
     }
 }

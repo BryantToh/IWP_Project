@@ -11,10 +11,12 @@ public class GameOverDetails : MonoBehaviour
     public void RtnToMenu()
     {
         SceneManager.LoadScene(0);
+        AudioManager.instance.PlaySFX("click");
     }
 
     public void PlayAgain()
     {
         SceneManager.LoadScene(1);
+        AudioManager.instance.PlaySFX("click");
     }
 }

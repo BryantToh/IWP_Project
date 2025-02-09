@@ -31,6 +31,8 @@ public class ShockWaveAttack : MonoBehaviour
     }
     private void AOEShockwave()
     {
+        if (waveCount >= 3) return; // Prevent extra shockwaves
+
         Collider[] enemyColliders = Physics.OverlapSphere(transform.position, areaOfEffect, enemyMask);
         foreach (var collider in enemyColliders)
         {
@@ -42,6 +44,7 @@ public class ShockWaveAttack : MonoBehaviour
             }
         }
     }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
@@ -49,18 +52,30 @@ public class ShockWaveAttack : MonoBehaviour
     }
     private void ResetAbility()
     {
+        waveCount = 0;  // Reset wave count immediately
+        damagedEnemies.Clear();  // Clear tracked enemies
+        StopAllCoroutines(); // Stop any ongoing damage coroutines
+
         pushAbilityEffect.canAOE = false;
-        waveCount = 0;
-        damagedEnemies.Clear();
         pushAbilityEffect.isOnCooldown = true;
         pushAbilityEffect.cooldownTimer = pushAbilityEffect.cooldownTime;
     }
 
+
     private IEnumerator AOEDamage(Health enemyHealth)
     {
         yield return new WaitForSeconds(dmgInterval);
+
+        if (waveCount >= 3) yield break; // Don't apply damage if max waves reached
+
         enemyHealth.TakeDamage(waveDamage);
         waveCount++;
         damagedEnemies.Remove(enemyHealth);
+
+        if (waveCount == 3)
+        {
+            ResetAbility();
+        }
     }
+
 }

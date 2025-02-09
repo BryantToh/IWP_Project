@@ -9,6 +9,7 @@ public class DetailsHandler : MonoBehaviour
     public List<AbilityDetails> scriptableObj = new List<AbilityDetails>();
     public TMP_Text abilityName;
     public TMP_Text description;
+    public TMP_Text abilityKey;
     public Image abilityImage;
     [HideInInspector]
     public int index = 0;
@@ -20,9 +21,22 @@ public class DetailsHandler : MonoBehaviour
             return;
         }
         var currentAbility = scriptableObj[index];
-        //abilityImage.sprite = currentAbility.abilityImage.sprite;
+        abilityImage.sprite = currentAbility.abilityImage;
+        abilityKey.text = currentAbility.abilityKey;
         abilityName.text = currentAbility.abilityName;
         description.text = currentAbility.abilityDescription;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            PrevAbility();
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            NextAbility();
+        }
     }
 
     public void NextAbility()
@@ -31,6 +45,7 @@ public class DetailsHandler : MonoBehaviour
         {
             index++;
             ShowAbility();
+            AudioManager.instance.PlaySFX("changeability");
         }
     }
 
@@ -40,6 +55,7 @@ public class DetailsHandler : MonoBehaviour
         {
             index--;
             ShowAbility();
+            AudioManager.instance.PlaySFX("changeability");
         }
     }
 

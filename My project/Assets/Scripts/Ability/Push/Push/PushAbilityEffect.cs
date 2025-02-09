@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,21 +6,29 @@ public class PushAbilityEffect : BaseAbility
 {
     private float effectRadius = 6f;
     public LayerMask affectedLayer;
-    public Image imageIcon;
+    public GameObject panel;
+    public TMP_Text cooldownText;
     [HideInInspector]
     public bool canAOE = false;
     public bool inUse = false;
     private bool hasBeenUsed = false;
+    private void Start()
+    {
+        panel.SetActive(false);
+    }
     private void Update()
     {
         if (isOnCooldown)
         {
             cooldownTimer -= Time.deltaTime;
+            cooldownText.text = cooldownTimer.ToString("F1");
             if (cooldownTimer <= 0f)
             {
+                panel.SetActive(false);
                 isOnCooldown = false;
+                cooldownText.text = "";
                 hasBeenUsed = false;
-                imageIcon.enabled = true;
+                inUse = false;
             }
         }
     }
@@ -49,6 +58,6 @@ public class PushAbilityEffect : BaseAbility
         }
         ApplyPushback(transform.position);
         inUse = true;
-        imageIcon.enabled = false;
+        panel.SetActive(true);
     }
 }

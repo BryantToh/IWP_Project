@@ -36,7 +36,7 @@ public class SentinelEnemy : EnemyAIController
 
             float noticeTime = timeBetweenAttacks - 0.2f;
             if (noticeTime > 0)
-                Invoke(nameof(PlayAttackNotice), noticeTime);
+                //Invoke(nameof(PlayAttackNotice), noticeTime);
 
             enemyHealth.AttackPlayer(playerCol);
             Invoke(nameof(ResetAttack), timeBetweenAttacks);

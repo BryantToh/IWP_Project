@@ -7,5 +7,6 @@ public class OverseerPunnch : MonoBehaviour
     public void AttackPlayerEvent()
     {
         health.AttackPlayerEvent();
+        AudioManager.instance.PlaySFX("bosspunch");
     }
 }
