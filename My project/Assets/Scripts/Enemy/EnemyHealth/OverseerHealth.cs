@@ -12,6 +12,7 @@ public class OverseerHealth : Health
     OverseerEnemy overseer;
     DeathLogic deathLogic;
     SurgeLogic surgeLogic;
+    public ParticleSystem particle;
     public LayerMask playerLayer;
     public GameObject laserBeam;
     public Transform rangeAttackSpawn;
@@ -44,33 +45,38 @@ public class OverseerHealth : Health
         if (!damageSources.Contains(other))
         {
             damageSources.Add(other);
-
-            int randomAttack = Random.Range(0, 3);
-            switch (randomAttack)
-            {
-                case 0:
-                    overseer.attackRange = overseer.rangedAttack;
-                    animator.SetTrigger("Laser");
-                    attack1?.Invoke();
-                    break;
-                case 1:
-                    overseer.attackRange = overseer.rangedAttack;
-                    animator.SetTrigger("Missile");
-                    attack2?.Invoke();
-                    break;
-                case 2:
-                    overseer.attackRange = overseer.meleeAttack;
-                    animator.SetTrigger("Punch");
-                    attack4?.Invoke();
-                    break;
-            }
+            overseer.attackRange = overseer.rangedAttack;
+            animator.SetTrigger("Laser");
+            attack1?.Invoke();
+            //int randomAttack = Random.Range(0, 3);
+            //switch (randomAttack)
+            //{
+            //    case 0:
+            //        overseer.attackRange = overseer.rangedAttack;
+            //        animator.SetTrigger("Laser");
+            //        attack1?.Invoke();
+            //        break;
+            //    case 1:
+            //        overseer.attackRange = overseer.rangedAttack;
+            //        animator.SetTrigger("Missile");
+            //        attack2?.Invoke();
+            //        break;
+            //    case 2:
+            //        overseer.attackRange = overseer.meleeAttack;
+            //        animator.SetTrigger("Punch");
+            //        attack4?.Invoke();
+            //        break;
+            //}
         }
     }
     public void AttackPlayerEvent()
     {
         if (Vector3.Distance(player.transform.position, transform.position) <= overseer.attackRange && !playerDash.isDashing)
         {
+            attackPunch.Punching();
             player.TakeDamage(Unit.Damage);
+            Instantiate(particle, attackPunch.sphereCollider.transform.position, Quaternion.identity);
+            
         }
         else if (Vector3.Distance(player.transform.position, transform.position) <= overseer.attackRange && playerDash.isDashing ||
             Vector3.Distance(player.transform.position, transform.position) > overseer.attackRange && playerDash.isDashing)

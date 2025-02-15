@@ -4,6 +4,7 @@ using UnityEngine;
 public class BossAttack_Laser : MonoBehaviour
 {
     public GameObject player;
+    public ParticleSystem particle;
     public GameObject laserBeam;
     public SurgeLogic surgeLogic;
     public float damage;
@@ -27,6 +28,7 @@ public class BossAttack_Laser : MonoBehaviour
             if (!playerDash.isDashing)
             {
                 playerHealth.TakeDamage(damage);
+                Instantiate(particle, targetEndPoint, Quaternion.identity);
             }
             else
             {

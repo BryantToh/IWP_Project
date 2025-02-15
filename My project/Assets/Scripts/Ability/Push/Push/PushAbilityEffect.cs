@@ -8,6 +8,7 @@ public class PushAbilityEffect : BaseAbility
     public LayerMask affectedLayer;
     public GameObject panel;
     public TMP_Text cooldownText;
+    public ParticleSystem particle;
     [HideInInspector]
     public bool canAOE = false;
     public bool inUse = false;
@@ -57,6 +58,7 @@ public class PushAbilityEffect : BaseAbility
             return;
         }
         ApplyPushback(transform.position);
+        Instantiate(particle, transform.position, Quaternion.identity);
         inUse = true;
         panel.SetActive(true);
     }

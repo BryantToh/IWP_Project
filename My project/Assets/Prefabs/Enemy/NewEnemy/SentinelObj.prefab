@@ -189,6 +189,7 @@ MonoBehaviour:
   isReleased: 0
   spinAnim: {fileID: 1983720617362443012}
   attackNotice: {fileID: 2704542643985960297}
+  particle: {fileID: 198234346748616026, guid: 8c1dfc9c9bffd1c409b4034b39f2d4d8, type: 3}
   healthSlider: {fileID: 4553656176332089678}
   rotationSpd: 100
 --- !u!195 &8692813018424048347
@@ -511,8 +512,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -5.000061, y: 0}
-  m_SizeDelta: {x: -20, y: 0}
+  m_AnchoredPosition: {x: 0.25, y: 0}
+  m_SizeDelta: {x: -9.51, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1170193304182530453
 PrefabInstance:

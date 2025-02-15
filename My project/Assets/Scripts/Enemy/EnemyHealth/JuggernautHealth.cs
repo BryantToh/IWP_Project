@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.ParticleSystem;
 
 public class JuggernautHealth : Health, IPooledEnemy
 {
@@ -12,6 +13,7 @@ public class JuggernautHealth : Health, IPooledEnemy
     DeathLogic deathLogic;
     SurgeLogic surgeLogic;
     public Slider healthSlider;
+    public ParticleSystem particle;
     protected override void Start()
     {
         base.Start();
@@ -45,7 +47,10 @@ public class JuggernautHealth : Health, IPooledEnemy
     {
         if (Vector3.Distance(player.transform.position, transform.position) <= juggernaut.attackRange && !playerDash.isDashing)
         {
+            Collider playerColPos = player.GetComponent<Collider>();
             player.TakeDamage(Unit.Damage);
+            Vector3 newPos = new Vector3(playerColPos.transform.position.x, playerColPos.transform.position.y + 1f, playerColPos.transform.position.z);
+            Instantiate(particle, newPos, Quaternion.identity);
         }
         else if (Vector3.Distance(player.transform.position, transform.position) <= juggernaut.attackRange && playerDash.isDashing ||
             Vector3.Distance(player.transform.position, transform.position) > juggernaut.attackRange && playerDash.isDashing)

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.ParticleSystem;
 
 public class MindbreakersHealth : Health, IPooledEnemy
 {
@@ -13,6 +14,7 @@ public class MindbreakersHealth : Health, IPooledEnemy
     float projectileSpeed = 3.5f;
     DeathLogic deathLogic;
     public Slider healthSlider;
+    public ParticleSystem particle;
     public void OnEnemySpawn()
     {
         pooler = ObjectPooler.Instance;
@@ -64,6 +66,7 @@ public class MindbreakersHealth : Health, IPooledEnemy
         if (!damageSources.Contains(other))
         {
             damageSources.Add(other);
+            Instantiate(particle, spawnPoint.transform.position, Quaternion.identity);
             ShootMindProj();
         }
     }

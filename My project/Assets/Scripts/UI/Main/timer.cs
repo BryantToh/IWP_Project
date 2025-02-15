@@ -15,7 +15,7 @@ public class timer : MonoBehaviour
     void Start()
     {
         timeClock = time;
-        bossObj.gameObject.SetActive(false);
+        //bossObj.gameObject.SetActive(false);
     }
 
     void Update()

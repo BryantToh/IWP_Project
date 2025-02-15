@@ -7,6 +7,7 @@ public class Projectile : MonoBehaviour
     PlayerHealth player;
     SurgeLogic surgeLogic;
     Dashing playerDash;
+    public ParticleSystem particle;
     GlitchController glitchCon;
     public LayerMask enemyLayer;
     float deactivTime = 5f;
@@ -35,12 +36,12 @@ public class Projectile : MonoBehaviour
         if (((1 << other.gameObject.layer) & enemyLayer) != 0)
             return;
 
-
         if (other.CompareTag("PlayerObj") && !playerDash.isDashing)
         {
             glitchCon.GlitchEffect();
             glitchCon.resetChecking = true;
             collided = true;
+            Instantiate(particle, other.ClosestPoint(transform.position), Quaternion.identity);
             player.TakeDamage(Unit.Damage);
             Destroy(gameObject);
         }

@@ -178,6 +178,7 @@ MonoBehaviour:
   isReleased: 0
   animator: {fileID: 6757962234325519787}
   healthSlider: {fileID: 5141613461800857009}
+  particle: {fileID: 198234346748616026, guid: 8c1dfc9c9bffd1c409b4034b39f2d4d8, type: 3}
 --- !u!114 &8429301219640672436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -529,8 +530,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -5.000061, y: 0}
-  m_SizeDelta: {x: -20, y: 0}
+  m_AnchoredPosition: {x: 0.069999695, y: 0}
+  m_SizeDelta: {x: -9.88, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &4960020605514046502
 PrefabInstance:

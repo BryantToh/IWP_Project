@@ -5,6 +5,7 @@ public class CheckCollision : MonoBehaviour
     GameObject player;
     Rigidbody rb, playerrb;
     Vector3 _standardPrediction, _deviatedPrediction;
+    public ParticleSystem explosion;
     public bool collided = false;
     public bool headOnCollide = false;
     public float _maxDistancePredict;
@@ -37,7 +38,6 @@ public class CheckCollision : MonoBehaviour
             headOnCollide = true;
         }
     }
-
     private void FixedUpdate()
     {
         rb.linearVelocity = transform.forward * speed;
@@ -82,11 +82,11 @@ public class CheckCollision : MonoBehaviour
 
     public void DestroyMissile()
     {
+        Instantiate(explosion, transform.position, Quaternion.identity);
         collided = false;
         headOnCollide = false;
         Destroy(gameObject);
     }
-
     private void PredictMovement(float leadTimePercentage)
     {
         var predictionTime = Mathf.Lerp(0, _maxTimePrediction, leadTimePercentage);

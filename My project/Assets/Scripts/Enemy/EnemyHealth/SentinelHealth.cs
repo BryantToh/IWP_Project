@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.ParticleSystem;
 
 public class SentinelHealth : Health, IPooledEnemy
 {
@@ -12,7 +13,7 @@ public class SentinelHealth : Health, IPooledEnemy
     DeathLogic deathLogic;
     SurgeLogic surgeLogic;
     private HashSet<Collider> damageSources = new HashSet<Collider>();
-    public ParticleSystem attackNotice;
+    public ParticleSystem attackNotice, particle;
     public Slider healthSlider;
     public float rotationSpd;
     float rotationAmount;
@@ -47,10 +48,11 @@ public class SentinelHealth : Health, IPooledEnemy
     }
     public void AttackPlayerEvent()
     {
-
         if (Vector3.Distance(player.transform.position, transform.position) <= sentinel.attackRange && !playerDash.isDashing)
         {
+            Collider playerColPos = player.GetComponent<Collider>();
             player.TakeDamage(Unit.Damage);
+            Instantiate(particle, playerColPos.transform.position, Quaternion.identity);
         }
         else if (Vector3.Distance(player.transform.position, transform.position) <= sentinel.attackRange && playerDash.isDashing || 
             Vector3.Distance(player.transform.position, transform.position) > sentinel.attackRange && playerDash.isDashing)

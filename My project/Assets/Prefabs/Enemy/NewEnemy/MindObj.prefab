@@ -139,8 +139,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -5.000061, y: 0}
-  m_SizeDelta: {x: -20, y: 0}
+  m_AnchoredPosition: {x: 0.049999237, y: 0}
+  m_SizeDelta: {x: -9.89, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4382013464997692955
 GameObject:
@@ -536,6 +536,7 @@ MonoBehaviour:
   mindProjectile: {fileID: 3262385259042822002, guid: a641338684e5a784686962ac8ca83faf, type: 3}
   spawnPoint: {fileID: 999766629559611667}
   healthSlider: {fileID: 3480181754429199505}
+  particle: {fileID: 198234346748616026, guid: 8c1dfc9c9bffd1c409b4034b39f2d4d8, type: 3}
 --- !u!114 &244582627725384907
 MonoBehaviour:
   m_ObjectHideFlags: 0

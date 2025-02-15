@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using UnityEngine.AI;
+using Unity.VisualScripting;
 
 public class TutorialController : MonoBehaviour
 {
@@ -33,12 +34,15 @@ public class TutorialController : MonoBehaviour
         if (senObj == null)
         {
             senObj = GameObject.FindGameObjectWithTag("EnemyObj");
-            agent = senObj.GetComponent<NavMeshAgent>();
-            health = senObj.GetComponent<SentinelHealth>();
-            ogSpeed = agent.speed;
-            agent.speed = 0;
-            health.Unit.Damage = 0;
+            if (senObj == null)
+                return;
         }
+
+        agent = senObj.GetComponent<NavMeshAgent>();
+        health = senObj.GetComponent<SentinelHealth>();
+        ogSpeed = agent.speed;
+        agent.speed = 0;
+        health.Unit.Damage = 0;
 
         if (index == 0)
         {

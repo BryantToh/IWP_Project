@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Death Defiance
   cooldownTimer: 0
-  cooldownTime: 45
+  cooldownTime: 10
   abilityDuration: 5
   isOnCooldown: 0
   activationKey: 113
@@ -209,6 +209,8 @@ MonoBehaviour:
   dashSpeed: 20
   staggered: 0
   animator: {fileID: 3529837917133140046}
+  audioSource: {fileID: 0}
+  walkingClip: {fileID: 8300000, guid: d9cb4ffdd79eeb748bc63b4c3d551134, type: 3}
   cam: {fileID: 0}
   orientation: {fileID: 2445101762258806181}
   kickSteps: -1
@@ -356,7 +358,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Magnetic Surge
   cooldownTimer: 0
-  cooldownTime: 7
+  cooldownTime: 5
   abilityDuration: 0
   isOnCooldown: 0
   activationKey: 49
@@ -414,7 +416,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Kinetic Repulsion
   cooldownTimer: 0
-  cooldownTime: 12
+  cooldownTime: 5
   abilityDuration: 0
   isOnCooldown: 0
   activationKey: 50
@@ -604,7 +606,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Circuit Overcharge
   cooldownTimer: 0
-  cooldownTime: 30
+  cooldownTime: 5
   abilityDuration: 0
   isOnCooldown: 0
   activationKey: 51

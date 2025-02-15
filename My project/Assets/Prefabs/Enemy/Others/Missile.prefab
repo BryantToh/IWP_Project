@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ca5a1ffa7aad3442943247b90b076fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosion: {fileID: 198656289721292014, guid: cd81a44e06d2ea443a7a6d52b699887b, type: 3}
   collided: 0
   headOnCollide: 0
   _maxDistancePredict: 100
