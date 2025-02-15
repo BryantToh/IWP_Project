@@ -147,6 +147,7 @@ MonoBehaviour:
   laserShot: 0
   animator: {fileID: 5008928681097247575}
   attackPunch: {fileID: 0}
+  isDead: 0
   healthSlider: {fileID: 8923804069125771668}
   attack1:
     m_PersistentCalls:
@@ -634,8 +635,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 10, y: 0}
+  m_AnchoredPosition: {x: 5.18, y: 0}
+  m_SizeDelta: {x: 20.37, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7364033245185610216
 CanvasRenderer:

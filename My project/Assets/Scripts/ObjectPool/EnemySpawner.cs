@@ -14,6 +14,7 @@ public class EnemySpawner : MonoBehaviour
     [HideInInspector] public int phaseOnField = 0;
     [HideInInspector] public int mindOnField = 0;
     [HideInInspector] public int sentineltutOnField = 0;
+    public timer bossTimer;
 
     private float sentinelTimer = 0f;
     public float sentinelSpawnInterval;
@@ -93,6 +94,9 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemies()
     {
+        if (bossTimer.bossSpawned)
+            return;
+
         float deltaTime = Time.deltaTime;
 
         // Sentinel

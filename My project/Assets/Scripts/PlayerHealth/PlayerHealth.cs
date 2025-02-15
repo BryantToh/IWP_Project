@@ -151,6 +151,7 @@ public class PlayerHealth : MonoBehaviour
         AudioManager.instance.PlaySFX("hit");
         if (currentHealth <= 0 && !deathLogic.activated)
         {
+            healthSlider.fillRect.gameObject.SetActive(false);
             gameObject.SetActive(false);
         }
     }

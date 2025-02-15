@@ -26,18 +26,22 @@ public class SceneController : MonoBehaviour
     {
         buildindex = SceneManager.GetActiveScene().buildIndex;
 
-        //switch (buildindex)
-        //{
-        //    case 0:
-        //        AudioManager.instance.PlayBGM("menu");
-        //        break;
-        //    case 1:
-        //        AudioManager.instance.PlayBGM("main");
-        //        break;
-        //    case 2:
-        //        AudioManager.instance.PlayBGM("tutorial");
-        //        break;
-        //}
+        if (AudioManager.instance.GetAudioSource("BGM") != null)
+        {
+            switch (buildindex)
+            {
+                case 0:
+                    AudioManager.instance.PlayBGM("menu");
+                    break;
+                case 1:
+                    AudioManager.instance.PlayBGM("main");
+                    break;
+                case 2:
+                    AudioManager.instance.PlayBGM("tutorial");
+                    break;
+            }
+        }
+        
     }
     //private void Update()
     //{
