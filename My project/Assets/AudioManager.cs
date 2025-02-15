@@ -16,18 +16,34 @@ public class AudioManager : MonoBehaviour
             instance = this;
         else
             Destroy(gameObject);
-    }
-    private void Start()
-    {
+
         GameObject obj = Instantiate(audioPrefab);
-        GameObject obj2 = Instantiate(audioBGMPrefab);
 
         if (obj != null)
             audioSource = obj.GetComponent<AudioSource>();
-
+        
+        GameObject obj2 = Instantiate(audioBGMPrefab);
         if (obj2 != null)
         {
             audioSourceBGM = obj2.GetComponent<AudioSource>();
+        }
+    }
+
+    private void Start()
+    {
+
+    }
+
+    public AudioSource GetAudioSource(string audioType)
+    {
+        switch (audioType)
+        {
+            case "BGM":
+                return audioSourceBGM;
+            case "SFX":
+                return audioSource;
+            default:
+                return null;
         }
     }
     public void PlaySFX(string tag)
@@ -48,7 +64,9 @@ public class AudioManager : MonoBehaviour
         {
             if (bgmClips[i].tag == tag)
             {
+                
                 audioSourceBGM.clip = bgmClips[i].bgm;
+                
                 audioSourceBGM.loop = true;
                 audioSourceBGM.Play();
             }

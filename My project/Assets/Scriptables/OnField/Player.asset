@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   Health: 100
-  Damage: 20
+  Damage: 15
   maxDashCount: 3

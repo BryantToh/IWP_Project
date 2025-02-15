@@ -19,6 +19,7 @@ public class OverseerHealth : Health
     public bool laserShot = false;
     public Animator animator;
     public BossAttack_Punch attackPunch;
+    public bool isDead = false;
     bool pushUsed = false;
     public Slider healthSlider;
     public UnityEvent attack1;
@@ -101,6 +102,11 @@ public class OverseerHealth : Health
         {
             attack3?.Invoke();
             pushUsed = true;
+        }
+
+        if (currentHealth <= 0f)
+        {
+            isDead = true;
         }
     }
 }
