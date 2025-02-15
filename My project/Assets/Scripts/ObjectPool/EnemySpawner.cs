@@ -51,6 +51,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnInitialEnemies()
     {
+        Debug.Log("asdasd");
         // Spawn initial sentinels
         for (int i = 0; i < initialSentinels; i++)
         {

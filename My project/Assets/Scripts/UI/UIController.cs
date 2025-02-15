@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
@@ -46,6 +47,13 @@ public class UIController : MonoBehaviour
         abilityObj.SetActive(false);
         settingsObj.SetActive(false);
     }
+
+    public void BackToMenu()
+    {
+        ResetUI();
+        SceneManager.LoadScene(0);
+    }
+
 
     public void ShowGameOver(bool gameover)
     {

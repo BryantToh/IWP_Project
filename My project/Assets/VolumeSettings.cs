@@ -16,8 +16,8 @@ public class VolumeSettings : MonoBehaviour
         }
         else
         {
-            bgmSlider.value = 0.5f; // Default 50%
-            sfxSlider.value = 0.5f; // Default 50%
+            bgmSlider.value = 0.2f; // Default 50%
+            sfxSlider.value = 0.2f; // Default 50%
             SetMusicVolume();
             SetSFXVolume();
         }
@@ -39,8 +39,8 @@ public class VolumeSettings : MonoBehaviour
 
     private void LoadVolume()
     {
-        bgmSlider.value = PlayerPrefs.GetFloat("musicVolume", 0.5f); // Default to 50% if not found
-        sfxSlider.value = PlayerPrefs.GetFloat("SFXVolume", 0.5f);  // Default to 50% if not found
+        bgmSlider.value = PlayerPrefs.GetFloat("musicVolume", 0.2f); // Default to 50% if not found
+        sfxSlider.value = PlayerPrefs.GetFloat("SFXVolume", 0.2f);  // Default to 50% if not found
         SetMusicVolume();
         SetSFXVolume();
     }

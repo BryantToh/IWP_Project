@@ -8,14 +8,14 @@ public class timer : MonoBehaviour
     public PlayerHealth player;
     public UIController uiController;
     public bool bossSpawned = false;
-    private float time = 30f;
+    private float time = 300f;
     private float timeClock;
     public bool gameOver = false;
 
     void Start()
     {
         timeClock = time;
-        //bossObj.gameObject.SetActive(false);
+        bossObj.gameObject.SetActive(false);
     }
 
     void Update()
