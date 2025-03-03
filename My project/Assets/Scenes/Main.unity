@@ -1021,6 +1021,7 @@ MonoBehaviour:
   uiController: {fileID: 179859438}
   bossSpawned: 0
   gameOver: 0
+  death: {fileID: 3145282111530412151}
 --- !u!1 &255523283
 GameObject:
   m_ObjectHideFlags: 0
@@ -3646,13 +3647,13 @@ MonoBehaviour:
   pools:
   - tag: sentinel
     prefab: {fileID: 4601622739475536316, guid: f1317de3c1c11264d840df33d0f91591, type: 3}
-    size: 12
+    size: 5
   - tag: juggernaut
     prefab: {fileID: 1382701562240026579, guid: 6e0eefd55f6ff5845be4f2798cbb1090, type: 3}
-    size: 7
+    size: 3
   - tag: phase
     prefab: {fileID: 2583680402012058775, guid: 7eed7d6fad356424cad7cb2367142aaf, type: 3}
-    size: 5
+    size: 2
   - tag: breaker
     prefab: {fileID: 8728534309206439731, guid: fe3e8bfec7c19114e98f27d29de9c202, type: 3}
     size: 3
@@ -6027,6 +6028,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 571671225}
     - target: {fileID: 2735317918603102501, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
+      propertyPath: particle
+      value: 
+      objectReference: {fileID: 198856239026640498, guid: 96975ac52f0cddb42a25d4633344f345, type: 3}
+    - target: {fileID: 2735317918603102501, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
       propertyPath: cooldownText
       value: 
       objectReference: {fileID: 113729183}
@@ -6038,6 +6043,14 @@ PrefabInstance:
       propertyPath: cooldownText
       value: 
       objectReference: {fileID: 1810933718}
+    - target: {fileID: 3145282113623146138, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
+      propertyPath: cooldownTime
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 3145282113623146138, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
+      propertyPath: healthSlider
+      value: 
+      objectReference: {fileID: 5662719833635942780}
     - target: {fileID: 3495872234130255554, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

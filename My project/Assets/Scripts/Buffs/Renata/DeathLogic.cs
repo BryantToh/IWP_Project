@@ -7,6 +7,7 @@ public class DeathLogic : BaseAbility
     public PlayerHealth playerHealth;
     public GameObject panel;
     public TMP_Text cooldownText;
+    public Slider healthSlider;
     float enemyKillCount = 0f;
     public bool activated = false;
     public bool isUse = false;
@@ -97,6 +98,7 @@ public class DeathLogic : BaseAbility
         {
             Debug.LogWarning("Player survives");
             playerHealth.currentHealth = playerHealth.Unit.Health * 0.7f;
+            healthSlider.value = playerHealth.currentHealth;
             ResetAbility();
         }
     }

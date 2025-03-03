@@ -8,10 +8,10 @@ public class timer : MonoBehaviour
     public PlayerHealth player;
     public UIController uiController;
     public bool bossSpawned = false;
-    private float time = 300f;
+    private float time = 30f;
     private float timeClock;
     public bool gameOver = false;
-
+    public DeathLogic death;
     void Start()
     {
         timeClock = time;
@@ -37,7 +37,7 @@ public class timer : MonoBehaviour
             bossSpawned = true;
         }
 
-        if (bossObj.currentHealth <= 0f && bossObj.isActiveAndEnabled)
+        if (bossObj.currentHealth <= 0f && bossObj.isActiveAndEnabled && !death.activated)
         {
             if (!bossObj.isDead)
                 return;
@@ -47,7 +47,7 @@ public class timer : MonoBehaviour
             uiController.paused += 1;
         }
 
-        if (player.currentHealth <= 0)
+        if (player.currentHealth <= 0 && !death.activated)
         {
             gameOver = true;
             uiController.ShowGameOver(gameOver);
