@@ -3653,10 +3653,10 @@ MonoBehaviour:
     size: 0
   - tag: phase
     prefab: {fileID: 2583680402012058775, guid: 7eed7d6fad356424cad7cb2367142aaf, type: 3}
-    size: 1
+    size: 0
   - tag: breaker
     prefab: {fileID: 8728534309206439731, guid: fe3e8bfec7c19114e98f27d29de9c202, type: 3}
-    size: 0
+    size: 1
   isPooled: 0
 --- !u!4 &1060685142
 Transform:

@@ -134,7 +134,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 3.47
-  m_BaseOffset: -0.2
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &4960716389853637349
@@ -230,7 +230,7 @@ CapsuleCollider:
   m_Radius: 1.37
   m_Height: 5.48
   m_Direction: 1
-  m_Center: {x: 0, y: 0.7, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &3851076970092486637
 GameObject:
   m_ObjectHideFlags: 0
@@ -1356,7 +1356,7 @@ CapsuleCollider:
   m_Radius: 0.75
   m_Height: 2.99
   m_Direction: 1
-  m_Center: {x: 0, y: 0.97, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!95 &6757962234325519787
 Animator:
   serializedVersion: 7
