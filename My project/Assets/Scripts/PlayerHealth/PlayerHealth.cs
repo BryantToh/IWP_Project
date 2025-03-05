@@ -127,7 +127,6 @@ public class PlayerHealth : MonoBehaviour
                     overseer.TakeDamage(currentDamage);
                     AudioManager.instance.PlaySFX("hit");
                 }
-
                 detectedColliders.RemoveAt(i);
                 damageSources.Remove(other);
             }

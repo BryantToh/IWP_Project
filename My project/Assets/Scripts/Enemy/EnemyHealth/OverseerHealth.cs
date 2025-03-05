@@ -46,28 +46,25 @@ public class OverseerHealth : Health
         if (!damageSources.Contains(other))
         {
             damageSources.Add(other);
-            overseer.attackRange = overseer.rangedAttack;
-            animator.SetTrigger("Laser");
-            attack1?.Invoke();
-            //int randomAttack = Random.Range(0, 3);
-            //switch (randomAttack)
-            //{
-            //    case 0:
-            //        overseer.attackRange = overseer.rangedAttack;
-            //        animator.SetTrigger("Laser");
-            //        attack1?.Invoke();
-            //        break;
-            //    case 1:
-            //        overseer.attackRange = overseer.rangedAttack;
-            //        animator.SetTrigger("Missile");
-            //        attack2?.Invoke();
-            //        break;
-            //    case 2:
-            //        overseer.attackRange = overseer.meleeAttack;
-            //        animator.SetTrigger("Punch");
-            //        attack4?.Invoke();
-            //        break;
-            //}
+            int randomAttack = Random.Range(0, 3);
+            switch (randomAttack)
+            {
+                case 0:
+                    overseer.attackRange = overseer.rangedAttack;
+                    animator.SetTrigger("Laser");
+                    attack1?.Invoke();
+                    break;
+                case 1:
+                    overseer.attackRange = overseer.rangedAttack;
+                    animator.SetTrigger("Missile");
+                    attack2?.Invoke();
+                    break;
+                case 2:
+                    overseer.attackRange = overseer.meleeAttack;
+                    animator.SetTrigger("Punch");
+                    attack4?.Invoke();
+                    break;
+            }
         }
     }
     public void AttackPlayerEvent()

@@ -8,7 +8,7 @@ public class timer : MonoBehaviour
     public PlayerHealth player;
     public UIController uiController;
     public bool bossSpawned = false;
-    private float time = 30f;
+    private float time = 1f;
     private float timeClock;
     public bool gameOver = false;
     public DeathLogic death;

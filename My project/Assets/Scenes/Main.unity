@@ -2915,6 +2915,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 932716966}
   m_CullTransparentMesh: 1
+--- !u!198 &934574815 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6305546998880116574, guid: fe4a2c58243e47240899320559dab250, type: 3}
+  m_PrefabInstance: {fileID: 8394506631489889858}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &971936131
 GameObject:
   m_ObjectHideFlags: 0
@@ -3650,7 +3655,7 @@ MonoBehaviour:
     size: 0
   - tag: juggernaut
     prefab: {fileID: 1382701562240026579, guid: 6e0eefd55f6ff5845be4f2798cbb1090, type: 3}
-    size: 1
+    size: 0
   - tag: phase
     prefab: {fileID: 2583680402012058775, guid: 7eed7d6fad356424cad7cb2367142aaf, type: 3}
     size: 0
@@ -7952,6 +7957,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2091489859382116265}
     - target: {fileID: 2122978545267370064, guid: fe4a2c58243e47240899320559dab250, type: 3}
+      propertyPath: particle
+      value: 
+      objectReference: {fileID: 934574815}
+    - target: {fileID: 2122978545267370064, guid: fe4a2c58243e47240899320559dab250, type: 3}
       propertyPath: surgeLogic
       value: 
       objectReference: {fileID: 8126529782054200996}
@@ -7975,6 +7984,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 7148130521631820353, guid: fe4a2c58243e47240899320559dab250, type: 3}
+      propertyPath: particle
+      value: 
+      objectReference: {fileID: 934574815}
     - target: {fileID: 7148130521631820353, guid: fe4a2c58243e47240899320559dab250, type: 3}
       propertyPath: playerDash
       value: 
