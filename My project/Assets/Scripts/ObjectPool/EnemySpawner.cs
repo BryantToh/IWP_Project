@@ -1,154 +1,62 @@
-using UnityEditor;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
     ObjectPooler pooler;
-    public Vector3 minRange;
-    public Vector3 maxRange;
-
-    ObjectPooler.Pool sentinelPool, juggernautPool, phasePool, mindPool, sentineltutPool;
-
-    [HideInInspector] public int sentinelOnField = 0;
-    [HideInInspector] public int juggernautOnField = 0;
-    [HideInInspector] public int phaseOnField = 0;
-    [HideInInspector] public int mindOnField = 0;
-    [HideInInspector] public int sentineltutOnField = 0;
-    public timer bossTimer;
-
-    private float sentinelTimer = 0f;
-    public float sentinelSpawnInterval;
-    private float juggernautTimer = 0f;
-    public float juggernautSpawnInterval;
-
-    private float phaseTimer = 0f;
-    public float phaseSpawnInterval;
-
-    private float mindTimer = 0f;
-    public float mindSpawnInterval;
-
-    int initialSentinels = 4;
-    int initialJuggernauts = 2;
-    int initialPhases = 3;
-    int initialMinds = 1;
+    private int currentWaveIndex = 0;
+    private int activeEnemies = 0;
 
     private void Start()
     {
         pooler = ObjectPooler.Instance;
-        sentinelPool = pooler.GetPool("sentinel");
-        juggernautPool = pooler.GetPool("juggernaut");
-        phasePool = pooler.GetPool("phase");
-        mindPool = pooler.GetPool("breaker");
-        sentineltutPool = pooler.GetPool("sentineltut");
-
-        SpawnInitialEnemies();
+        StartNextWave();
     }
 
-    private void Update()
+    private void StartNextWave()
     {
-        SpawnEnemies();
-    }
-
-    private void SpawnInitialEnemies()
-    {
-        Debug.Log("asdasd");
-        // Spawn initial sentinels
-        for (int i = 0; i < initialSentinels; i++)
-        {
-            if (sentinelOnField < sentinelPool.size)
-            {
-                pooler.SpawnfromPool("sentinel", randomPos(), Quaternion.identity);
-                sentinelOnField++;
-            }
-        }
-
-        // Spawn initial juggernauts
-        for (int i = 0; i < initialJuggernauts; i++)
-        {
-            if (juggernautOnField < juggernautPool.size)
-            {
-                pooler.SpawnfromPool("juggernaut", randomPos(), Quaternion.identity);
-                juggernautOnField++;
-            }
-        }
-
-        // Spawn initial phases
-        for (int i = 0; i < initialPhases; i++)
-        {
-            if (phaseOnField < phasePool.size)
-            {
-                pooler.SpawnfromPool("phase", randomPos(), Quaternion.identity);
-                phaseOnField++;
-            }
-        }
-
-        // Spawn initial minds
-        for (int i = 0; i < initialMinds; i++)
-        {
-            if (mindOnField < mindPool.size)
-            {
-                pooler.SpawnfromPool("breaker", randomPos(), Quaternion.identity);
-                mindOnField++;
-            }
-        }
-    }
-
-    private void SpawnEnemies()
-    {
-        if (bossTimer.bossSpawned)
+        if (currentWaveIndex >= pooler.waves.Count)
             return;
 
-        float deltaTime = Time.deltaTime;
+        var currentWave = pooler.waves[currentWaveIndex];
+        activeEnemies = 0;
 
-        // Sentinel
-        sentinelTimer += deltaTime;
-        if (sentinelPool != null && sentinelOnField < sentinelPool.size && sentinelTimer >= sentinelSpawnInterval)
+        foreach (var pool in currentWave.pools)
         {
-            pooler.SpawnfromPool("sentinel", randomPos(), Quaternion.identity);
-            sentinelOnField++;
-            sentinelTimer = 0f; // Reset timer
-        }
-
-        // Juggernaut
-        juggernautTimer += deltaTime;
-        if (juggernautPool != null && juggernautOnField < juggernautPool.size && juggernautTimer >= juggernautSpawnInterval)
-        {
-            pooler.SpawnfromPool("juggernaut", randomPos(), Quaternion.identity);
-            juggernautOnField++;
-            juggernautTimer = 0f; // Reset timer
-        }
-
-        // Phase
-        phaseTimer += deltaTime;
-        if (phasePool != null && phaseOnField < phasePool.size && phaseTimer >= phaseSpawnInterval)
-        {
-            pooler.SpawnfromPool("phase", randomPos(), Quaternion.identity);
-            phaseOnField++;
-            phaseTimer = 0f; // Reset timer
-        }
-
-        // Mind
-        mindTimer += deltaTime;
-        if (mindPool != null && mindOnField < mindPool.size && mindTimer >= mindSpawnInterval)
-        {
-            pooler.SpawnfromPool("breaker", randomPos(), Quaternion.identity);
-            mindOnField++;
-            mindTimer = 0f; // Reset timer
-        }
-
-        if (sentineltutPool != null && sentineltutOnField < sentineltutPool.size)
-        {
-            pooler.SpawnfromPool("sentineltut", randomPos(), Quaternion.identity);
-            sentineltutOnField++;
+            for (int i = 0; i < pool.size; i++)
+            {
+                SpawnEnemy(pool.tag);
+            }
         }
     }
 
-    Vector3 randomPos()
+    private void SpawnEnemy(string tag)
     {
-        float randomX = Random.Range(minRange.x, maxRange.x);
-        float randomY = Random.Range(minRange.y, maxRange.y);
-        float randomZ = Random.Range(minRange.z, maxRange.z);
+        IPooledEnemy enemy = pooler.SpawnfromPool(tag);
+        if (enemy != null)
+        {
+            enemy.SetPosNRot(randomPos(), Quaternion.identity);
+            activeEnemies++;
+        }
+    }
 
-        return new Vector3(randomX, randomY, randomZ);
+    public void OnEnemyDefeated(/*IPooledEnemy enemy, string tag*/)
+    {
+        //pooler.Release(tag, enemy);
+        activeEnemies--;
+
+        if (activeEnemies <= 0)
+        {
+            currentWaveIndex++;
+            StartNextWave();
+        }
+    }
+
+    private Vector3 randomPos()
+    {
+        return new Vector3(
+            Random.Range(-10, 10),
+            0,
+            Random.Range(-10, 10)
+        );
     }
 }

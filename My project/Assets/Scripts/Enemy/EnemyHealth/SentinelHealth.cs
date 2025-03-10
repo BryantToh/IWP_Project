@@ -114,7 +114,7 @@ public class SentinelHealth : Health, IPooledEnemy
             ObjectPooler.Instance.Release("sentinel", this);
             isReleased = true; // Set to true to prevent further releases
             deathLogic.KilledWhenDeathDefiance();
-            spawner.sentinelOnField--;
+            //spawner.sentinelOnField--;
         }
     }
 
@@ -131,8 +131,9 @@ public class SentinelHealth : Health, IPooledEnemy
 
     public void OnRelease()
     {
-        pooler.isPooled = false;
+        //pooler.isPooled = false;
         gameObject.SetActive(false);
+        spawner.OnEnemyDefeated();
     }
 
     public void OnDestroyInterface()

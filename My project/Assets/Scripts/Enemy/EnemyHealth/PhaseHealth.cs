@@ -77,7 +77,7 @@ public class PhaseHealth : Health, IPooledEnemy
             ObjectPooler.Instance.Release("phase", this);
             isReleased = true; // Set to true to prevent further releases
             deathLogic.KilledWhenDeathDefiance();
-            spawner.phaseOnField--;
+            //spawner.phaseOnField--;
         }
     }
 
@@ -86,7 +86,7 @@ public class PhaseHealth : Health, IPooledEnemy
         currentHealth = Unit.Health;
         healthSlider.maxValue = Unit.Health;
         healthSlider.value = currentHealth;
-        pooler.isPooled = true;
+        //pooler.isPooled = true;
         isReleased = false;
         canDie = false;
         gameObject.SetActive(true);
@@ -94,8 +94,9 @@ public class PhaseHealth : Health, IPooledEnemy
 
     public void OnRelease()
     {
-        pooler.isPooled = false;
+        //pooler.isPooled = false;
         gameObject.SetActive(false);
+        spawner.OnEnemyDefeated();
     }
 
     public void OnDestroyInterface()

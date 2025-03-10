@@ -1,10 +1,17 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Pool;
 
 public class ObjectPooler : MonoBehaviour
 {
+    [System.Serializable]
+    public class WaveSystem
+    {
+        public string waveNumb;
+        public List<Pool> pools;
+        //public bool waveDone;
+    }
+
     [System.Serializable]
     public class Pool
     {
@@ -13,77 +20,60 @@ public class ObjectPooler : MonoBehaviour
         public int size;
     }
 
-    #region Singleton
     public static ObjectPooler Instance;
+    public List<WaveSystem> waves;
+    private Dictionary<string, ObjectPool<IPooledEnemy>> poolDictionary;
 
     private void Awake()
     {
         Instance = this;
         poolDictionary = new Dictionary<string, ObjectPool<IPooledEnemy>>();
-        foreach (Pool pool in pools)
+
+        foreach (WaveSystem wave in waves)
         {
-            ObjectPool<IPooledEnemy> objectPool = new ObjectPool<IPooledEnemy>(
-                //create function
-                () =>
+            foreach (Pool pool in wave.pools)
+            {
+                if (!poolDictionary.ContainsKey(pool.tag))
                 {
-                    GameObject obj = Instantiate(pool.prefab);
-                    IPooledEnemy r = obj.GetComponent<IPooledEnemy>();
-                    r.OnEnemySpawn();
-                    obj.gameObject.SetActive(false);
-                    return r;
-                },
-                //get function
-                (obj) =>
-                {
-                    obj.OnGet();
-                },
-                //release function
-                (obj) =>
-                {
-                    obj.OnRelease();
-                },
-                //destroy function
-                (obj) =>
-                {
-                    obj.OnDestroyInterface();
-                }, true, pool.size
-                );
-            poolDictionary.Add(pool.tag, objectPool);
+                    //Create Function
+                    ObjectPool<IPooledEnemy> objectPool = new ObjectPool<IPooledEnemy>(
+                        () =>
+                        {
+                            GameObject obj = Instantiate(pool.prefab);
+                            IPooledEnemy r = obj.GetComponent<IPooledEnemy>();
+                            r.OnEnemySpawn();
+                            obj.gameObject.SetActive(false);
+                            return r;
+                        },
+                        //Get Function
+                        (obj) => obj.OnGet(),
+                        //Release Function
+                        (obj) => obj.OnRelease(),
+                        //Destroy Function
+                        (obj) => obj.OnDestroyInterface(),
+                        true, pool.size
+                    );
+
+                    poolDictionary.Add(pool.tag, objectPool);
+                }
+            }
         }
     }
-    #endregion
 
-    public List<Pool> pools;
-    public Dictionary<string, ObjectPool<IPooledEnemy>> poolDictionary;
-    public bool isInPool { get; private set; } = false;
-    public bool isPooled = false;
-
-    public IPooledEnemy SpawnfromPool(string tag, Vector3 position, Quaternion rotation)
+    public IPooledEnemy SpawnfromPool(string tag)
     {
         if (poolDictionary.TryGetValue(tag, out ObjectPool<IPooledEnemy> pool))
         {
-            IPooledEnemy obj = pool.Get();
-            obj.SetPosNRot(position, rotation);
-            return obj;
+            return pool.Get();
         }
         return null;
     }
 
-    public Pool GetPool(string tag)
+    public void Release(string tag, IPooledEnemy obj)
     {
-        return pools.FirstOrDefault(pool => pool.tag == tag);
-    }
-
-    public void Release(string tag, IPooledEnemy Obj)
-    {
-        //isInPool = isPooled;
-        
-        //if (isInPool)
-        //    return;
-
         if (poolDictionary.TryGetValue(tag, out ObjectPool<IPooledEnemy> pool))
         {
-            pool.Release(Obj);
+            pool.Release(obj);
         }
     }
 }

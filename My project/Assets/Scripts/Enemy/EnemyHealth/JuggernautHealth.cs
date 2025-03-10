@@ -78,7 +78,7 @@ public class JuggernautHealth : Health, IPooledEnemy
             ObjectPooler.Instance.Release("juggernaut", this);
             isReleased = true; // Set to true to prevent further releases
             deathLogic.KilledWhenDeathDefiance();
-            spawner.juggernautOnField--;
+            //spawner.juggernautOnField--;
         }
     }
 
@@ -94,8 +94,9 @@ public class JuggernautHealth : Health, IPooledEnemy
 
     public void OnRelease()
     {
-        pooler.isPooled = false;
+        //pooler.isPooled = false;
         gameObject.SetActive(false);
+        spawner.OnEnemyDefeated();
     }
 
     public void OnDestroyInterface()
