@@ -3654,16 +3654,16 @@ MonoBehaviour:
     pools:
     - tag: sentinel
       prefab: {fileID: 4601622739475536316, guid: f1317de3c1c11264d840df33d0f91591, type: 3}
-      size: 1
+      size: 0
     - tag: juggernaut
       prefab: {fileID: 1382701562240026579, guid: 6e0eefd55f6ff5845be4f2798cbb1090, type: 3}
-      size: 1
+      size: 0
     - tag: phase
       prefab: {fileID: 2583680402012058775, guid: 7eed7d6fad356424cad7cb2367142aaf, type: 3}
       size: 1
     - tag: breaker
       prefab: {fileID: 8728534309206439731, guid: fe3e8bfec7c19114e98f27d29de9c202, type: 3}
-      size: 1
+      size: 0
   - waveNumb: 2
     pools:
     - tag: sentinel

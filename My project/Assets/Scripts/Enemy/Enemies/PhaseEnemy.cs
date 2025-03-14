@@ -44,7 +44,7 @@ public class PhaseEnemy : EnemyAIController
 
     private void Phasing()
     {
-        animator.SetBool("Moving", true);
+        animator.SetBool("Moving", false);
         navMesh.speed = 0f;
         phasing.FadeOut();
     }

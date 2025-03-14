@@ -6,22 +6,16 @@ public class PhaseTransparent : MonoBehaviour
     [SerializeField] private Renderer objectRenderer;
     [SerializeField] private float fadeInDuration = 0.7f;
     [SerializeField] private float fadeOutDuration = 3f;
-    private Material material;
+    private Material[] materials;
 
-    [HideInInspector]
-    public bool faded = false;
+    [HideInInspector] public bool faded = false;
 
     public delegate void FadeCompleteHandler();
     public event FadeCompleteHandler OnFadeComplete;
 
     private void Start()
     {
-        material = objectRenderer.material;
-    }
-
-    private void Update()
-    {
-        //Debug.Log(faded);
+        materials = objectRenderer.materials;
     }
     public void FadeIn()
     {
@@ -32,34 +26,47 @@ public class PhaseTransparent : MonoBehaviour
     public void FadeOut()
     {
         StartCoroutine(FadeTo(0f, fadeOutDuration));
+        Debug.Log(materials[0].color.a.ToString());
     }
 
     private IEnumerator FadeTo(float targetAlpha, float duration)
     {
-        if (material == null) yield break;
+        if (materials.Length == 0) yield break;
 
-        Color startColor = material.GetColor("_BaseColor");
-        float startAlpha = startColor.a;
         float elapsedTime = 0f;
+        float[] startAlphas = new float[materials.Length];
+
+        for (int i = 0; i < materials.Length; i++)
+        {
+            Color startColor = materials[i].GetColor("_BaseColor");
+            startAlphas[i] = startColor.a;
+        }
 
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
-            float newAlpha = Mathf.Lerp(startAlpha, targetAlpha, elapsedTime / duration);
+            float newAlphaFactor = elapsedTime / duration;
 
-            Color newColor = new Color(startColor.r, startColor.g, startColor.b, newAlpha);
-            material.SetColor("_BaseColor", newColor);
+            for (int i = 0; i < materials.Length; i++)
+            {
+                Color startColor = materials[i].GetColor("_BaseColor");
+                float newAlpha = Mathf.Lerp(startAlphas[i], targetAlpha, newAlphaFactor);
+
+                Color newColor = new Color(startColor.r, startColor.g, startColor.b, newAlpha);
+                materials[i].SetColor("_BaseColor", newColor);
+            }
 
             yield return null;
         }
 
-        Color finalColor = new Color(startColor.r, startColor.g, startColor.b, targetAlpha);
-        material.SetColor("_BaseColor", finalColor);
-        if (targetAlpha <= 0f)
-            faded = true;
-        else
-            faded = false;
+        for (int i = 0; i < materials.Length; i++)
+        {
+            Color finalColor = materials[i].GetColor("_BaseColor");
+            finalColor.a = targetAlpha;
+            materials[i].SetColor("_BaseColor", finalColor);
+        }
 
+        faded = targetAlpha <= 0f;
         OnFadeComplete?.Invoke();
     }
 }
