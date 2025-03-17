@@ -49,11 +49,6 @@ public class UltiLogic : BaseAbility
                 StartCooldown();
             }
         }
-
-        if (activated)
-        {
-            AudioManager.instance.PlaySFX("ulti");
-        }
     }
     private void OnTriggerStay(Collider other)
     {
@@ -104,7 +99,7 @@ public class UltiLogic : BaseAbility
         isOnCooldown = true;
         cooldownTimer = cooldownTime;
         noEnemyTimer = 0f;
-        Debug.Log("Ability went on cooldown due to no enemies in range.");
+        AudioManager.instance.StopSFX("ulti");
     }
     public override void Activate()
     {
@@ -119,6 +114,7 @@ public class UltiLogic : BaseAbility
         noEnemyTimer = 0f;
         noEnemiesDetected = false;
         panel.SetActive(true);
+        AudioManager.instance.PlaySFX("ulti");
     }
     private IEnumerator DmgNHeal(Health enemyHealth, Collider enemyCollider)
     {

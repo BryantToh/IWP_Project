@@ -26,6 +26,7 @@ public class DeathLogic : BaseAbility
             Debug.Log("Ability is on cooldown.");
             return;
         }
+        AudioManager.instance.PlaySFX("death");
         activated = true;
         panel.SetActive(true);
     }
@@ -77,7 +78,6 @@ public class DeathLogic : BaseAbility
 
     void BuffEffect()
     {
-        AudioManager.instance.PlaySFX("death");
 
         if (!healthReset)
         {
@@ -111,6 +111,7 @@ public class DeathLogic : BaseAbility
         startDecr = false;
         healthReset = false;
         buffTimer = 0f;
+        AudioManager.instance.StopSFX("death");
     }
 
     public void KilledWhenDeathDefiance()

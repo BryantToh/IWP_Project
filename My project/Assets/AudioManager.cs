@@ -1,6 +1,7 @@
-using NUnit.Framework;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
@@ -9,7 +10,11 @@ public class AudioManager : MonoBehaviour
     public List<AudioBGM> bgmClips = new List<AudioBGM>();
     public GameObject audioPrefab;
     public GameObject audioBGMPrefab;
-    private AudioSource audioSource, audioSourceBGM;
+
+    private AudioSource audioSourceBGM, audioSource;
+
+    private Dictionary<string, GameObject> activeSFX = new Dictionary<string, GameObject>();
+
     private void Awake()
     {
         if (instance == null)
@@ -17,21 +22,11 @@ public class AudioManager : MonoBehaviour
         else
             Destroy(gameObject);
 
-        GameObject obj = Instantiate(audioPrefab);
-
-        if (obj != null)
-            audioSource = obj.GetComponent<AudioSource>();
-        
         GameObject obj2 = Instantiate(audioBGMPrefab);
         if (obj2 != null)
         {
             audioSourceBGM = obj2.GetComponent<AudioSource>();
         }
-    }
-
-    private void Start()
-    {
-
     }
 
     public AudioSource GetAudioSource(string audioType)
@@ -46,16 +41,41 @@ public class AudioManager : MonoBehaviour
                 return null;
         }
     }
+
     public void PlaySFX(string tag)
     {
+        if (activeSFX.ContainsKey(tag)) return;
+
         for (int i = 0; i < sfxClips.Count; i++)
         {
             if (sfxClips[i].tag == tag)
             {
-                audioSource.clip = sfxClips[i].effect;
-                audioSource.Play();
+                GameObject sfxObj = new GameObject("SFX_" + tag);
+                AudioSource newSource = sfxObj.AddComponent<AudioSource>();
+                newSource.clip = sfxClips[i].effect;
+                newSource.Play();
+
+                activeSFX[tag] = sfxObj;
+
+                Destroy(sfxObj, newSource.clip.length);
+                StartCoroutine(RemoveFromDictionary(tag, newSource.clip.length));
             }
         }
+    }
+
+    public void StopSFX(string tag)
+    {
+        if (activeSFX.TryGetValue(tag, out GameObject sfxObj))
+        {
+            Destroy(sfxObj);
+            activeSFX.Remove(tag);
+        }
+    }
+
+    private IEnumerator RemoveFromDictionary(string tag, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        activeSFX.Remove(tag);
     }
 
     public void PlayBGM(string tag)
@@ -64,13 +84,16 @@ public class AudioManager : MonoBehaviour
         {
             if (bgmClips[i].tag == tag)
             {
-                
                 audioSourceBGM.clip = bgmClips[i].bgm;
-                
                 audioSourceBGM.loop = true;
                 audioSourceBGM.Play();
             }
         }
+    }
+
+    public void StopBGM()
+    {
+        audioSourceBGM.Stop();
     }
 }
 

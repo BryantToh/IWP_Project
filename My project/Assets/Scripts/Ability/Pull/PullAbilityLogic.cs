@@ -13,6 +13,7 @@ public class PullAbilityLogic : MonoBehaviour
     private List<NavMeshAgent> agentsStored = new List<NavMeshAgent>();
     private void Start()
     {
+        AudioManager.instance.PlaySFX("pull");
         pullAbilityObj = GameObject.FindGameObjectWithTag("Abilityholder").GetComponent<PullAbilityObj>();
         pullAbilityObj.inUse = true;
     }
@@ -20,8 +21,7 @@ public class PullAbilityLogic : MonoBehaviour
     {
         pullAbilityObj.abilityDuration += Time.deltaTime;
 
-        AudioManager.instance.PlaySFX("suck");
-        
+
         if (pullAbilityObj.abilityDuration >= 5f)
         {
             Reset();
@@ -79,6 +79,7 @@ public class PullAbilityLogic : MonoBehaviour
         pullAbilityObj.abilityDuration = 0f;
         pullAbilityObj.cooldownTimer = pullAbilityObj.cooldownTime;
         pullAbilityObj.inUse = false;
+        AudioManager.instance.StopSFX("pull");
         Destroy(gameObject);
     }
 }

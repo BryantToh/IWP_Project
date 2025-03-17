@@ -1015,7 +1015,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d1758aee1e7ced45a53172bf6920338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerObj: {fileID: 252681460}
   bossObj: {fileID: 2907194744619169780}
   player: {fileID: 7098953906904179796}
   uiController: {fileID: 179859438}
@@ -1945,25 +1944,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sfxClips:
-  - effect: {fileID: 8300000, guid: d9cb4ffdd79eeb748bc63b4c3d551134, type: 3}
-    tag: run
-  - effect: {fileID: 8300000, guid: 3d6634f123677f64d84e86849a0cff2b, type: 3}
+  - effect: {fileID: 8300000, guid: f7489b68f58eb744eb753549e5679b46, type: 3}
     tag: dash
   - effect: {fileID: 8300000, guid: 52487ef2c58cb504b8ec056ce15e5921, type: 3}
     tag: hit
   - effect: {fileID: 8300000, guid: 4b821557b9529e24a8aa47b588b6a7bd, type: 3}
     tag: dodge
-  - effect: {fileID: 8300000, guid: f2f0f708637c8be459074be04547df98, type: 3}
+  - effect: {fileID: 8300000, guid: 2b783822a18826c4ba77bc1986f9ac9d, type: 3}
     tag: openpause
-  - effect: {fileID: 8300000, guid: a70538c6fcf57a84eb84641478f51f3e, type: 3}
+  - effect: {fileID: 8300000, guid: 8ff88d726e0e9de478d11eed49b1b7b9, type: 3}
     tag: changeability
-  - effect: {fileID: 8300000, guid: 2745dbc34548321419c8f0eb9feb5490, type: 3}
+  - effect: {fileID: 8300000, guid: 10e7416a6d586b5478508f8c081f47ff, type: 3}
     tag: click
-  - effect: {fileID: 8300000, guid: 2d2e829cc32651c4baa6429a51c57fb5, type: 3}
-    tag: enemymelee
-  - effect: {fileID: 8300000, guid: 1087b959218bf424bab028feda469455, type: 3}
+  - effect: {fileID: 8300000, guid: ea5685d8956d4474f97eba32709bd374, type: 3}
     tag: pull
-  - effect: {fileID: 8300000, guid: 9ef08db00763724429bddaf1848db40d, type: 3}
+  - effect: {fileID: 8300000, guid: 2abc26304984e684c853cca6063ce06f, type: 3}
     tag: push
   - effect: {fileID: 8300000, guid: 4da413e56fc81754dade5583ab349ecf, type: 3}
     tag: ulti
@@ -1971,11 +1966,11 @@ MonoBehaviour:
     tag: death
   - effect: {fileID: 8300000, guid: 843777d2f38768740b17729a6e3f08e9, type: 3}
     tag: mindattack
-  - effect: {fileID: 8300000, guid: 1a461601cd73000458cf22d777cb48b6, type: 3}
+  - effect: {fileID: 8300000, guid: ab66722292d951d43bf32ced91f81612, type: 3}
     tag: bosspunch
-  - effect: {fileID: 8300000, guid: 9ee178dee1647af4f82dda9239fa864b, type: 3}
+  - effect: {fileID: 8300000, guid: ca8a64e2c1d3495419e7952f8129653d, type: 3}
     tag: bossmissile
-  - effect: {fileID: 8300000, guid: a59b9da42896e4147837226df728cc1a, type: 3}
+  - effect: {fileID: 8300000, guid: eb3e3171b39b1a44abc4cefa9847d1e4, type: 3}
     tag: bosslaser
   - effect: {fileID: 8300000, guid: be6183744db816044987dd34dd743858, type: 3}
     tag: bossmissileexplode
@@ -3654,13 +3649,13 @@ MonoBehaviour:
     pools:
     - tag: sentinel
       prefab: {fileID: 4601622739475536316, guid: f1317de3c1c11264d840df33d0f91591, type: 3}
-      size: 0
+      size: 1
     - tag: juggernaut
       prefab: {fileID: 1382701562240026579, guid: 6e0eefd55f6ff5845be4f2798cbb1090, type: 3}
       size: 0
     - tag: phase
       prefab: {fileID: 2583680402012058775, guid: 7eed7d6fad356424cad7cb2367142aaf, type: 3}
-      size: 1
+      size: 0
     - tag: breaker
       prefab: {fileID: 8728534309206439731, guid: fe3e8bfec7c19114e98f27d29de9c202, type: 3}
       size: 0
@@ -3671,13 +3666,13 @@ MonoBehaviour:
       size: 1
     - tag: juggernaut
       prefab: {fileID: 1382701562240026579, guid: 6e0eefd55f6ff5845be4f2798cbb1090, type: 3}
-      size: 1
+      size: 0
     - tag: phase
       prefab: {fileID: 2583680402012058775, guid: 7eed7d6fad356424cad7cb2367142aaf, type: 3}
-      size: 1
+      size: 0
     - tag: breaker
       prefab: {fileID: 8728534309206439731, guid: fe3e8bfec7c19114e98f27d29de9c202, type: 3}
-      size: 1
+      size: 0
   - waveNumb: 3
     pools:
     - tag: sentinel
@@ -3685,13 +3680,13 @@ MonoBehaviour:
       size: 1
     - tag: juggernaut
       prefab: {fileID: 1382701562240026579, guid: 6e0eefd55f6ff5845be4f2798cbb1090, type: 3}
-      size: 1
+      size: 0
     - tag: phase
       prefab: {fileID: 2583680402012058775, guid: 7eed7d6fad356424cad7cb2367142aaf, type: 3}
-      size: 1
+      size: 0
     - tag: breaker
       prefab: {fileID: 8728534309206439731, guid: fe3e8bfec7c19114e98f27d29de9c202, type: 3}
-      size: 1
+      size: 0
   - waveNumb: 4
     pools:
     - tag: sentinel
@@ -3699,13 +3694,13 @@ MonoBehaviour:
       size: 1
     - tag: juggernaut
       prefab: {fileID: 1382701562240026579, guid: 6e0eefd55f6ff5845be4f2798cbb1090, type: 3}
-      size: 1
+      size: 0
     - tag: phase
       prefab: {fileID: 2583680402012058775, guid: 7eed7d6fad356424cad7cb2367142aaf, type: 3}
-      size: 1
+      size: 0
     - tag: breaker
       prefab: {fileID: 8728534309206439731, guid: fe3e8bfec7c19114e98f27d29de9c202, type: 3}
-      size: 1
+      size: 0
   - waveNumb: 5
     pools:
     - tag: sentinel
@@ -3713,13 +3708,13 @@ MonoBehaviour:
       size: 1
     - tag: juggernaut
       prefab: {fileID: 1382701562240026579, guid: 6e0eefd55f6ff5845be4f2798cbb1090, type: 3}
-      size: 1
+      size: 0
     - tag: phase
       prefab: {fileID: 2583680402012058775, guid: 7eed7d6fad356424cad7cb2367142aaf, type: 3}
-      size: 1
+      size: 0
     - tag: breaker
       prefab: {fileID: 8728534309206439731, guid: fe3e8bfec7c19114e98f27d29de9c202, type: 3}
-      size: 1
+      size: 0
 --- !u!4 &1060685142
 Transform:
   m_ObjectHideFlags: 0
@@ -6065,6 +6060,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 22373283630979500, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1203144559459420086, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1635083594939233529, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1725509232048202857, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -6097,6 +6104,10 @@ PrefabInstance:
       propertyPath: cooldownText
       value: 
       objectReference: {fileID: 113729183}
+    - target: {fileID: 2771922393841974425, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3145282113623146138, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
       propertyPath: panel
       value: 
@@ -6153,6 +6164,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3608815086846294893, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3622853372012999265, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3709613230700040967, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
       propertyPath: cam
       value: 
@@ -6181,6 +6200,14 @@ PrefabInstance:
       propertyPath: cooldownText
       value: 
       objectReference: {fileID: 2005935152}
+    - target: {fileID: 6351554561893997867, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056623387856158874, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7098953905482609337, guid: 2b7ded0e13e7d9240bf46b291ebd058d, type: 3}
       propertyPath: healthSlider
       value: 
@@ -7217,7 +7244,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7148130521631820353, guid: fe4a2c58243e47240899320559dab250, type: 3}
   m_PrefabInstance: {fileID: 8394506631489889858}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 8394506631489889859}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 927bf470701dd23469e2b33fce1f9184, type: 3}
@@ -7600,7 +7627,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7294618657363103058, guid: fe4a2c58243e47240899320559dab250, type: 3}
   m_PrefabInstance: {fileID: 8394506631489889858}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 8394506631489889859}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 90e2951d64a1bf74a917ce835e059cd0, type: 3}
@@ -7681,6 +7708,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 688018859374531481, guid: 701ff5d9103c418498770cfb68ab8aca, type: 3}
+      propertyPath: bossObj
+      value: 
+      objectReference: {fileID: 8394506631489889859}
     - target: {fileID: 688018859374531481, guid: 701ff5d9103c418498770cfb68ab8aca, type: 3}
       propertyPath: bossTimer
       value: 
@@ -8122,6 +8153,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe4a2c58243e47240899320559dab250, type: 3}
+--- !u!1 &8394506631489889859 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 505184099023885029, guid: fe4a2c58243e47240899320559dab250, type: 3}
+  m_PrefabInstance: {fileID: 8394506631489889858}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8614432698412439873
 GameObject:
   m_ObjectHideFlags: 0

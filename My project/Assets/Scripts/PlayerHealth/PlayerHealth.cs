@@ -65,8 +65,43 @@ public class PlayerHealth : MonoBehaviour
         {
             glitchController.ResetGlitch();
         }
+
+        DealDmg();
     }
-    private void FixedUpdate()
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("MindProjectile"))
+        {
+            Destroy(other.gameObject);
+            hitCount++;
+            timer = 0;
+            glitchController.GlitchEffect();
+        }
+    }
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
+        healthSlider.value -= damage;
+        AudioManager.instance.PlaySFX("hit");
+        if (currentHealth <= 0 && !deathLogic.activated)
+        {
+            healthSlider.fillRect.gameObject.SetActive(false);
+            gameObject.SetActive(false);
+        }
+    }
+    public void Healing(float totalHealing)
+    {
+        float healingDuration = 3f;
+        float healAmountPerSecond = totalHealing / healingDuration;
+        if (healingCoroutine != null)
+        {
+            StopCoroutine(healingCoroutine);
+        }
+        healingCoroutine = StartCoroutine(HealOverTime(healAmountPerSecond, healingDuration));
+    }
+
+    private void DealDmg()
     {
         if (AttackCheck.checkEnemy && player.kickSteps > -1)
         {
@@ -131,39 +166,9 @@ public class PlayerHealth : MonoBehaviour
                 damageSources.Remove(other);
             }
         }
+        AttackCheck.checkEnemy = false;
     }
 
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.gameObject.CompareTag("MindProjectile"))
-        {
-            Destroy(other.gameObject);
-            hitCount++;
-            timer = 0;
-            glitchController.GlitchEffect();
-        }
-    }
-    public void TakeDamage(float damage)
-    {
-        currentHealth -= damage;
-        healthSlider.value -= damage;
-        AudioManager.instance.PlaySFX("hit");
-        if (currentHealth <= 0 && !deathLogic.activated)
-        {
-            healthSlider.fillRect.gameObject.SetActive(false);
-            gameObject.SetActive(false);
-        }
-    }
-    public void Healing(float totalHealing)
-    {
-        float healingDuration = 3f;
-        float healAmountPerSecond = totalHealing / healingDuration;
-        if (healingCoroutine != null)
-        {
-            StopCoroutine(healingCoroutine);
-        }
-        healingCoroutine = StartCoroutine(HealOverTime(healAmountPerSecond, healingDuration));
-    }
     private IEnumerator HealOverTime(float healAmountPerSecond, float duration)
     {
         float elapsedTime = 0f;

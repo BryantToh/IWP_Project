@@ -3,6 +3,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     ObjectPooler pooler;
+    public GameObject bossObj;
     private int currentWaveIndex = 0;
     private int activeEnemies = 0;
 
@@ -15,7 +16,10 @@ public class EnemySpawner : MonoBehaviour
     private void StartNextWave()
     {
         if (currentWaveIndex >= pooler.waves.Count)
+        {
+            bossObj.gameObject.SetActive(true);
             return;
+        }
 
         var currentWave = pooler.waves[currentWaveIndex];
         activeEnemies = 0;
@@ -39,9 +43,8 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    public void OnEnemyDefeated(/*IPooledEnemy enemy, string tag*/)
+    public void OnEnemyDefeated()
     {
-        //pooler.Release(tag, enemy);
         activeEnemies--;
 
         if (activeEnemies <= 0)
